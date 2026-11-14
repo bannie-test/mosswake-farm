@@ -5,7 +5,7 @@ extends Node
 signal changed
 
 const PATH := "user://settings.json"
-const DEFAULTS := {"music": 0.6, "sfx": 0.8, "largeText": false, "holdToAct": true, "fullscreen": false}
+const DEFAULTS := {"music": 0.6, "sfx": 0.8, "largeText": false, "holdToAct": true, "fullscreen": false, "playtestLog": true}
 
 var values: Dictionary = DEFAULTS.duplicate()
 

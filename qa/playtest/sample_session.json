@@ -1,0 +1,104 @@
+{
+  "dataVersion": "0.1.0",
+  "days": [
+    {
+      "animals": 2,
+      "day": 1,
+      "earned": 198,
+      "level": 2,
+      "plots": 12,
+      "spent": 4,
+      "spirits": 0
+    }
+  ],
+  "endLevel": 8,
+  "events": [
+    {
+      "gameMinute": 739,
+      "kind": "level_up",
+      "level": 2,
+      "t": 16.3
+    },
+    {
+      "gameMinute": 739,
+      "kind": "quest_completed",
+      "level": 2,
+      "quest": "quest_first_harvest",
+      "t": 16.3
+    },
+    {
+      "coins": 121,
+      "gameMinute": 739,
+      "kind": "order_delivered",
+      "level": 2,
+      "npc": "npc_mara",
+      "t": 16.3
+    },
+    {
+      "gameMinute": 1800,
+      "kind": "level_up",
+      "level": 3,
+      "t": 16.7
+    },
+    {
+      "gameMinute": 1800,
+      "kind": "quest_completed",
+      "level": 3,
+      "quest": "quest_table_for_two",
+      "t": 16.8
+    },
+    {
+      "chance": 100.0,
+      "gameMinute": 1800,
+      "kind": "merge",
+      "level": 3,
+      "outcome": "success",
+      "rarity": "basic",
+      "recipe": "merge_carrot_premium",
+      "t": 16.8
+    },
+    {
+      "gameMinute": 1800,
+      "kind": "level_up",
+      "level": 4,
+      "t": 16.9
+    },
+    {
+      "gameMinute": 1800,
+      "kind": "quest_completed",
+      "level": 4,
+      "quest": "quest_strange_carrot",
+      "t": 17.1
+    },
+    {
+      "gameMinute": 1860,
+      "kind": "level_up",
+      "level": 8,
+      "t": 17.6
+    },
+    {
+      "gameMinute": 1861,
+      "kind": "quest_completed",
+      "level": 8,
+      "quest": "quest_sleeper",
+      "t": 17.9
+    },
+    {
+      "gameMinute": 2408,
+      "kind": "quest_completed",
+      "level": 8,
+      "quest": "quest_first_vocation",
+      "t": 19.7
+    },
+    {
+      "gameMinute": 2408,
+      "kind": "spirit_awake",
+      "level": 8,
+      "t": 19.7
+    }
+  ],
+  "realSeconds": 21.4,
+  "startGameMinute": 360.15,
+  "startLevel": 1,
+  "version": "0.9.0"
+}

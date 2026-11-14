@@ -39,6 +39,27 @@ close a screen or open the menu with Esc. Gamepad: stick or D-pad, A act, X seed
 After editing anything in `data/`, run `python3 tools/sync_data.py`. After changing sprites,
 run `python3 tools/asset_lint.py`.
 
+## Demo build
+
+With Godot 4.7.2 and its export templates installed:
+
+```bash
+godot --headless --path game --export-release "Windows Desktop"
+```
+
+```bash
+godot --headless --path game --export-release "Linux"
+```
+
+The builds land in `build/` (not committed). Ship the executable together with its `.pck`.
+
+## Playtest
+
+`qa/playtest/facilitator_guide.md` and `qa/playtest/questionnaire.md` describe the outside playtest.
+The game writes a session log to its user folder; `tools/playtest_report.py` turns the collected
+logs and answers into the playtest rows of GDD section 20. `qa/reports/mvp_acceptance.md` holds the
+status of every acceptance row.
+
 ## Status
 
 | Milestone | State |
@@ -48,4 +69,5 @@ run `python3 tools/asset_lint.py`.
 | M2 Complete farm | Accepted 2026-11-14 |
 | M3 Research slice | Accepted 2026-11-14 |
 | M4 Spirit slice | Accepted 2026-11-14 |
-| M5 Content and UX | Built on branch `m5-content-ux`; waiting for the Director's go or no-go |
+| M5 Content and UX | Accepted 2026-11-14 with open items (art, balance with real players) |
+| M6 Polish and outside playtest | Tooling, demo build and playtest kit built on branch `m6-polish-playtest`; the playtest itself is not done |

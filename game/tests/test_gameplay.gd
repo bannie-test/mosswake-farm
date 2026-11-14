@@ -77,10 +77,12 @@ func step_until(cond: Callable, limit_minutes: int) -> float:
 
 # ------------------------------------------------------------------ section 4
 func _test_growth() -> void:
-	for plant_id: String in ["plant_carrot", "plant_wheat"]:
+	for plant_id: String in data.ids("plants"):          # section 20: all 5 crops
 		fresh()
 		var def: Dictionary = data.plant(plant_id)
+		inv.add(def["seedItemId"], 1)
 		var seeds_before: int = inv.count(def["seedItemId"])
+		var interval: float = float(def["waterIntervalHours"]) * 60.0
 		check(farm.action_for(P, def["seedItemId"]) == "till", plant_id + ": an empty plot offers Till")
 		check(farm.till(P) and farm.plant(P, plant_id), plant_id + ": till then plant")
 		check(inv.count(def["seedItemId"]) == seeds_before - 1, plant_id + ": planting consumes one seed")
@@ -88,6 +90,8 @@ func _test_growth() -> void:
 		var total: float = float(def["growthHours"]) * 60.0
 		var entered := {}
 		for minute: int in range(1, int(total) + 2):
+			if minute % int(interval / 2.0) == 0:
+				farm.water(P)               # crops that outlast one watering are kept wet
 			sim.advance(1.0)
 			var name_: String = farm.stage_name(farm.plot(P))
 			if not entered.has(name_):
@@ -105,8 +109,11 @@ func _test_growth() -> void:
 		var got: int = farm.harvest(P)
 		check(got == int(def["yield"]["min"]) and inv.count(def["productItemId"]) == got, plant_id + ": harvest gives the data yield")
 		check(state.player["xp"] == xp_before + got * int(def["xpPerUnit"]), plant_id + ": harvest XP is units x xpPerUnit")
-		check(farm.plot(P)["state"] == "tilled" and farm.plot(P)["plantId"] == null, plant_id + ": a single-harvest crop clears the plot")
-		check(farm.harvest(P) == 0, plant_id + ": an empty plot cannot be harvested")
+		if def["regrow"] == null:
+			check(farm.plot(P)["state"] == "tilled" and farm.plot(P)["plantId"] == null, plant_id + ": a single-harvest crop clears the plot")
+		else:
+			check(farm.plot(P)["state"] == "regrowing", plant_id + ": a regrowing crop stays in the plot")
+		check(farm.harvest(P) == 0, plant_id + ": nothing more to harvest right away")
 
 
 func _test_moisture_and_wither() -> void:

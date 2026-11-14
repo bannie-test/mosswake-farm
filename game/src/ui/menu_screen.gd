@@ -68,6 +68,7 @@ func refresh(focus_key: String) -> void:
 	_toggle("Large text", "largeText", "Bigger letters on every screen.")
 	_toggle("Hold to keep acting", "holdToAct", "Hold the act key or button to till, plant, water and harvest as you walk.")
 	_toggle("Fullscreen", "fullscreen", "")
+	_toggle("Keep a playtest log on this computer", "playtestLog", "A plain record of this session (levels, orders, merges, coins per day). It stays in the game's folder; nothing is sent anywhere.")
 	_body.add_child(UiKit.label("The game saves itself at dawn, when you sleep and when you quit.", UiKit.WOOD_LIGHT))
 	var again := Button.new()
 	again.set_meta("key", "new")
@@ -79,11 +80,18 @@ func refresh(focus_key: String) -> void:
 			_confirming = true
 			refresh("new"))
 	_body.add_child(again)
+	var folder := Button.new()
+	folder.set_meta("key", "folder")
+	folder.text = "Open the folder with logs and playtest notes"
+	folder.pressed.connect(func() -> void: OS.shell_open(ProjectSettings.globalize_path("user://")))
+	_body.add_child(folder)
+	_body.add_child(UiKit.label("Mosswake Farm %s" % ProjectSettings.get_setting("application/config/version", ""), UiKit.WOOD_LIGHT))
 	var quit := Button.new()
 	quit.set_meta("key", "quit")
 	quit.text = "Save and quit"
 	quit.pressed.connect(func() -> void:
 		Session.autosave()
+		Playtest.stop()
 		get_tree().quit())
 	_body.add_child(quit)
 	for child: Node in _body.get_children():

@@ -33,6 +33,7 @@ func run(tree: SceneTree, root: Node) -> void:
 	_test_generator()
 	_test_order_fuzz()
 	_test_full_save()
+	_test_old_saves()
 	_test_session_bot()
 	completed = true
 
@@ -79,6 +80,20 @@ func _test_animals() -> void:
 	check(is_equal_approx(animals.productivity(hen()), 0.4 + 0.4 * 0.5 + 0.2), "Productivity = 0.4 + 0.4 x Happiness + 0.2 x Health")
 	check(animals.collect(hen()["instanceId"]) == 1 and inv.count("prod_egg") == 1 and hen()["productionProgress"] == 0.0, "collecting gives 1 Egg and restarts the timer")
 	check(animals.collect(hen()["instanceId"]) == 0, "nothing to collect twice")
+	# section 20: each of the 3 animals produces at its own interval when fed and happy
+	for animal_id: String in data.ids("animals"):
+		session.new_game(1)
+		inv.add("mat_feed", 50)
+		var one: Dictionary = animals._spawn(animal_id, "adult")
+		var every: float = float(data.def("animals", animal_id)["renewable"]["intervalHours"]) * 60.0
+		var took := 0
+		sim.game_minute = 8 * 60.0
+		while not animals.has_product(one) and took < 3000:
+			one["happiness"] = 100.0
+			sim.advance(1.0)
+			took += 1
+		check(absf(took - every) <= 1.0, "%s produces at its interval (%d min vs %.0f)" % [animal_id, took, every])
+		check(animals.collect(one["instanceId"]) == 1 and inv.count(data.def("animals", animal_id)["renewable"]["itemId"]) == 1, animal_id + ": its product is collected")
 	# feeding: 1 Feed per chicken per 8 hours
 	session.new_game(1)
 	inv.remove("mat_feed", inv.count("mat_feed"))
@@ -337,14 +352,41 @@ func _test_full_save() -> void:
 		DirAccess.remove_absolute(save.slot_path(7) + suffix)
 
 
+## Section 20, Save and load: a save from each earlier milestone build still loads. The files in
+## qa/fixtures/old_saves are real envelopes written by the M2 and M4 builds, taken from git history.
+func _test_old_saves() -> void:
+	for name_: String in ["m2_build.json", "m4_build.json"]:
+		var path := ProjectSettings.globalize_path("res://").path_join("../qa/fixtures/old_saves/" + name_)
+		var env: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
+		if typeof(env) != TYPE_DICTIONARY:
+			check(false, name_ + " could not be read")
+			continue
+		session.new_game(1)
+		var migrated: Variant = save.migrate(env)
+		check(migrated != null, name_ + ": passes migration")
+		save.apply_envelope(migrated)
+		check(state.player["level"] == int(env["player"]["level"]) and farm.plots.size() == env["plots"].size() and animals.animals.size() == env["animals"].size(),
+			name_ + ": player, plots and animals are restored")
+		sim.advance(600.0)
+		check(state.coins() >= 0 and (not orders.orders.is_empty() or not orders.board_open()), name_ + ": the old farm keeps running in this build")
+
+
 # ------------------------------------------------------------------ M2 acceptance: a 60-minute session
 ## A plain hand-play policy run for 60 real minutes of game time (60 game hours). It reports the
 ## level reached against the M2 target of level 5-6; it is information for balancing, not a gate.
+var _bot_level_at_60 := 0
+
+
 func _test_session_bot() -> void:
 	session.new_game(2026)
 	var water_below := 35.0
-	inv.add("seed_carrot", 0)
-	for hour: int in range(60):
+	var hours_to_ten := -1
+	for hour: int in range(700):
+		if hour == 60:
+			_report_60()
+		if state.player["level"] >= 10:
+			hours_to_ten = hour
+			break
 		# chores
 		for plot_id: String in farm.plots:
 			var p: Dictionary = farm.plot(plot_id)
@@ -401,10 +443,16 @@ func _test_session_bot() -> void:
 				if def["sellable"] and inv.count(stack["itemId"]) > wanted:
 					shipping.ship(stack["itemId"], inv.count(stack["itemId"]) - wanted)
 		sim.advance(60.0)
-	var level: int = state.player["level"]
+	check(_bot_level_at_60 >= 5, "a 60-minute session reaches level 5 (level %d)" % _bot_level_at_60)
+	# section 20, Progression: a new save reaches level 10 using only unlocked content
+	check(hours_to_ten > 0, "a hand-played farm with no spirit reaches level 10 (after %d game hours)" % hours_to_ten)
+	print("INFO  level 10 after %d game hours (%.1f real hours of play), %d orders, no spirit, no research" % [hours_to_ten, hours_to_ten / 60.0, state.player["stats"]["ordersCompleted"]])
+
+
+func _report_60() -> void:
+	_bot_level_at_60 = state.player["level"]
 	print("INFO  60-minute scripted session: level %d, %d coins, %d orders, %d plots, %d animals (M2 target: level 5-6)" %
-		[level, state.coins(), state.player["stats"]["ordersCompleted"], farm.plots.size(), animals.animals.size()])
-	check(level >= 3 and state.player["stats"]["ordersCompleted"] >= 10, "a 60-minute session makes steady progress (level %d)" % level)
+		[_bot_level_at_60, state.coins(), state.player["stats"]["ordersCompleted"], farm.plots.size(), animals.animals.size()])
 
 
 func _bot_pick_plant() -> String:

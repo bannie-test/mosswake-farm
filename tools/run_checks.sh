@@ -15,6 +15,7 @@ if [ -n "$GODOT" ]; then
   "$GODOT" --headless --path game --import >/dev/null 2>&1
   step "engine and gameplay tests" timeout 900 "$GODOT" --headless --path game -s res://tests/run_tests.gd
   step "scripted playthrough of the first loop" timeout 240 "$GODOT" --headless --path game -s res://tests/run_playthrough.gd -- --seed=4 --new --nosave
+  echo; echo "== performance bench (information)"; timeout 120 "$GODOT" --headless --path game -s res://tests/run_bench.gd -- --new --nosave 2>&1 | grep BENCH
 else
   echo; echo "WARNING: Godot not found; engine tests skipped"; fail=1
 fi

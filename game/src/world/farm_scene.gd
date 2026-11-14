@@ -34,6 +34,8 @@ func _ready() -> void:
 		GameState.notice.emit("Welcome back")
 	if not dev:
 		Sfx.update_music()
+		Playtest.start()
+	print("Mosswake Farm %s, data %s, %s" % [ProjectSettings.get_setting("application/config/version", ""), GameData.data_version, "continued" if loaded else "new farm"])
 	GameState.leveled_up.connect(func(_level: int) -> void: Sfx.play("level_up"))
 	if _args.has("demo"):
 		_demo(_args["demo"])
@@ -44,6 +46,7 @@ func _ready() -> void:
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
 		Session.autosave()
+		Playtest.stop()
 		get_tree().quit()
 
 

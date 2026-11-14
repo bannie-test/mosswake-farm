@@ -8,6 +8,7 @@ config_version=5
 config/name="Mosswake Farm"
 config/description="A cozy pixel-art farming game with merging, gene research and Tree Spirit automation."
 run/main_scene="res://scenes/farm.tscn"
+config/version="0.9.0"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 
 [autoload]
@@ -27,10 +28,17 @@ Orders="*res://src/systems/orders.gd"
 Research="*res://src/systems/research.gd"
 Quests="*res://src/systems/quests.gd"
 Spirits="*res://src/systems/spirits.gd"
+Playtest="*res://src/core/playtest.gd"
 Session="*res://src/core/session.gd"
 Settings="*res://src/core/settings.gd"
 Controls="*res://src/core/controls.gd"
 Sfx="*res://src/core/sfx.gd"
+
+[debug]
+
+file_logging/enable_file_logging=true
+file_logging/log_path="user://logs/mosswake.log"
+file_logging/max_log_files=8
 
 [display]
 

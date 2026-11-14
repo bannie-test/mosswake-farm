@@ -107,6 +107,8 @@ func _run() -> void:
 	await process_frame
 	session.slot = TEST_SLOT
 	await load_scene()
+	var playtest: Node = root.get_node("Playtest")
+	playtest.start("user://playtest_check")
 	var start_minute: float = sim.game_minute
 	check(farm.plots.size() == 12 and animals.animals.size() == 2, "a new game owns 2 fields and 2 chickens")
 	check(hud.guide_text().contains("Till the soil"), "guide starts with: till and plant")
@@ -145,7 +147,7 @@ func _run() -> void:
 		elif n is HSlider:
 			sliders.append(n)
 		stack.append_array(n.get_children())
-	check(sliders.size() == 2 and toggles.size() == 3, "it has music and sound sliders and the large text, hold-to-act and fullscreen switches")
+	check(sliders.size() == 2 and toggles.size() == 4, "it has music and sound sliders and the large text, hold-to-act, fullscreen and playtest-log switches")
 	for slider: HSlider in sliders:
 		if slider.get_meta("key") == "music":
 			slider.value = 0.2
@@ -451,6 +453,34 @@ func _run() -> void:
 	check(await press(sale, "Buy") and farm.plots.size() == 18, "a third field adds 6 plots")
 	await stand(Vector2i(18, 12), "s")
 	check(player.prompt() == "Till", "the new plots can be tilled at once")
+
+	# ---- section 20, Farm map: every interactable can be reached on foot
+	var start_tile := Vector2i(5, 11)
+	var unreachable: Array = []
+	for tile: Vector2i in farm_scene.map._targets:
+		var ok := false
+		for step: Vector2i in [Vector2i.ZERO, Vector2i(0, 1), Vector2i(0, -1), Vector2i(1, 0), Vector2i(-1, 0)]:
+			if not farm_scene.map.path_between(start_tile, tile + step).is_empty():
+				ok = true
+				break
+		if not ok:
+			unreachable.append("%s at %s" % [farm_scene.map._targets[tile]["kind"], tile])
+	check(unreachable.is_empty(), "every one of the %d interactable tiles can be walked to (%s)" % [farm_scene.map._targets.size(), str(unreachable.slice(0, 4))])
+
+	# ---- the playtest log recorded this session
+	var log_path: String = playtest.stop()
+	var log: Variant = JSON.parse_string(FileAccess.get_file_as_string(log_path))
+	var kinds := {}
+	if typeof(log) == TYPE_DICTIONARY:
+		for e: Dictionary in log["events"]:
+			kinds[e["kind"]] = int(kinds.get(e["kind"], 0)) + 1
+	check(kinds.has("level_up") and kinds.has("order_delivered") and kinds.has("merge") and kinds.has("quest_completed") and kinds.has("spirit_awake"),
+		"the playtest log holds level-ups, orders, merges, quests and the spirit's awakening (%s)" % str(kinds))
+	check(typeof(log) == TYPE_DICTIONARY and log["days"].size() >= 1 and log["days"][0].has("earned"), "and coins earned and spent per game day")
+	var sample := ProjectSettings.globalize_path("res://").path_join("../qa/playtest/sample_session.json")
+	DirAccess.make_dir_recursive_absolute(sample.get_base_dir())
+	DirAccess.copy_absolute(log_path, sample)
+	DirAccess.remove_absolute(log_path)
 
 	# ---- quit and continue: the saved farm comes back
 	sim.paused = true                 # so that no game time passes between saving and comparing

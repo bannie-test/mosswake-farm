@@ -28,6 +28,8 @@ until the Director confirms it.
 
 | D-014 | 2026-11-14 | M4 accepted and merged into `main`; go for M5. Findings F-04 and F-05 go to the balance pass | Milestone gate | - |
 
+| D-017 | 2026-11-14 | M5 accepted and merged into `main` with its open items (F-06: art is still code-drawn; balance awaits real players). Go for the parts of M6 that need no people: performance pass, error logging, demo build, playtest kit. The outside playtest itself is the Director's to organise | Milestone gate | - |
+
 ## Made during M0, approved by the Director on 2026-11-14 ("approve all")
 
 | # | Decision | Reason |
@@ -122,7 +124,7 @@ until the Director confirms it.
 
 Not changed: every number the GDD states (crop values, order budget, XP rates, level curve, field prices, merge rates).
 
-## Provisional (made to finish M5; need the Director's confirmation)
+## Made during M5, approved by the Director on 2026-11-14
 
 | # | Decision | Reason |
 | --- | --- | --- |
@@ -132,6 +134,14 @@ Not changed: every number the GDD states (crop values, order budget, XP rates, l
 | P-51 | Contextual prompts are computed from the game state each time (hungry animals, a learnable blueprint, a husk in the backpack, a spirit without a zone or Sap), so they need no "seen" flags | Section 15 asks that players understand research "without a text tutorial" |
 | P-52 | Day and night: a cool violet tint from 18:00, full at 20:00, lifting between 05:00 and 06:00; animals sleep at night; day and night each have a looping tune | Section 12; Appendix A (shadows shift toward violet, never black) |
 | P-53 | Not done in M5 and carried forward: the 47-tile terrain blob sets, atlas extrusion, the shader outline for the interaction highlight (a tile cursor and prompts are used instead), spirit carry and celebrate animations, crop sway | Polish items of Appendix A that do not change play; they need an artist's pass anyway |
+
+## Provisional (made during M6; need the Director's confirmation)
+
+| # | Decision | Reason |
+| --- | --- | --- |
+| P-54 | The game keeps a playtest log on the player's own computer (`user://playtest/`), on by default and switchable in the Esc menu. It records level-ups, orders, merges, quests, rare harvests, the spirit's awakening and coins earned and spent per game day. Nothing is sent anywhere | Section 20 has six rows that can only be measured from real sessions |
+| P-55 | "Crash reporting" is file logging to `user://logs/` plus a menu button that opens the folder; the facilitator collects the files. There is no online crash service | A premium offline game with no backend; an online service would be a new scope and a privacy decision |
+| P-56 | Version label 0.9.0 for the playtest candidate; "MVP 1.0 demo" is reserved for the build that passes section 20 | Section 17 names the M6 deliverable "MVP 1.0 demo" after acceptance |
 
 ## Findings
 
@@ -143,3 +153,4 @@ Not changed: every number the GDD states (crop values, order budget, XP rates, l
 | F-04 | A skill-1 Rootling cannot keep 16 Tomato plots wet when all 16 were watered at the same moment: Tomato dries in 6 hours, so all 16 fall under the watering threshold together and one round (16 x 6 minutes plus walking and a refill) takes longer than the 1.8 hours before the first plot is dry. Carrot and Wheat (8 and 12 hours) are fine, and the M4 acceptance test (16 tiles, 3 days) passes with Carrots | Fixed in the M5 balance pass: `moistureBelow` 30 -> 50 |
 | F-05 | Dig site: a careful player always finds the husk within 6 digs using Root-sense (a Dig Kit holds 10). A player who stops when the husk appears may still be short of Spirit Essence; the site now says how much is still buried | Informational |
 | F-06 | M5 acceptance, as it stands: (1) asset lint passes on all 87 sprites and now also checks that every definition has its art and every sheet its standard animations; (2) "no placeholder remains" is NOT met: all art is code-drawn and awaits an artist (D-015); (3) "simulator and playtest income agree within 20%" cannot be judged without playtests. Phase 1 income in the Python simulator: mean 706 against a 300-600 target, down from 962; days 1-3 are inside the target and the overshoot is the single day on which the player owns 30 plots but is still level 5 | Open until M6 playtests |
+| F-07 | M6 status: done without people - performance bench (game logic about 0.5 ms of CPU per frame at the section 20 load on the build server), file logging, playtest log and report tool, facilitator guide and questionnaire, Windows and Linux demo builds (the Linux build was run and screenshotted), acceptance matrix. Not done, because they need people or hardware - the 15-player outside playtest, the playtest report, 60 fps on a Steam Deck, fixes for what testers find, the go or no-go for R1 | Open; the Director's to organise |
