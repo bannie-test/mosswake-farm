@@ -399,7 +399,7 @@ def rootling_frame(sway=0, blink=False):
     return outline(img)
 
 
-def rootling():
+def rootling_m0_only():
     idle = [rootling_frame(0), rootling_frame(1), rootling_frame(0), rootling_frame(-1, blink=True)]
     save(strip(idle), "spirits/spirit_rootling.png", {"frameSize": [24, 24], "animations": {"idle_s": {"from": 0, "to": 3, "fps": 5}}})
 
@@ -941,6 +941,74 @@ def m3_art():
     save(outline(scroll), "ui/quest.png")
 
 
+# ------------------------------------------------------------------ M4 additions
+def m4_art():
+    def root(sway=0, blink=False, step=0, tilt=0, lie=False):
+        img = rootling_frame(sway, blink)
+        if step:                                           # walking: one foot lifts
+            x0 = 8 if step < 0 else 14
+            px(img, [(x0, 22), (x0 + 1, 22), (x0 - 1, 22), (x0 + 2, 22)], CLEAR)
+            px(img, [(x0, 23), (x0 + 1, 23)], CLEAR)
+            px(img, [(x0, 21), (x0 + 1, 21)], W[1])
+        if tilt:                                           # working: water drops fall from the gourd
+            px(img, [(21, 21 + (tilt % 2)), (22, 22 + (tilt % 2)), (20, 22)], K[1])
+        return img
+    idle = [rootling_frame(0), rootling_frame(1), rootling_frame(0), rootling_frame(-1, blink=True)]
+    walk = [root(0, step=-1), root(1), root(0, step=1), root(0, step=1), root(-1), root(0, step=-1)]
+    work = [root(0, tilt=1), root(0, tilt=2), root(1, tilt=1), root(0, tilt=2)]
+    sleep = [rootling_frame(0, blink=True), rootling_frame(1, blink=True)]
+    for fr in sleep:
+        px(fr, [(19, 3), (20, 3), (21, 3), (20, 4), (19, 5), (20, 5), (21, 5)], K[3])       # a small "z"
+    frames, anims, i = [], {}, 0
+    for name, fr, fps in (("idle_s", idle, 5), ("walk_s", walk, 10), ("work_s", work, 10), ("sleep_s", sleep, 2)):
+        anims[name] = {"from": i, "to": i + len(fr) - 1, "fps": fps}
+        frames += fr
+        i += len(fr)
+    save(strip(frames), "spirits/spirit_rootling.png", {"frameSize": [24, 24], "animations": anims})
+
+    def husk(mud):
+        img = new(16, 16)
+        ellipse(img, 3, 3, 12, 14, W[2]); ellipse(img, 4, 4, 8, 9, W[3]); px(img, [(11, 11), (10, 12), (11, 12), (9, 13), (10, 13)], W[1])
+        px(img, [(7, 2), (8, 1), (8, 2)], G[1])
+        if mud:
+            px(img, [(5, 6), (6, 6), (5, 7), (9, 8), (10, 8), (9, 9), (6, 11), (7, 11), (7, 12), (10, 5), (11, 6)], S[1])
+        else:
+            px(img, [(6, 8), (9, 8)], TEAL); px(img, [(7, 10), (8, 10)], W[0])
+        return outline(img)
+    save(husk(True), "items/spirit_husk_dormant.png")
+    save(husk(False), "ui/husk_clean.png")
+    ess = new(16, 16)
+    ellipse(ess, 5, 5, 10, 12, TEAL); px(ess, [(7, 3), (8, 3), (7, 4), (8, 4)], TEAL); px(ess, [(6, 7), (7, 6)], K[3]); px(ess, [(9, 11), (10, 10)], K[1])
+    save(outline(ess), "items/spirit_essence.png")
+    pot = new(16, 16)
+    rect(pot, 5, 7, 10, 13, K[3]); rect(pot, 5, 9, 10, 13, TEAL); rect(pot, 9, 9, 10, 13, K[1]); rect(pot, 6, 4, 9, 6, K[3]); rect(pot, 6, 3, 9, 3, W[2]); px(pot, [(6, 10), (7, 11)], SAP)
+    save(outline(pot), "items/spirit_revival_potion.png")
+    sap = new(16, 16)
+    ellipse(sap, 4, 6, 11, 13, SAP); px(sap, [(7, 4), (8, 4), (7, 5), (8, 5), (8, 3)], SAP); px(sap, [(6, 8), (6, 9)], K[3]); px(sap, [(10, 11), (9, 12), (10, 12)], G[3])
+    save(outline(sap), "items/mat_sap.png")
+    kit = new(16, 16)
+    rect(kit, 7, 3, 8, 13, W[2]); rect(kit, 8, 3, 8, 13, W[1])
+    px(kit, [(4, 3), (5, 2), (6, 2), (7, 2), (8, 2), (9, 2), (10, 2), (11, 3), (12, 4), (3, 4)], T[2]); px(kit, [(5, 3), (6, 3), (9, 3), (10, 3)], T[3])
+    save(outline(kit), "items/tool_dig_kit.png")
+    bench = new(32, 32)                                    # Spirit Bench: a mossy stone slab with a bowl and a lantern
+    rect(bench, 3, 14, 28, 22, T[2]); rect(bench, 3, 14, 28, 15, T[3]); rect(bench, 3, 21, 28, 23, T[1])
+    rect(bench, 5, 24, 9, 30, T[1]); rect(bench, 22, 24, 26, 30, T[1]); rect(bench, 5, 24, 5, 30, T[2]); rect(bench, 22, 24, 22, 30, T[2])
+    px(bench, [(4, 14), (5, 14), (6, 15), (7, 14), (20, 14), (21, 15), (26, 14), (27, 14), (27, 15), (3, 16), (28, 17)], G[1]); px(bench, [(5, 13), (26, 13)], G[3])
+    ellipse(bench, 11, 9, 20, 15, W[2]); ellipse(bench, 12, 9, 19, 13, TEAL); px(bench, [(13, 10), (14, 10)], K[3])
+    rect(bench, 24, 5, 27, 12, W[1]); rect(bench, 25, 7, 26, 10, AMBER); px(bench, [(25, 4), (26, 4)], W[0])
+    save(bench, "buildings/bld_spirit_bench.png")
+    site = new(32, 32)                                     # the dig site entrance: a mossy hollow between roots
+    ellipse(site, 2, 8, 29, 31, G[0]); ellipse(site, 4, 9, 27, 28, G[1]); ellipse(site, 8, 13, 23, 29, S[0]); ellipse(site, 10, 15, 21, 28, OUT)
+    px(site, [(6, 12), (7, 11), (8, 11), (22, 11), (23, 12), (24, 12), (12, 10), (13, 9)], G[3])
+    for x, y in ((7, 20), (6, 21), (6, 22), (24, 19), (25, 20), (25, 21), (25, 22)):
+        px(site, [(x, y)], W[2])
+    px(site, [(15, 22), (16, 22)], TEAL)
+    save(site, "buildings/site_mossy_hollow_mvp.png")
+    mud = new(8, 8)
+    ellipse(mud, 0, 1, 7, 6, S[1]); px(mud, [(2, 2), (3, 2)], S[2]); px(mud, [(5, 5), (4, 5)], S[0])
+    save(mud, "ui/mud.png")
+
+
 def main():
     write_palette()
     ground_tiles()
@@ -948,7 +1016,6 @@ def main():
     crops()
     player()
     chicken()
-    rootling()
     farmhouse()
     props()
     npcs()
@@ -959,6 +1026,7 @@ def main():
     m2_buildings()
     m2_icons()
     m3_art()
+    m4_art()
     print("placeholder art written to", os.path.relpath(ASSETS, ROOT))
 
 

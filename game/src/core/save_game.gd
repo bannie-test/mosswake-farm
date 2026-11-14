@@ -13,6 +13,10 @@ const SAVE_DIR := "user://saves"
 ## Each is a Callable taking and returning the envelope Dictionary.
 var migrations: Array[Callable] = []
 
+## True while a save is being applied. Systems must not run game logic then (start quests,
+## generate orders, pay rewards): a load only restores state.
+var loading := false
+
 var _sections: Dictionary = {}     # name -> object with save_state() / load_state(data)
 
 
@@ -38,11 +42,13 @@ func build_envelope() -> Dictionary:
 
 
 func apply_envelope(env: Dictionary) -> void:
+	loading = true
 	Sim.game_minute = float(env["gameMinute"])
-	GameState.load_rng_state(env["rng"])
 	for section: String in _sections:
 		if env.has(section):
 			_sections[section].load_state(env[section])
+	GameState.load_rng_state(env["rng"])       # last, so nothing a section did can have moved a stream
+	loading = false
 
 
 func save(slot: int) -> Error:

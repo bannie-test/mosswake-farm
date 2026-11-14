@@ -43,13 +43,32 @@ func craft_known(craft_id: String) -> bool:
 	return Unlocks.is_met(c["unlock"]) and (c["station"] == null or GameState.building_level(c["station"]) >= 1)
 
 
+## Items that can fill a tag input, cheapest first (so Sap is pressed from Wheat before Sunflowers).
+func tag_candidates(input: Dictionary) -> Array:
+	var out: Array = []
+	for item_id: String in GameData.ids("items"):
+		var def: Dictionary = GameData.item(item_id)
+		if def["tags"].has(input["tag"]) and (not input.has("rarity") or def["rarity"] == input["rarity"]) and Inventory.count(item_id) > 0:
+			out.append(item_id)
+	out.sort_custom(func(a: String, b: String) -> bool: return GameData.item(a)["baseValue"] < GameData.item(b)["baseValue"])
+	return out
+
+
+func _tag_stock(input: Dictionary) -> int:
+	var total := 0
+	for item_id: String in tag_candidates(input):
+		total += maxi(0, Inventory.count(item_id) - Quests.reserved(item_id))
+	return total
+
+
 func craft_affordable(craft_id: String) -> int:
 	var c: Dictionary = GameData.def("craft_recipes", craft_id)
 	var n := 1 << 30
 	for input: Dictionary in c["inputs"]:
-		if not input.has("itemId"):
-			return 0                      # tag inputs (Sap) are crafted from M4
-		n = mini(n, Inventory.count(input["itemId"]) / int(input["qty"]))
+		if input.has("itemId"):
+			n = mini(n, Inventory.count(input["itemId"]) / int(input["qty"]))
+		else:
+			n = mini(n, _tag_stock(input) / int(input["qty"]))
 	if int(c["coins"]) > 0:
 		n = mini(n, GameState.coins() / int(c["coins"]))
 	return n
@@ -62,8 +81,16 @@ func craft(craft_id: String, times: int = 1) -> int:
 	var made := 0
 	for i: int in range(mini(times, craft_affordable(craft_id))):
 		for input: Dictionary in c["inputs"]:
-			Inventory.remove(input["itemId"], int(input["qty"]))
+			if input.has("itemId"):
+				Inventory.remove(input["itemId"], int(input["qty"]))
+				continue
+			var left := int(input["qty"])
+			for item_id: String in tag_candidates(input):
+				var take := mini(left, maxi(0, Inventory.count(item_id) - Quests.reserved(item_id)))
+				Inventory.remove(item_id, take)
+				left -= take
 		GameState.spend_coins(int(c["coins"]))
 		Inventory.add(c["output"]["itemId"], int(c["output"]["qty"]))
+		GameState.count_produced(c["output"]["itemId"], int(c["output"]["qty"]))
 		made += int(c["output"]["qty"])
 	return made

@@ -18,6 +18,7 @@ const PADS := {
 	"bld_well": {"tiles": Rect2i(29, 16, 2, 2), "sprite": "res://assets/buildings/bld_well.png", "kind": ""},
 	"bld_research_station": {"tiles": Rect2i(27, 6, 4, 4), "sprite": "res://assets/buildings/bld_research_station.png", "kind": "research"},
 	"bld_chest": {"tiles": Rect2i(11, 10, 1, 1), "sprite": "res://assets/props/chest.png", "kind": "chest"},
+	"bld_spirit_bench": {"tiles": Rect2i(33, 12, 2, 2), "sprite": "res://assets/buildings/bld_spirit_bench.png", "kind": "bench"},
 	"bld_shipping_bin": {"tiles": Rect2i(9, 10, 1, 1), "sprite": "res://assets/props/shipping_bin.png", "kind": "bin"},
 }
 const STALLS := {
@@ -25,6 +26,7 @@ const STALLS := {
 	"npc_tobin": {"feet": Vector2(728, 320), "sprite": "res://assets/buildings/npc_cart_tobin.png", "kind": "shop"},
 	"npc_ilse": {"feet": Vector2(664, 432), "sprite": "res://assets/buildings/npc_stall_ilse.png", "kind": "order_board"},
 }
+const SITE_FEET := Vector2(712, 480)        # the dig site entrance, south-east of the gate
 const PLAYER_START := Vector2(88, 180)
 const PLOT_SOURCE := 0      # farm_plots.png: 0 dry, 1 wet
 const FIELD_SOURCE := 1     # farm_field.png: 0 untended, 1 untilled
@@ -42,6 +44,11 @@ var _stall_nodes: Dictionary = {}    # npc ID -> true once drawn
 var _animal_nodes: Array = []
 var _ready_marks: Dictionary = {}
 var _cursor: Sprite2D
+var _nav := AStarGrid2D.new()
+var _nav_dirty := true
+var _spirit_views: Dictionary = {}
+var _site_drawn := false
+var _zone_overlay: ZoneOverlay
 
 
 func build() -> void:
@@ -70,6 +77,19 @@ func build() -> void:
 	GameState.building_changed.connect(_refresh_building)
 	GameState.leveled_up.connect(func(_level: int) -> void: _refresh_stalls())
 	Animals.changed.connect(_refresh_animals)
+	_nav.region = Rect2i(Vector2i.ZERO, SIZE)
+	_nav.cell_size = Vector2(WorldLayers.TILE, WorldLayers.TILE)
+	_nav.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_NEVER
+	_nav.update()
+	Spirits.world = self
+	Spirits.changed.connect(_refresh_spirits)
+	Quests.changed.connect(_refresh_site)
+	_zone_overlay = ZoneOverlay.new()
+	_zone_overlay.z_index = -6
+	_zone_overlay.player = player
+	add_child(_zone_overlay)
+	_refresh_site()
+	_refresh_spirits()
 	Quests.quest_completed.connect(func(_q: String) -> void:
 		for building_id: String in PADS:
 			if GameState.building_level(building_id) == 0:
@@ -276,7 +296,9 @@ func _borders() -> void:
 
 
 func _solid(rect: Rect2) -> StaticBody2D:
+	_nav_dirty = true
 	var body := StaticBody2D.new()
+	body.set_meta("rect", rect)
 	body.collision_layer = 1
 	var shape := CollisionShape2D.new()
 	var box := RectangleShape2D.new()
@@ -286,6 +308,70 @@ func _solid(rect: Rect2) -> StaticBody2D:
 	body.add_child(shape)
 	add_child(body)
 	return body
+
+
+# ------------------------------------------------------------------ what spirits need from the map
+## Grid path from one tile to another, without the starting tile. Empty when there is no way.
+func path_between(from: Vector2i, to: Vector2i) -> Array:
+	if _nav_dirty:
+		_rebuild_nav()
+	if not _nav.is_in_boundsv(from) or not _nav.is_in_boundsv(to) or _nav.is_point_solid(to):
+		return []
+	var path: Array = Array(_nav.get_id_path(from, to))
+	if not path.is_empty():
+		path.pop_front()
+	return path
+
+
+func _rebuild_nav() -> void:
+	_nav_dirty = false
+	_nav.fill_solid_region(_nav.region, false)
+	for child: Node in get_children():
+		if child is StaticBody2D and not child.is_queued_for_deletion() and child.has_meta("rect"):
+			var r: Rect2 = (child.get_meta("rect") as Rect2).grow(-2.0)
+			for y: int in range(maxi(0, floori(r.position.y / WorldLayers.TILE)), mini(SIZE.y, floori(r.end.y / WorldLayers.TILE) + 1)):
+				for x: int in range(maxi(0, floori(r.position.x / WorldLayers.TILE)), mini(SIZE.x, floori(r.end.x / WorldLayers.TILE) + 1)):
+					_nav.set_point_solid(Vector2i(x, y), true)
+
+
+func plots_in(rect: Rect2i) -> Array:
+	var out: Array = []
+	for plot_id: String in _plot_tiles:
+		if rect.has_point(_plot_tiles[plot_id]) and Farm.plots.has(plot_id):
+			out.append(plot_id)
+	return out
+
+
+func well_tile() -> Vector2i:
+	return approach_tile("bld_well")
+
+
+func home_tile() -> Vector2i:
+	return approach_tile("bld_spirit_bench")
+
+
+func _refresh_spirits() -> void:
+	for s: Dictionary in Spirits.spirits:
+		if not _spirit_views.has(s["instanceId"]):
+			var view := SpiritView.new(s["instanceId"])
+			_spirit_views[s["instanceId"]] = view
+			world.add_object(view, Vector2.ZERO, true)
+	for id: String in _spirit_views.keys():
+		if Spirits.find(id).is_empty():
+			_spirit_views[id].queue_free()
+			_spirit_views.erase(id)
+
+
+## The dig site entrance appears when the story opens the site.
+func _refresh_site() -> void:
+	if _site_drawn or not Spirits.site_open():
+		return
+	_site_drawn = true
+	world.add_object(WorldLayers.upright(load("res://assets/buildings/site_mossy_hollow_mvp.png")), SITE_FEET)
+	_solid(Rect2(SITE_FEET.x - 12, SITE_FEET.y - 14, 24, 14))
+	var row := int(SITE_FEET.y / WorldLayers.TILE) - 1
+	for x: int in range(int(SITE_FEET.x / WorldLayers.TILE) - 1, int(SITE_FEET.x / WorldLayers.TILE) + 1):
+		_targets[Vector2i(x, row)] = {"kind": "dig"}
 
 
 # ------------------------------------------------------------------ live updates
@@ -308,6 +394,8 @@ func refresh_all() -> void:
 	for building_id: String in PADS:
 		_refresh_building(building_id)
 	_refresh_stalls()
+	_refresh_site()
+	_refresh_spirits()
 
 
 ## Harvest pops the goods out of the plot (section 4, "Player experience").

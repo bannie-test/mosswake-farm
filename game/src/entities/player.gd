@@ -14,6 +14,8 @@ var facing := "s"
 var target: Dictionary = {}
 var selected_seed := ""
 var control_enabled := true
+var zone_spirit := ""                 ## the spirit whose zone is being drawn; "" outside zone mode
+var zone_corner: Variant = null       ## first corner tile, once marked
 var _sprite: AnimatedSprite2D
 var _speed := 0.0
 
@@ -56,6 +58,8 @@ func _physics_process(_delta: float) -> void:
 	move_and_slide()
 	_animate(dir != Vector2.ZERO)
 	_update_target()
+	if zone_spirit != "" and dir != Vector2.ZERO:
+		target_changed.emit()
 
 
 func _animate(moving: bool) -> void:
@@ -119,6 +123,11 @@ func next_seed() -> void:
 # ---- the context action
 ## The words shown next to the act key for the current target, or "" when there is nothing to do.
 func prompt() -> String:
+	if zone_spirit != "":
+		if zone_corner == null:
+			return "Mark the first corner"
+		var r := zone_preview()
+		return "Set the zone (%d of %d tiles)" % [r.size.x * r.size.y, Spirits.zone_limit(Spirits.find(zone_spirit))]
 	match target.get("kind", ""):
 		"plot":
 			match Farm.action_for(target["id"], selected_seed):
@@ -142,6 +151,10 @@ func prompt() -> String:
 			return "Research Station"
 		"chest":
 			return "Storage Chest"
+		"bench":
+			return "Spirit Bench"
+		"dig":
+			return "Dig site"
 		"bed":
 			return "Sleep until morning"
 		"build_pad":
@@ -151,7 +164,41 @@ func prompt() -> String:
 	return ""
 
 
+# ---- the zone tool (section 9, Stage D): walk to one corner, mark it, walk to the other, set
+func start_zone_mode(instance_id: String) -> void:
+	zone_spirit = instance_id
+	zone_corner = null
+	target_changed.emit()
+
+
+func cancel_zone_mode() -> void:
+	zone_spirit = ""
+	zone_corner = null
+	target_changed.emit()
+
+
+func zone_preview() -> Rect2i:
+	var a: Vector2i = zone_corner if zone_corner != null else tile()
+	var b := tile()
+	return Rect2i(mini(a.x, b.x), mini(a.y, b.y), absi(a.x - b.x) + 1, absi(a.y - b.y) + 1)
+
+
 func act() -> void:
+	if zone_spirit != "":
+		if zone_corner == null:
+			zone_corner = tile()
+			Sfx.play("ui_click")
+		else:
+			var reason := Spirits.zone_blocked(zone_spirit, zone_preview())
+			if reason != "":
+				GameState.notice.emit(reason)
+				return
+			Spirits.set_zone(zone_spirit, zone_preview())
+			GameState.notice.emit("%s will tend this zone" % Spirits.find(zone_spirit)["name"])
+			Sfx.play("plant")
+			cancel_zone_mode()
+		target_changed.emit()
+		return
 	match target.get("kind", ""):
 		"plot":
 			var id: String = target["id"]

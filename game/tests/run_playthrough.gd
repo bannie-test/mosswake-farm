@@ -55,6 +55,15 @@ func use(tile: Vector2i, facing: String, prompt: String, screen: String) -> Node
 	return ui._screens[screen]
 
 
+func by_key(node: Node, prefix: String) -> Array:
+	var out: Array = []
+	for child: Node in node.get_children():
+		if child is Button and not child.disabled and str(child.get_meta("key", "")).begins_with(prefix):
+			out.append(child)
+		out.append_array(by_key(child, prefix))
+	return out
+
+
 func press(screen: Node, text: String) -> bool:
 	var found := buttons(screen, text)
 	if found.is_empty():
@@ -94,6 +103,7 @@ func _run() -> void:
 	var quests: Node = root.get_node("Quests")
 	var research: Node = root.get_node("Research")
 	var merge: Node = root.get_node("Merge")
+	var spirits: Node = root.get_node("Spirits")
 	await process_frame
 	session.slot = TEST_SLOT
 	await load_scene()
@@ -246,7 +256,120 @@ func _run() -> void:
 	await frames(2)
 	check(inv.state["backpack"]["stacks"].size() == stacks - 1 and inv.state["chests"]["chest_01"]["stacks"].size() == 1, "pressing a stack stores it in the chest")
 
+	# ---- The Sleeper: the dig site
+	await stand(Vector2i(43, 30), "n")
+	check(player.prompt() == "", "the dig site entrance is not there before The Sleeper")
+	quests.active.clear()
+	quests.completed.append("quest_what_carrots_remember")
+	state.player["level"] = 8
+	state.leveled_up.emit(8)
+	check(hud._guide.text.contains("Ilse: Bring Ilse 1 Ancient Carrot (0/1)"), "at level 8 The Sleeper appears in the tracker")
+	inv.add("crop_carrot_ancient", 1)
+	board = await use(Vector2i(38, 20), "n", "Order board", "order_board")
+	check(await press(board, "Hand over") and inv.count("tool_dig_kit") == 1, "Ilse trades the Ancient Carrot for a Dig Kit")
+	inv.add("tool_dig_kit", 3)
+	var dig: Node = await use(Vector2i(43, 30), "n", "Dig site", "dig")
+	var digs := 0
+	while inv.count("spirit_husk_dormant") == 0 and digs < 36:
+		var cells: Array = dig._grid.get_children().filter(func(b: Node) -> bool: return not b.disabled)
+		if cells.is_empty():
+			break
+		cells[0].pressed.emit()
+		digs += 1
+		await frames(1)
+	check(inv.count("spirit_husk_dormant") == 1 and quests.is_completed("quest_sleeper"), "digging finds the husk (%d digs, row by row) and completes The Sleeper" % digs)
+	check(dig._info.text.contains("Spirit Essence still buried here") or inv.count("spirit_essence") == 2, "the site says when Spirit Essence is still buried")
+	while inv.count("spirit_essence") < 2 and digs < 36:
+		var left: Array = dig._grid.get_children().filter(func(b: Node) -> bool: return not b.disabled)
+		if left.is_empty():
+			break
+		left[0].pressed.emit()
+		digs += 1
+		await frames(1)
+	check(inv.count("spirit_essence") == 2, "digging on finds both Spirit Essence")
+	var marks: Array = dig._grid.get_children().filter(func(b: Node) -> bool: return b.text in ["HOT", "warm", "cold"])
+	check(marks.size() >= 1, "dug tiles show their Root-sense mark")
+
+	# ---- First Vocation: the Spirit Bench
+	state.add_coins(2500)
+	pad = await use(farm_scene.map.approach_tile("bld_spirit_bench"), "n", "Build: Spirit Bench", "confirm")
+	check(await press(pad, "Build") and state.building_level("bld_spirit_bench") == 1, "the Spirit Bench is built for 1,500 coins")
+	var bench: Node = await use(farm_scene.map.approach_tile("bld_spirit_bench"), "n", "Spirit Bench", "bench")
+	check(await press(bench, "Lay the Dormant Husk") and spirits.bench["stage"] == "dormant", "the husk goes on the bench")
+	var scrubs := 0
+	while spirits.bench["stage"] == "dormant" and scrubs < 10:
+		by_key(bench, "scrub")[0].pressed.emit()
+		scrubs += 1
+		await frames(2)
+	check(scrubs == 6 and spirits.bench["stage"] == "cleaned", "six scrubs by hand clean it")
+	inv.add("merged_sun_bouquet", 2)
+	await frames(2)
+	check(await press(bench, "Brew a Revival Potion"), "the potion is set to brew")
+	sim.time_scale = 600.0
+	waited = 0
+	while waited < 2000 and inv.count("spirit_revival_potion") == 0:
+		await frames(1)
+		waited += 1
+	sim.time_scale = 1.0
+	check(await press(bench, "Pour the Revival Potion") and spirits.bench["stage"] == "sprout", "the potion revives the husk into a sprout")
+	inv.add("merged_carrot_premium", 5)
+	await frames(2)
+	check(await press(bench, "Wake it as a Rootling") and spirits.bench["stage"] == "awakening", "the sprout is offered the Rootling charm")
+	sim.time_scale = 600.0
+	waited = 0
+	while waited < 3000 and spirits.spirits.is_empty():
+		await frames(1)
+		waited += 1
+	sim.time_scale = 1.0
+	await frames(3)
+	check(spirits.spirits.size() == 1 and ui._screens["awaken"].visible, "six hours later the Rootling wakes and its scene plays")
+	check(await press(ui._screens["awaken"], "Welcome") and not ui.is_open(), "the scene closes on Welcome")
+	check(quests.is_completed("quest_first_vocation") and quests.completed.size() == 6, "First Vocation is complete: the whole MVP story is done")
+
+	# ---- the zone tool and the Rootling at work on the real map
+	var spirit: Dictionary = spirits.spirits[0]
+	bench = await use(farm_scene.map.approach_tile("bld_spirit_bench"), "n", "Spirit Bench", "bench")
+	check(await press(bench, "Draw") and player.zone_spirit == spirit["instanceId"] and not ui.is_open(), "Draw zone closes the screen and starts the zone tool")
+	await stand(Vector2i(9, 13), "s")
+	check(player.prompt() == "Mark the first corner", "the prompt asks for the first corner")
+	player.act()
+	await stand(Vector2i(19, 15), "s")
+	check(player.prompt() == "Set the zone (33 of 16 tiles)", "an oversized rectangle shows its size against the limit")
+	player.act()
+	check(spirit["zone"] == null and player.zone_spirit != "", "and is refused")
+	await stand(Vector2i(15, 14), "s")
+	player.act()
+	check(spirit["zone"] != null and spirits.zone_rect(spirit) == Rect2i(9, 13, 7, 2) and player.zone_spirit == "", "a 7x2 zone over the first two fields is set")
+	inv.add("seed_wheat", 12)
+	for plot_id: String in farm.plots:
+		if plot_id.begins_with("field_01") or plot_id.begins_with("field_02"):
+			if farm.plot(plot_id)["state"] == "empty":
+				farm.till(plot_id)
+			if farm.plot(plot_id)["state"] == "tilled":
+				farm.plant(plot_id, "plant_wheat")
+			farm.plot(plot_id)["moisture"] = 5.0
+	check(not farm_scene.map.path_between(farm_scene.map.home_tile(), farm_scene.map.well_tile()).is_empty(), "on the real map there is a path from the bench to the well")
+	sim.time_scale = 240.0
+	waited = 0
+	var dry := 12
+	while waited < 2400 and dry > 0:
+		await frames(1)
+		waited += 1
+		dry = 0
+		for plot_id: String in farm.plots:
+			if (plot_id.begins_with("field_01") or plot_id.begins_with("field_02")) and farm.is_planted(farm.plot(plot_id)) and farm.plot(plot_id)["moisture"] < 30.0:
+				dry += 1
+	sim.time_scale = 1.0
+	check(dry == 0 and spirit["skillXp"] >= 8, "the Rootling walked the real map and watered every planted plot in its zone (%d waterings)" % spirit["skillXp"])
+	check(farm_scene.map._spirit_views.has(spirit["instanceId"]), "and is drawn on the map")
+	await stand(Vector2i(10, 13), "s")
+	Input.action_press("move_right")
+	await frames(40)
+	Input.action_release("move_right")
+	check(player.position.x > 200.0, "the player walks straight through where the spirit works: spirits never block")
+
 	# ---- buying a field
+	ui.close()
 	var sale: Node = await use(Vector2i(18, 12), "s", "Buy this field", "confirm")
 	state.add_coins(300)
 	sale = await use(Vector2i(18, 12), "s", "Buy this field", "confirm")
@@ -262,7 +385,8 @@ func _run() -> void:
 	await load_scene_continue(session)
 	check(JSON.stringify(save.build_envelope()) == saved, "continuing restores the saved farm exactly")
 	check(farm.plots.size() == 18 and state.building_level("bld_merge_table") == 1 and state.building_level("bld_research_station") == 1, "the field, the Merge Table and the Research Station are still there")
-	check(quests.completed.size() == 3 and inv.state["chests"].has("chest_01"), "so are the story and the chest")
+	check(quests.completed.size() == 6 and inv.state["chests"].has("chest_01"), "so are the story and the chest")
+	check(spirits.spirits.size() == 1 and spirits.zone_rect(spirits.spirits[0]) == Rect2i(9, 13, 7, 2) and farm_scene.map._spirit_views.size() == 1, "and the Rootling with its zone")
 	await stand(farm_scene.map.approach_tile("bld_merge_table"), "n")
 	check(player.prompt() == "Merge Table", "and the rebuilt map knows about them")
 	check(loop_minutes < 10.0, "plant to harvest took %.1f real minutes of game time" % loop_minutes)

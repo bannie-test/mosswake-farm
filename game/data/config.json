@@ -159,7 +159,18 @@
   },
   "spirits": {
     "upkeepHour": 6,
-    "awakenHours": 6
+    "awakenHours": 6,
+    "names": [
+      "Mossy",
+      "Burl",
+      "Thistle",
+      "Acorn",
+      "Lichen",
+      "Twig"
+    ],
+    "cleanScrubs": 6,
+    "refillActions": 1,
+    "mvpSkillCap": 3
   },
   "player": {
     "moveTilesPerSecond": 5.0,

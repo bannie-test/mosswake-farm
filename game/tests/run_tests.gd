@@ -44,6 +44,9 @@ func _initialize() -> void:
 	var m3: RefCounted = load("res://tests/test_m3.gd").new()
 	m3.run(self, root)
 	check(m3.completed, "the M3 tests ran to the end (a script error stops them early)")
+	var m4: RefCounted = load("res://tests/test_m4.gd").new()
+	m4.run(self, root)
+	check(m4.completed, "the M4 tests ran to the end (a script error stops them early)")
 	print("%s  engine tests: %d passed, %d failed" % ["PASS" if _failed == 0 else "FAIL", _passed, _failed])
 	quit(1 if _failed else 0)
 

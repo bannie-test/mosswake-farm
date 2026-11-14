@@ -1,0 +1,419 @@
+{
+  "animals": [
+    {
+      "animalId": "animal_chicken",
+      "bornAt": -2520,
+      "breedReadyAt": 0,
+      "fertility": 0,
+      "happiness": 71.3333333333329,
+      "health": 100,
+      "housingId": "bld_coop#1",
+      "hunger": 58.5416666666668,
+      "instanceId": "an_0001",
+      "name": "Pip",
+      "oneTimeGiven": [],
+      "parents": [],
+      "pettedDay": 0,
+      "productionProgress": 1,
+      "rarity": "common",
+      "stage": "adult",
+      "traits": []
+    },
+    {
+      "animalId": "animal_chicken",
+      "bornAt": -2520,
+      "breedReadyAt": 0,
+      "fertility": 0,
+      "happiness": 71.3333333333329,
+      "health": 100,
+      "housingId": "bld_coop#1",
+      "hunger": 58.5416666666668,
+      "instanceId": "an_0002",
+      "name": "Clover",
+      "oneTimeGiven": [],
+      "parents": [],
+      "pettedDay": 0,
+      "productionProgress": 1,
+      "rarity": "common",
+      "stage": "adult",
+      "traits": []
+    }
+  ],
+  "buildings": [
+    {
+      "id": "bld_coop",
+      "level": 1
+    },
+    {
+      "id": "bld_shipping_bin",
+      "level": 1
+    },
+    {
+      "id": "bld_well",
+      "level": 1
+    }
+  ],
+  "dataVersion": "0.1.0",
+  "gameMinute": 1040,
+  "inventory": {
+    "backpack": {
+      "slots": 24,
+      "stacks": [
+        {
+          "itemId": "seed_carrot",
+          "qty": 6,
+          "quality": 1
+        },
+        {
+          "itemId": "seed_wheat",
+          "qty": 6,
+          "quality": 1
+        },
+        {
+          "itemId": "mat_sap",
+          "qty": 10,
+          "quality": 1
+        }
+      ]
+    },
+    "chests": {},
+    "questPouch": [],
+    "silo": {
+      "mat_feed": 4
+    },
+    "wallet": {}
+  },
+  "misc": {
+    "bench": {
+      "awakenReadyAt": null,
+      "brewReadyAt": null,
+      "scrubs": 0,
+      "spiritId": "",
+      "stage": "empty"
+    },
+    "dig": {
+      "digsLeft": 6,
+      "dug": {
+        "0": "cold"
+      },
+      "husks": [
+        7
+      ],
+      "husksFound": 0,
+      "loot": {
+        "3": "spirit_essence"
+      }
+    }
+  },
+  "orders": [],
+  "player": {
+    "coins": 99700,
+    "farmPoints": 0,
+    "level": 1,
+    "mergeMastery": {},
+    "mergePity": {},
+    "reputation": {},
+    "stats": {
+      "ordersCompleted": 0,
+      "timesProduced": {}
+    },
+    "unlocked": [],
+    "xp": 0
+  },
+  "plots": [
+    {
+      "dryMinutes": 0,
+      "everDry": true,
+      "fertilizerItemId": null,
+      "growthMinutes": 360,
+      "harvestsTaken": 0,
+      "matureSince": 720,
+      "moisture": 70.8333333333333,
+      "plantId": "plant_carrot",
+      "plantedAt": 360,
+      "plotId": "field_01/0",
+      "state": "mature"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": true,
+      "fertilizerItemId": null,
+      "growthMinutes": 360,
+      "harvestsTaken": 0,
+      "matureSince": 720,
+      "moisture": 70.8333333333333,
+      "plantId": "plant_carrot",
+      "plantedAt": 360,
+      "plotId": "field_01/1",
+      "state": "mature"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": true,
+      "fertilizerItemId": null,
+      "growthMinutes": 360,
+      "harvestsTaken": 0,
+      "matureSince": 720,
+      "moisture": 70.8333333333333,
+      "plantId": "plant_carrot",
+      "plantedAt": 360,
+      "plotId": "field_01/2",
+      "state": "mature"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": true,
+      "fertilizerItemId": null,
+      "growthMinutes": 360,
+      "harvestsTaken": 0,
+      "matureSince": 720,
+      "moisture": 70.8333333333333,
+      "plantId": "plant_carrot",
+      "plantedAt": 360,
+      "plotId": "field_01/3",
+      "state": "mature"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": true,
+      "fertilizerItemId": null,
+      "growthMinutes": 360,
+      "harvestsTaken": 0,
+      "matureSince": 720,
+      "moisture": 83.3333333333333,
+      "plantId": "plant_carrot",
+      "plantedAt": 360,
+      "plotId": "field_01/4",
+      "state": "mature"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": true,
+      "fertilizerItemId": null,
+      "growthMinutes": 360,
+      "harvestsTaken": 0,
+      "matureSince": 720,
+      "moisture": 83.3333333333333,
+      "plantId": "plant_carrot",
+      "plantedAt": 360,
+      "plotId": "field_01/5",
+      "state": "mature"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": true,
+      "fertilizerItemId": null,
+      "growthMinutes": 360,
+      "harvestsTaken": 0,
+      "matureSince": 720,
+      "moisture": 83.3333333333333,
+      "plantId": "plant_carrot",
+      "plantedAt": 360,
+      "plotId": "field_02/0",
+      "state": "mature"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": true,
+      "fertilizerItemId": null,
+      "growthMinutes": 360,
+      "harvestsTaken": 0,
+      "matureSince": 720,
+      "moisture": 83.3333333333333,
+      "plantId": "plant_carrot",
+      "plantedAt": 360,
+      "plotId": "field_02/1",
+      "state": "mature"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": true,
+      "fertilizerItemId": null,
+      "growthMinutes": 360,
+      "harvestsTaken": 0,
+      "matureSince": 720,
+      "moisture": 83.3333333333333,
+      "plantId": "plant_carrot",
+      "plantedAt": 360,
+      "plotId": "field_02/2",
+      "state": "mature"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": true,
+      "fertilizerItemId": null,
+      "growthMinutes": 360,
+      "harvestsTaken": 0,
+      "matureSince": 720,
+      "moisture": 83.3333333333333,
+      "plantId": "plant_carrot",
+      "plantedAt": 360,
+      "plotId": "field_02/3",
+      "state": "mature"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": true,
+      "fertilizerItemId": null,
+      "growthMinutes": 360,
+      "harvestsTaken": 0,
+      "matureSince": 720,
+      "moisture": 83.3333333333333,
+      "plantId": "plant_carrot",
+      "plantedAt": 360,
+      "plotId": "field_02/4",
+      "state": "mature"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": true,
+      "fertilizerItemId": null,
+      "growthMinutes": 360,
+      "harvestsTaken": 0,
+      "matureSince": 720,
+      "moisture": 83.3333333333333,
+      "plantId": "plant_carrot",
+      "plantedAt": 360,
+      "plotId": "field_02/5",
+      "state": "mature"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": true,
+      "fertilizerItemId": null,
+      "growthMinutes": 360,
+      "harvestsTaken": 0,
+      "matureSince": 720,
+      "moisture": 83.3333333333333,
+      "plantId": "plant_carrot",
+      "plantedAt": 360,
+      "plotId": "field_03/0",
+      "state": "mature"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": true,
+      "fertilizerItemId": null,
+      "growthMinutes": 360,
+      "harvestsTaken": 0,
+      "matureSince": 720,
+      "moisture": 95.8333333333333,
+      "plantId": "plant_carrot",
+      "plantedAt": 360,
+      "plotId": "field_03/1",
+      "state": "mature"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": true,
+      "fertilizerItemId": null,
+      "growthMinutes": 360,
+      "harvestsTaken": 0,
+      "matureSince": 720,
+      "moisture": 95.8333333333333,
+      "plantId": "plant_carrot",
+      "plantedAt": 360,
+      "plotId": "field_03/2",
+      "state": "mature"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": true,
+      "fertilizerItemId": null,
+      "growthMinutes": 360,
+      "harvestsTaken": 0,
+      "matureSince": 720,
+      "moisture": 95.8333333333333,
+      "plantId": "plant_carrot",
+      "plantedAt": 360,
+      "plotId": "field_03/3",
+      "state": "mature"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": false,
+      "fertilizerItemId": null,
+      "growthMinutes": 0,
+      "harvestsTaken": 0,
+      "matureSince": null,
+      "moisture": 0,
+      "plantId": null,
+      "plantedAt": null,
+      "plotId": "field_03/4",
+      "state": "empty"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": false,
+      "fertilizerItemId": null,
+      "growthMinutes": 0,
+      "harvestsTaken": 0,
+      "matureSince": null,
+      "moisture": 0,
+      "plantId": null,
+      "plantedAt": null,
+      "plotId": "field_03/5",
+      "state": "empty"
+    }
+  ],
+  "quests": {
+    "active": [
+      {
+        "counters": {},
+        "questId": "quest_first_harvest",
+        "stepId": "s1"
+      }
+    ],
+    "completed": [],
+    "orders": [],
+    "slotRefillAt": {}
+  },
+  "research": {
+    "blueprints": [],
+    "codex": {},
+    "level": 1,
+    "queue": [],
+    "researchedOnce": [],
+    "traitsSeen": [],
+    "xp": 0
+  },
+  "rng": {
+    "breeding": 3445004764,
+    "excavation": 1964593796,
+    "harvest": 3940575822,
+    "merge": 2156039273,
+    "orders": 2969189523
+  },
+  "saveVersion": 1,
+  "shipping": {},
+  "spirits": [
+    {
+      "carrying": {
+        "water": 8
+      },
+      "chestId": null,
+      "grafts": {
+        "heartwood": false,
+        "rootbed": false,
+        "tool": 0
+      },
+      "instanceId": "sp_0001",
+      "isElder": false,
+      "name": "Mossy",
+      "skillCap": 3,
+      "skillLevel": 1,
+      "skillXp": 32,
+      "spiritId": "spirit_rootling",
+      "stamina": 30.8444444444444,
+      "state": "idle",
+      "upkeepPaidDay": 1,
+      "zone": {
+        "h": 4,
+        "map": "farm",
+        "w": 4,
+        "x": 2,
+        "y": 2
+      }
+    }
+  ]
+}

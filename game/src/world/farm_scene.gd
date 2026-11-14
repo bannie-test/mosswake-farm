@@ -120,6 +120,40 @@ func _demo(what: String) -> void:
 		"research":
 			Research.start("merged_carrot_premium")
 			ui.open("research")
+		"dig", "bench", "spirit", "awaken":
+			for quest_id: String in ["quest_what_carrots_remember", "quest_sleeper"]:
+				Quests.completed.append(quest_id)
+				for id: String in Quests.def(quest_id)["rewards"]["unlocks"]:
+					GameState.unlock(id)
+			GameState.buildings["bld_spirit_bench"] = 1
+			map.refresh_all()
+			Spirits._ensure_dig()
+			Spirits.dig["digsLeft"] = 7
+			for cell: int in [0, 14, 21, 9]:
+				Spirits.dig["dug"][str(cell)] = "husk" if Spirits.dig["husks"].has(cell) else Spirits.dig["loot"].get(str(cell), Spirits.warmth(cell))
+			if what == "dig":
+				Quests.completed.erase("quest_sleeper")
+				ui.open("dig")
+			elif what == "bench":
+				Spirits.bench["stage"] = "dormant"
+				Spirits.bench["scrubs"] = 2
+				ui.open("bench")
+			else:
+				Spirits.bench["spiritId"] = "spirit_rootling"
+				Spirits._finish_awakening()
+				Quests.refresh()
+				var sp: Dictionary = Spirits.spirits[0]
+				Spirits.set_zone(sp["instanceId"], Rect2i(9, 13, 7, 2))
+				Sim.paused = false
+				Sim.advance(40.0)
+				Sim.paused = true
+				map.player.position = Vector2(230, 262)
+				if what == "awaken":
+					ui.open("awaken", {"instanceId": sp["instanceId"]})
+				else:
+					ui.close()
+					map.player.start_zone_mode(sp["instanceId"])
+					map.player.zone_corner = Vector2i(9, 13)
 		"gate":
 			map.player.position = Vector2(600, 350)
 

@@ -84,6 +84,7 @@ func _ready() -> void:
 	Farm.plot_changed.connect(func(_id: String) -> void: refresh())
 	Orders.changed.connect(refresh)
 	Animals.changed.connect(refresh)
+	Spirits.changed.connect(refresh)
 	Quests.changed.connect(refresh)
 	Research.changed.connect(refresh)
 

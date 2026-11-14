@@ -21,7 +21,17 @@ func _ready() -> void:
 	_root.add_child(hud)
 	_screens = {"backpack": BackpackPanel.new(), "merge_table": MergeScreen.new(), "order_board": OrderBoard.new(),
 		"shop": ShopScreen.new(), "research": ResearchScreen.new(), "chest": ChestScreen.new(), "housing": HousingScreen.new(), "bin": BinScreen.new(), "confirm": ConfirmDialog.new()}
+	_screens["bench"] = BenchScreen.new()
+	_screens["dig"] = DigScreen.new()
+	_screens["awaken"] = AwakenScene.new()
 	_screens["confirm"].closed.connect(close)
+	_screens["awaken"].closed.connect(close)
+	_screens["bench"].zone_requested.connect(func(instance_id: String) -> void:
+		close()
+		player.start_zone_mode(instance_id)
+		GameState.notice.emit("Walk to one corner and press E, then to the opposite corner and press E. Esc cancels."))
+	Spirits.awakened.connect(func(instance_id: String) -> void:
+		open("awaken", {"instanceId": instance_id}))
 	for key: String in _screens:
 		var screen: Control = _screens[key]
 		screen.set_anchors_preset(Control.PRESET_FULL_RECT)
@@ -42,6 +52,8 @@ func open(kind: String, info: Dictionary = {}) -> void:
 	player.control_enabled = false
 	Sfx.play("ui_click")
 	match kind:
+		"awaken":
+			_screens[kind].show_for(info["instanceId"])
 		"shop":
 			_screens[kind].open(info["npcId"])
 		"housing":
@@ -97,7 +109,10 @@ func is_open() -> bool:
 
 func _input(event: InputEvent) -> void:
 	if _open == "":
-		if event.is_action_pressed("close"):
+		if event.is_action_pressed("close") and player.zone_spirit != "":
+			player.cancel_zone_mode()
+			get_viewport().set_input_as_handled()
+		elif event.is_action_pressed("close"):
 			open("menu")
 			get_viewport().set_input_as_handled()
 		return

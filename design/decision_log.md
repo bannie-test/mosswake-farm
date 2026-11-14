@@ -24,6 +24,8 @@ until the Director confirms it.
 
 | D-012 | 2026-11-14 | M2 accepted and merged into `main`; go for M3. Finding F-02 (level 4 instead of 5-6 after 60 minutes) stays with the balance pass after playtests | Milestone gate | - |
 
+| D-013 | 2026-11-14 | M3 accepted and merged into `main`; go for M4. Finding F-03 (Ancient Carrot playtest) stays open for human playtests | Milestone gate | - |
+
 ## Made during M0, approved by the Director on 2026-11-14 ("approve all")
 
 | # | Decision | Reason |
@@ -68,7 +70,7 @@ until the Director confirms it.
 | P-28 | The Storage Chest is deferred to M3 | It is not in M2's feature list; the Research Station, which reads from chests, arrives in M3 |
 | P-29 | Shipping bin screen: Ship 1 / Ship all per good | No design in the GDD |
 
-## Provisional (made to finish M3; need the Director's confirmation)
+## Made during M3, approved by the Director on 2026-11-14
 
 | # | Decision | Reason |
 | --- | --- | --- |
@@ -81,6 +83,21 @@ until the Director confirms it.
 | P-36 | Display text for quests lives in `data/strings_en.json`, checked by the validator | Section 14's quest example uses text keys; section 18 names a string table |
 | P-37 | One Storage Chest on a fixed pad next to the shipping bin; pressing a stack moves it between backpack and chest | Section 13 says chests are "placed anywhere"; free placement is left for a later release |
 
+## Provisional (made to finish M4; need the Director's confirmation)
+
+| # | Decision | Reason |
+| --- | --- | --- |
+| P-38 | The dig site is a screen (a 6x6 grid of soil) opened from an entrance on the farm map, not a walkable map of its own | Section 15 asks for "one 6x6 dig site"; a grid screen validates Root-sense with far less work. The walkable sites belong to release R3 |
+| P-39 | MVP dig site contents: 1 husk and 2 Spirit Essence, positions rolled once per save; every other tile is plain soil. Root-sense distance counts diagonals as 1 | The MVP item list has no Clay, Amber, Fossil Seeds or scrolls; "within 1 tile" needed a distance rule |
+| P-40 | Cleaning is six scrubs by hand, each removing a patch of mud (`spirits.cleanScrubs`); it needs no Water or Lavender in the MVP | Section 9 asks for a hands-on interaction, not a progress bar; Lavender is outside the MVP |
+| P-41 | The Rootling charm is not an item: its ingredients are handed over at the bench when the sprout is woken | The MVP item list has no charm item |
+| P-42 | A spirit with nothing to do rests where it stands and recovers stamina at its normal rest rate. Without this a skill-1 Rootling stops for its 3-hour rest in the middle of a watering round and plots dry out | Section 9 gives stamina and "rest to full" but not when a spirit rests; the M4 acceptance test (16 tiles, 3 days) fails otherwise |
+| P-43 | Refilling water at the well takes one action time and no stamina (`spirits.refillActions`) | The GDD gives the carry size but no refill time |
+| P-44 | A Drowsy (unfed) spirit works at half speed and gains no skill XP, as section 9 says. Section 20 says "halves its speed and nothing else"; the two differ on skill XP | Section 9 is the design; the acceptance test checks that zone, skill level and stamina are untouched |
+| P-45 | Zone tool: walk to one corner and press the act key, walk to the opposite corner and press again; Esc cancels. Zones are outlined only while the tool is in use | Section 9 says "drags a rectangle"; with keyboard and gamepad in mind, two corners do the same job |
+| P-46 | A spirit's position is not saved; after loading it starts from the bench | SpiritInstance (section 14) has no position field |
+| P-47 | Sap is pressed at the Spirit Bench, from the cheapest common crops first; crops a story step needs are left alone | Section 15: "Sap crafted by hand" |
+
 ## Findings
 
 | # | Finding | Status |
@@ -88,3 +105,5 @@ until the Director confirms it.
 | F-01 | Economy simulator, Phase 1: income is inside the 300-600 target on days 1-3 (mean about 430) but reaches 1,500-2,000 on days 4-5 while the player is still level 4-5, because all four buyable fields (300 / 450 / 675 / 1,012 coins) are affordable by day 4. Section 10 plans only "fields 1-2" for Phase 1. Median time to level 5 is 96 minutes against a 60-90 target. Report: `qa/reports/economy_sim_m0.md` | Deferred to after the M1 playtests (D-009) |
 | F-02 | M2 acceptance "a 60-minute session reaches level 5-6": the scripted hand-play session reaches level 4 after 60 real minutes of game time (about 29 orders, 24 plots, 4 animals). Same cause as F-01's "96 minutes to level 5": XP comes mostly from orders (0.4 x goods value) and the early order budgets are small | Deferred with F-01 to the balance pass after playtests (D-009). Levers inside the Economy Balancer's remit: `xpRate.delivery`, `orders.budget`, quest XP (quests add 40 to 400 XP each from M3 and are not in this run) |
 | F-03 | M3 acceptance "4 of 5 playtesters reach an Ancient Carrot harvest without help" needs people and is open. What the machine shows: a scripted path from a new save reaches the harvest using only real actions (about 2.5 game days of production time, levels set at the gates), needing at most four Golden Carrots and one Crystal Carrot | Open until human playtests |
+| F-04 | A skill-1 Rootling cannot keep 16 Tomato plots wet when all 16 were watered at the same moment: Tomato dries in 6 hours, so all 16 fall under the watering threshold together and one round (16 x 6 minutes plus walking and a refill) takes longer than the 1.8 hours before the first plot is dry. Carrot and Wheat (8 and 12 hours) are fine, and the M4 acceptance test (16 tiles, 3 days) passes with Carrots | For the balance pass. Options: raise `job_water_plots.moistureBelow` from 30, shorten the level-1 action time, or accept it as a reason to raise the spirit's skill |
+| F-05 | Dig site: a careful player always finds the husk within 6 digs using Root-sense (a Dig Kit holds 10). A player who stops when the husk appears may still be short of Spirit Essence; the site now says how much is still buried | Informational |

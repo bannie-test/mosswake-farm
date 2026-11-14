@@ -8,6 +8,21 @@
       "from": 0,
       "to": 3,
       "fps": 5
+    },
+    "walk_s": {
+      "from": 4,
+      "to": 9,
+      "fps": 10
+    },
+    "work_s": {
+      "from": 10,
+      "to": 13,
+      "fps": 10
+    },
+    "sleep_s": {
+      "from": 14,
+      "to": 15,
+      "fps": 2
     }
   }
 }

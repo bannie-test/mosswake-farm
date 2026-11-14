@@ -25,6 +25,7 @@ FRAME = {"tiles": (16, 16), "crops": (16, 32), "characters": (32, 32), "spirits"
          "props": (16, 8), "fx": (16, 16), "buildings": (16, 16), "ui": (4, 4)}
 ANIMAL_FRAME = {"animal_chicken": (16, 16)}            # other animals are 32x32
 ID_FOLDERS = {"crops": "plant", "animals": "animal", "spirits": "spirit", "items": None}
+ID_NAMED_BUILDINGS = ("bld_", "site_")
 # Appendix A animation standards: frames per action
 FRAMES = {"characters": {"idle": 4, "walk": 6, "work": 4, "carry": 6, "celebrate": 6, "sleep": 2},
           "spirits": {"idle": 4, "walk": 6, "work": 4, "carry": 6, "celebrate": 6, "sleep": 2},

@@ -1,4 +1,0 @@
-{
-  "note": "M3 scaffolding only. Not game data. These quests need the dig site and the Spirit Bench, which arrive in M4; until then they do not start. Removed in M4.",
-  "disabledQuests": ["quest_sleeper", "quest_first_vocation"]
-}

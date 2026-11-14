@@ -182,6 +182,16 @@
     },
     "wallet": {}
   },
+  "misc": {
+    "bench": {
+      "awakenReadyAt": null,
+      "brewReadyAt": null,
+      "scrubs": 0,
+      "spiritId": "",
+      "stage": "empty"
+    },
+    "dig": {}
+  },
   "orders": [
     {
       "category": "delivery",
@@ -857,5 +867,6 @@
   "saveVersion": 1,
   "shipping": {
     "crop_carrot": 5
-  }
+  },
+  "spirits": []
 }

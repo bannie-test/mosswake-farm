@@ -45,7 +45,7 @@ func board_open() -> bool:
 
 
 func fill_slots() -> void:
-	if not board_open():
+	if not board_open() or SaveGame.loading:
 		return
 	var added := false
 	for npc_id: String in GameData.ids("npcs"):

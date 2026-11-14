@@ -102,7 +102,7 @@ func _test_quests() -> void:
 	sim.advance(180.0)
 	check(quests.is_completed("quest_what_carrots_remember") and state.is_unlocked("merge_carrot_crystal"), "three different goods complete it and reveal the Crystal Carrot recipe")
 	level_up_to(8)
-	check(active_ids().is_empty(), "The Sleeper stays off until the dig site exists (M4)")
+	check(active_ids() == ["quest_sleeper"], "The Sleeper starts at level 8, after What Carrots Remember")
 	check(state.reputation("npc_ilse") == 120, "reputation from both of Ilse's quests")
 
 

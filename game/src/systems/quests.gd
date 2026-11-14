@@ -80,6 +80,8 @@ func requirements_met(req: Dictionary) -> bool:
 
 ## Start every quest that can start now, then see whether any step is already satisfied.
 func refresh() -> void:
+	if SaveGame.loading:
+		return
 	var started := false
 	for quest_id: String in GameData.ids("quests"):
 		var q := def(quest_id)
@@ -105,14 +107,16 @@ func progress(e: Dictionary) -> Array:
 		"deliver":
 			return [mini(Inventory.count(step["itemId"]), int(step["qty"])), int(step["qty"])]
 		"produce":
-			return [mini(int(e["counters"].get(step["id"], 0)), int(step["qty"])), int(step["qty"])]
+			# goods made before the step began count too, as long as they are still held
+			return [mini(maxi(int(e["counters"].get(step["id"], 0)), Inventory.count(step["itemId"])), int(step["qty"])), int(step["qty"])]
 		"build":
 			return [mini(1, GameState.building_level(step["buildingId"])), 1]
 		"research":
 			return [mini(e["counters"].get("research", []).size(), int(step["qty"])), int(step["qty"])]
 		"reach":
 			return [mini(Inventory.count(step["itemId"]), int(step["qty"])), int(step["qty"])]
-	return [int(e["counters"].get(step["id"], 0)), 1]
+	# interact steps read the world, so doing things early never strands a quest
+	return [1 if int(e["counters"].get(step["id"], 0)) > 0 or Spirits.has_done(step["target"]) else 0, 1]
 
 
 func step_text(e: Dictionary) -> String:
@@ -196,7 +200,7 @@ var _checking := false
 
 ## Steps that finish by themselves: produce, build, research, reach, interact.
 func _check_steps() -> void:
-	if _checking:
+	if _checking or SaveGame.loading:
 		return
 	_checking = true
 	var moved := true
