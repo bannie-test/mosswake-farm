@@ -1,17 +1,38 @@
 extends Node
-## Starts a game: resets every system in order. Autoload: Session.
-## In M1 it also applies the scaffolding scenario (design/specs/m1_first_playable.md, section 6).
+## Starts or resumes a game: resets every system in order. Autoload: Session.
+## Until M3 it also applies the M2 scaffolding (dev/m2_scenario.json).
 
-const M1_SCENARIO := "res://dev/m1_scenario.json"
+const SCENARIO := "res://dev/m2_scenario.json"
+var slot := 1            ## the save slot in use; tests point it elsewhere
+
+
+func _ready() -> void:
+	var scenario: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(SCENARIO))
+	Unlocks.assumed_quests = scenario["assumeQuests"]
+	Unlocks.assumed_researched = scenario["assumeResearched"]
+	Sim.dawn.connect(func(_day: int) -> void: autosave())
 
 
 func new_game(seed_value: int) -> void:
 	GameState.new_game(seed_value)
 	Inventory.new_game()
 	Farm.new_game()
-	var scenario: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(M1_SCENARIO))
-	for building_id: String in scenario["buildings"]:
-		GameState.buildings[building_id] = int(scenario["buildings"][building_id])
-	for recipe_id: String in scenario["knownRecipes"]:
-		GameState.unlock(recipe_id)
-	Orders.new_game(scenario["orders"])
+	Animals.new_game()
+	Shipping.new_game()
+	Orders.new_game()
+
+
+## Load the slot if it holds a save; otherwise start a new game. Returns true when a save was loaded.
+func continue_or_new(seed_value: int) -> bool:
+	new_game(seed_value)
+	if SaveGame.has_save(slot) and SaveGame.load_slot(slot) == OK:
+		return true
+	return false
+
+
+var autosave_enabled := false      ## switched on by the game scene; tests leave it off
+
+
+func autosave() -> void:
+	if autosave_enabled:
+		SaveGame.save(slot)

@@ -4,6 +4,7 @@ extends Node
 
 signal changed
 signal leveled_up(level: int)
+signal building_changed(id: String)
 signal notice(text: String)          ## short messages for the HUD toasts
 
 const RNG_STREAMS := ["merge", "harvest", "orders", "breeding", "excavation"]
@@ -15,6 +16,7 @@ var rng: Dictionary = {}          # stream name -> RngStream
 
 func _ready() -> void:
 	SaveGame.register_section("player", self)
+	SaveGame.register_section("buildings", BuildingSection.new(self))
 	new_game(int(Time.get_unix_time_from_system()))
 
 
@@ -119,6 +121,43 @@ func building_level(id: String) -> int:
 	return buildings.get(id, 0)
 
 
+## Coins and materials of the next level of a building (level 1 = building it), or {} at the top.
+func next_building_level(id: String) -> Dictionary:
+	var levels: Array = GameData.def("buildings", id)["levels"]
+	var level := building_level(id)
+	return levels[level] if level < levels.size() else {}
+
+
+## "" when the next level can be built now, else the reason.
+func build_blocked(id: String) -> String:
+	var next := next_building_level(id)
+	if next.is_empty():
+		return "Fully upgraded"
+	var def: Dictionary = GameData.def("buildings", id)
+	if building_level(id) == 0 and not Unlocks.is_met(def["unlock"]):
+		return "Needs " + Unlocks.missing_text(def["unlock"])
+	if coins() < int(next["coins"]):
+		return "Need %d coins" % int(next["coins"])
+	for m: Dictionary in next["materials"]:
+		if Inventory.count(m["itemId"]) < int(m["qty"]):
+			return "Need %d %s" % [int(m["qty"]), GameData.item(m["itemId"])["name"]]
+	return ""
+
+
+func build(id: String) -> bool:
+	if build_blocked(id) != "":
+		return false
+	var next := next_building_level(id)
+	spend_coins(int(next["coins"]))
+	for m: Dictionary in next["materials"]:
+		Inventory.remove(m["itemId"], int(m["qty"]))
+	buildings[id] = building_level(id) + 1
+	player["farmPoints"] += int(GameData.def("buildings", id)["farmPoints"])
+	building_changed.emit(id)
+	changed.emit()
+	return true
+
+
 func count_produced(item_id: String, qty: int) -> void:
 	var produced: Dictionary = player["stats"]["timesProduced"]
 	produced[item_id] = produced.get(item_id, 0) + qty
@@ -144,3 +183,19 @@ func rng_state() -> Dictionary:
 func load_rng_state(data: Dictionary) -> void:
 	for stream_name: String in RNG_STREAMS:
 		rng[stream_name] = RngStream.new(int(data.get(stream_name, 0)))
+
+
+class BuildingSection:
+	var _state: Node
+	func _init(owner_: Node) -> void:
+		_state = owner_
+	func save_state() -> Array:
+		var out: Array = []
+		for id: String in _state.buildings:
+			out.append({"id": id, "level": _state.buildings[id]})
+		return out
+	func load_state(data: Array) -> void:
+		_state.buildings.clear()
+		for b: Dictionary in data:
+			_state.buildings[b["id"]] = int(b["level"])
+			_state.building_changed.emit(b["id"])

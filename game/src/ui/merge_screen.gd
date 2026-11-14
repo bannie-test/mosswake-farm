@@ -9,19 +9,29 @@ var _recipes: VBoxContainer
 var _table: VBoxContainer
 var _result: VBoxContainer
 var _selected := ""
+var _charm := ""              ## the lucky item in the charm slot, or ""
 var _banner: Label
 var _confirm: PanelContainer
 var _banner_timer: SceneTreeTimer
 
 
 func _ready() -> void:
-	var parts := UiKit.window("Merge Table", Vector2(520, 220))
+	var parts := UiKit.window("Merge Table", Vector2(560, 250))
 	add_child(parts[0])
 	var cols := HBoxContainer.new()
 	cols.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	parts[1].add_child(cols)
-	_recipes = _column(cols, "Recipes", 140)
-	_table = _column(cols, "Table", 150)
+	var list := _column(cols, "Recipes", 176)
+	var scroll := ScrollContainer.new()               # ten recipes do not fit without scrolling
+	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	scroll.custom_minimum_size = Vector2(0, 176)
+	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	scroll.follow_focus = true
+	list.add_child(scroll)
+	_recipes = VBoxContainer.new()
+	_recipes.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	scroll.add_child(_recipes)
+	_table = _column(cols, "Table", 160)
 	_result = _column(cols, "Result", 200)
 	_banner = UiKit.label("", UiKit.WOOD_DARK)
 	_banner.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -86,6 +96,10 @@ func refresh(focus_list: bool) -> void:
 		_recipes.add_child(b)
 		if recipe_id == _selected and focus_list:
 			UiKit.focus(b)
+	for recipe_id: String in Merge.unknown_recipes():      # silhouettes, with where to look
+		_recipes.add_child(UiKit.label("???  " + Merge.source_hint(recipe_id), UiKit.WOOD_LIGHT))
+	if _charm != "" and Inventory.count(_charm) == 0:
+		_charm = ""
 	_fill_table()
 	_fill_result()
 
@@ -107,7 +121,21 @@ func _fill_table() -> void:
 		_table.add_child(UiKit.label("%s  %d / %d" % [GameData.item(input["itemId"])["name"], have, int(input["qty"])],
 			UiKit.INK if have >= int(input["qty"]) else UiKit.RED))
 	_table.add_child(UiKit.label("Uses the lowest quality first", UiKit.WOOD_LIGHT))
-	_table.add_child(UiKit.label("Charm: none (lucky items arrive later)", UiKit.WOOD_LIGHT))
+	var clovers := Inventory.count("lucky_clover")
+	if not Merge.recipe(_selected)["allowLucky"] or clovers == 0:
+		_table.add_child(UiKit.label("Charm slot: empty (Tobin sells Clover)", UiKit.WOOD_LIGHT))
+	else:
+		var charm := Button.new()
+		charm.icon = SpriteSheet.item_icon("lucky_clover")
+		charm.toggle_mode = true
+		charm.button_pressed = _charm != ""
+		charm.text = "Clover in the slot (+%d)" % int(GameData.item("lucky_clover")["lucky"]["bonus"]) if _charm != "" else "Use a Clover (have %d)" % clovers
+		charm.pressed.connect(func() -> void:
+			_charm = "" if _charm != "" else "lucky_clover"
+			refresh(false))
+		_table.add_child(charm)
+		if _charm != "":
+			_table.add_child(UiKit.label("Used up by the attempt, win or lose", UiKit.WOOD_LIGHT))
 
 
 func _fill_result() -> void:
@@ -120,7 +148,7 @@ func _fill_result() -> void:
 	names.add_child(UiKit.label("worth %d" % int(out["baseValue"]), UiKit.WOOD_LIGHT))
 	head.add_child(names)
 	_result.add_child(head)
-	var chance := Merge.chance(_selected)
+	var chance := Merge.chance(_selected, _charm)
 	_result.add_child(UiKit.label("%d%%" % int(chance["total"]), UiKit.GREEN if chance["total"] >= 100.0 else UiKit.WOOD_DARK, UiKit.FONT_BIG))
 	_result.add_child(UiKit.label(breakdown_text(chance), UiKit.WOOD_LIGHT))
 	_result.add_child(UiKit.label("Fee: %d coins" % Merge.fee(_selected)))
@@ -170,7 +198,7 @@ static func failure_text(recipe_id: String, chance: Dictionary) -> String:
 
 
 func _try_merge(times: int) -> void:
-	if Merge.needs_confirmation(_selected):
+	if Merge.needs_confirmation(_selected, _charm):
 		_ask_confirmation(times)
 	else:
 		_do_merge(times)
@@ -181,7 +209,7 @@ func _ask_confirmation(times: int) -> void:
 	_confirm.position = Vector2(220, 150)
 	var v := VBoxContainer.new()
 	_confirm.add_child(v)
-	var chance := Merge.chance(_selected)
+	var chance := Merge.chance(_selected, _charm)
 	v.add_child(UiKit.label("Merge at %d%%?" % int(chance["total"])))
 	v.add_child(UiKit.label(failure_text(_selected, chance), UiKit.WOOD_LIGHT))
 	var row := HBoxContainer.new()
@@ -202,7 +230,7 @@ func _do_merge(times: int) -> void:
 	var made := 0
 	var last: Dictionary = {}
 	for i: int in range(times):
-		var result := Merge.attempt(_selected)
+		var result := Merge.attempt(_selected, _charm)
 		if result.is_empty():
 			break
 		last = result

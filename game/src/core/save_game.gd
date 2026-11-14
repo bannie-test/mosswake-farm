@@ -118,3 +118,18 @@ static func whole_numbers(value: Variant) -> Variant:
 		TYPE_ARRAY:
 			return (value as Array).map(whole_numbers)
 	return value
+
+
+## A deep copy in which floats that hold whole numbers become ints (for readable exported JSON).
+static func whole_numbers_where_whole(value: Variant) -> Variant:
+	match typeof(value):
+		TYPE_FLOAT:
+			return int(value) if value == floorf(value) else value
+		TYPE_DICTIONARY:
+			var out := {}
+			for key: Variant in value:
+				out[key] = whole_numbers_where_whole(value[key])
+			return out
+		TYPE_ARRAY:
+			return (value as Array).map(whole_numbers_where_whole)
+	return value

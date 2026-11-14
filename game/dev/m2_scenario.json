@@ -1,0 +1,5 @@
+{
+  "note": "M2 scaffolding only. Not game data. Quests and research arrive in M3; until then the unlock conditions below count as met so that every M2 feature can be reached. Level, building and reputation gates stay real. Removed in M3.",
+  "assumeQuests": ["quest_first_harvest", "quest_table_for_two"],
+  "assumeResearched": ["merged_carrot_golden", "merged_tomato_premium", "merged_egg_speckled"]
+}

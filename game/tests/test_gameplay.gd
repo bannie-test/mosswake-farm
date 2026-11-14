@@ -47,8 +47,17 @@ func check(cond: bool, what: String) -> void:
 
 func fresh(seed_value: int = 1) -> void:
 	session.new_game(seed_value)
-	for i: int in range(6):
-		farm.add_plot("field_01/%d" % i)
+	state.buildings["bld_merge_table"] = 1
+
+
+## Put a hand-written order in one of Mara's slots (the generator has its own tests in test_m2.gd).
+func set_order(slot: int, lines: Array, bonus: Array = []) -> Dictionary:
+	var key := "npc_mara/%d" % slot
+	orders.orders = orders.orders.filter(func(o: Dictionary) -> bool: return o["slot"] != key)
+	var order: Dictionary = orders.build_order("npc_mara", lines, bonus)
+	order["slot"] = key
+	orders.orders.append(order)
+	return order
 
 
 func step_until(cond: Callable, limit_minutes: int) -> float:
@@ -181,7 +190,7 @@ func _test_inventory() -> void:
 	inv.add("mat_stardust", 5)
 	inv.add("mat_feed", 4)
 	check(inv.count("mat_stardust") == 5 and inv.state["wallet"]["mat_stardust"] == 5, "wallet items take no slot")
-	check(inv.state["silo"]["mat_feed"] == 10, "Feed goes to the silo")
+	check(inv.state["silo"]["mat_feed"] == int(data.config["newGame"]["items"].filter(func(i: Dictionary) -> bool: return i["itemId"] == "mat_feed")[0]["qty"]) + 4, "Feed goes to the silo")
 	# a backpack that is full refuses the rest and loses nothing
 	fresh()
 	var slots := int(inv.state["backpack"]["slots"])
@@ -316,9 +325,8 @@ func _test_merge_outcomes() -> void:
 func _test_orders_and_levels() -> void:
 	fresh()
 	check(state.xp_to_next(1) == 80 and state.xp_to_next(2) == 230 and state.xp_to_next(3) == 420 and state.xp_to_next(10) == 2530, "the level curve matches section 10")
-	var board: Array = orders.orders_for("npc_mara")
-	check(board.size() == int(data.def("npcs", "npc_mara")["orderRules"]["deliverySlots"]), "Mara shows her delivery slots")
-	var first: Dictionary = board[0]
+	check(orders.orders_for("npc_mara").size() == int(data.def("npcs", "npc_mara")["orderRules"]["deliverySlots"]), "Mara shows her delivery slots")
+	var first: Dictionary = set_order(1, [{"itemId": "crop_carrot", "qty": 4}], [{"itemId": "seed_carrot", "qty": 4}])
 	check(first["rewards"]["coins"] == 42 and first["rewards"]["xp"] == 13 and first["rewards"]["reputation"] == 8, "4 Carrots pay 1.3x value in coins, 0.4x in XP and 8 reputation")
 	var coins_before: int = state.coins()
 	check(not orders.can_deliver(first) and not orders.deliver(first["orderId"]) and state.coins() == coins_before, "delivery without the goods changes nothing")
@@ -354,6 +362,8 @@ func _test_orders_and_levels() -> void:
 # ------------------------------------------------------------------ M1 objective
 func _test_first_loop() -> void:
 	fresh(11)
+	set_order(1, [{"itemId": "crop_carrot", "qty": 4}], [{"itemId": "seed_carrot", "qty": 4}])
+	set_order(2, [{"itemId": "merged_carrot_premium", "qty": 1}], [{"itemId": "seed_carrot", "qty": 6}])
 	var start: float = sim.game_minute
 	var coins_start: int = state.coins()
 	for i: int in range(6):

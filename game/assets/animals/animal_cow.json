@@ -1,0 +1,13 @@
+{
+  "frameSize": [
+    32,
+    32
+  ],
+  "animations": {
+    "idle_e": {
+      "from": 0,
+      "to": 3,
+      "fps": 5
+    }
+  }
+}

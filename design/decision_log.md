@@ -19,6 +19,9 @@ until the Director confirms it.
 | D-008 | 2026-11-14 | M0 accepted; go for M1. The M0 style test screen (`design/art_bible/style_test_m0.png`) is approved as the placeholder style and the master palette is locked | Milestone gate | `design/art_bible/palette.gpl` may no longer change |
 | D-009 | 2026-11-14 | Finding F-01 (Phase 1 income overshoot): re-tune after the M1 playtests, when the simulated player can be calibrated | Avoids tuning against a guess | `tools/economy_sim.py`, field prices stay as in the GDD for now |
 
+| D-010 | 2026-11-14 | M1 accepted; go for M2. The Director approved without a playtest report, so the human parts of M1's acceptance stay open: the under-10-minute first loop with real players, five internal playtests, and the 18 / 24 / 30 minute day test | Milestone gate | Carried into the M6 outside playtest at the latest |
+| D-011 | 2026-11-14 | Repository: github.com/bannie-test/mosswake-farm. `main` holds accepted milestones; each milestone is built on its own branch | Director's choice | Process |
+
 ## Made during M0, approved by the Director on 2026-11-14 ("approve all")
 
 | # | Decision | Reason |
@@ -36,7 +39,7 @@ until the Director confirms it.
 | P-11 | Renderer: GL Compatibility. Random streams: a 32-bit generator whose whole state is one integer | Runs on Steam Deck and low-end PCs; a 32-bit state survives JSON exactly, so a reload cannot change a roll |
 | P-12 | Revival Potion ID is `spirit_revival_potion`; it brews for 3 game hours as in the full design | ID rules of section 13 |
 
-## Provisional (made to finish M1; need the Director's confirmation)
+## Made during M1, approved by the Director on 2026-11-14 ("approve all, go to M2")
 
 | # | Decision | Reason |
 | --- | --- | --- |
@@ -48,8 +51,24 @@ until the Director confirms it.
 | P-18 | New numbers in `data/config.json`: the player walks 5 tiles per second; Water is offered once moisture is under 90 | The GDD gives no player speed; without the second number the Water prompt returns the instant after watering |
 | P-19 | UI text uses the engine's default font, anti-aliased, at 8 px. A proper pixel font is part of the M5 UI pass | No licensed pixel font is in the project yet |
 
+## Provisional (made to finish M2; need the Director's confirmation)
+
+| # | Decision | Reason |
+| --- | --- | --- |
+| P-20 | M2 scaffolding (`game/dev/m2_scenario.json`, removed in M3): the quests First Harvest and A Table for Two, and the first research of Golden Carrot, Premium Tomato and Speckled Egg, count as done. So the order board is open from the start and all 10 recipes can be reached. Level, building and reputation gates are real | Quests and research are M3 features, but M2 must deliver "all 10 recipes" and the order board |
+| P-21 | One order board at the gate shows every met NPC's orders. Mara's and Ilse's stalls open the same board; Tobin's cart opens his shop | The MVP has no Village Market map; "NPC stalls at the farm gate" (section 15) |
+| P-22 | Buildings stand on fixed pads marked by a sign; the act key on a pad offers to build. Upgrades are bought inside the building's screen | Section 14 gives buildings `placement: pad`; the GDD does not say how a pad is used |
+| P-23 | Bought animals arrive as babies (48 game hours before they produce); new animals start at Happiness 60. Each animal holds one finished product until it is collected | The GDD defines the stages but not the purchased stage, the starting Happiness, or what happens to an uncollected product |
+| P-24 | Daytime adds the "outdoor" +3 Happiness per hour to every fed animal automatically | The Pasture area is outside the MVP map |
+| P-25 | Feed is made in the Coop or Barn screen ("Make Feed"); animals eat from the silo the moment their hunger reaches 0 | The GDD names hand crafting of Feed but no place for it |
+| P-26 | Order generator details the algorithm leaves open: like weight 2.0 (`orders.likeWeight`); an order is "easy" when half its goods value is in stock (`orders.easyStockShare`); a fallback order prefers a crop nobody has asked for yet. Orders can be skipped from the board | Needed to implement section 8's pseudocode |
+| P-27 | Sleeping at the farmhouse door skips to 06:00 and saves. The game also saves at dawn and on quit, and resumes the save on start. Esc opens a small menu with "Start a new farm" | Section 14 (save rules); the GDD has no title screen design |
+| P-28 | The Storage Chest is deferred to M3 | It is not in M2's feature list; the Research Station, which reads from chests, arrives in M3 |
+| P-29 | Shipping bin screen: Ship 1 / Ship all per good | No design in the GDD |
+
 ## Findings
 
 | # | Finding | Status |
 | --- | --- | --- |
 | F-01 | Economy simulator, Phase 1: income is inside the 300-600 target on days 1-3 (mean about 430) but reaches 1,500-2,000 on days 4-5 while the player is still level 4-5, because all four buyable fields (300 / 450 / 675 / 1,012 coins) are affordable by day 4. Section 10 plans only "fields 1-2" for Phase 1. Median time to level 5 is 96 minutes against a 60-90 target. Report: `qa/reports/economy_sim_m0.md` | Deferred to after the M1 playtests (D-009) |
+| F-02 | M2 acceptance "a 60-minute session reaches level 5-6": the scripted hand-play session reaches level 4 after 60 real minutes of game time (about 29 orders, 24 plots, 4 animals). Same cause as F-01's "96 minutes to level 5": XP comes mostly from orders (0.4 x goods value) and the early order budgets are small | Deferred with F-01 to the balance pass after playtests (D-009). Levers inside the Economy Balancer's remit: `xpRate.delivery`, `orders.budget`, quest XP (quests add 40 to 400 XP each from M3 and are not in this run) |

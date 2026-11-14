@@ -131,9 +131,19 @@ func prompt() -> String:
 		"merge_table":
 			return "Merge Table"
 		"order_board":
-			return "%s's orders" % GameData.def("npcs", target["npcId"])["name"].get_slice(" ", 0)
-		"locked_field":
-			return ""
+			return "Order board"
+		"shop":
+			return "%s's cart" % GameData.def("npcs", target["npcId"])["name"].get_slice(" ", 0)
+		"housing":
+			return GameData.def("buildings", target["buildingId"])["name"]
+		"bin":
+			return "Shipping bin"
+		"bed":
+			return "Sleep until morning"
+		"build_pad":
+			return "Build: " + GameData.def("buildings", target["buildingId"])["name"]
+		"field_sale":
+			return "Buy this field" if Farm.can_buy_field() else ""
 	return ""
 
 
@@ -158,7 +168,8 @@ func act() -> void:
 					Farm.clear(id)
 					Sfx.play("till")
 			target_changed.emit()
-		"merge_table", "order_board":
-			opened.emit(target["kind"], target)
-		"locked_field":
-			GameState.notice.emit("This field can be bought from M2 on")
+		"":
+			pass
+		_:
+			if prompt() != "":
+				opened.emit(target["kind"], target)

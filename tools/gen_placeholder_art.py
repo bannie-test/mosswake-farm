@@ -656,6 +656,236 @@ def icons():
     save(outline(drop), "ui/water.png")
 
 
+# ------------------------------------------------------------------ M2 additions
+def m2_crops():
+    for kind in ("tomato", "sunflower"):
+        f = [new(16, 32) for _ in range(7)]
+        by = 28
+        px(f[0], [(7, by), (8, by), (9, by)], S[3]); px(f[0], [(8, by - 1)], S[4]); px(f[0], [(7, by + 1), (8, by + 1), (9, by + 1)], S[0])
+        px(f[1], [(8, by), (8, by - 1), (8, by - 2)], G[2]); px(f[1], [(7, by - 3), (6, by - 3)], G[3]); px(f[1], [(9, by - 3), (10, by - 4)], G[1])
+        for i, h in enumerate((7, 12, 17) if kind == "tomato" else (8, 15, 22)):
+            fr = f[2 + i]
+            rect(fr, 8, by - h, 8, by, G[1])                              # stem
+            if kind == "tomato":
+                rect(fr, 7, by - h, 7, by, W[2])                          # stake
+                for k, yy in enumerate(range(by - 3, by - h, -4)):
+                    side = -1 if k % 2 else 1
+                    ellipse(fr, 8 + side * 4 - 2, yy - 2, 8 + side * 4 + 2, yy + 1, G[2])
+                    px(fr, [(8 + side * 4 - 1, yy - 2), (8 + side * 4, yy - 2)], G[3])
+                    px(fr, [(8 + side, yy), (8 + side * 2, yy)], G[1])
+                    if i == 2:
+                        fx = 8 - side * 3
+                        ellipse(fr, fx - 1, yy - 1, fx + 1, yy + 1, RED)
+                        px(fr, [(fx - 1, yy - 1)], ORANGE)
+            else:
+                for k, yy in enumerate(range(by - 3, by - h + 3, -4)):
+                    side = -1 if k % 2 else 1
+                    px(fr, [(8 + side, yy), (8 + side * 2, yy - 1), (8 + side * 3, yy - 1), (8 + side * 2, yy)], G[2])
+                    px(fr, [(8 + side * 3, yy - 2)], G[3])
+                top = by - h
+                if i == 2:                                               # the flower head
+                    ellipse(fr, 4, top - 5, 12, top + 3, YELLOW)
+                    px(fr, [(4, top - 1), (12, top - 1), (8, top - 5), (8, top + 3)], ORANGE)
+                    ellipse(fr, 6, top - 3, 10, top + 1, W[1])
+                    px(fr, [(7, top - 2), (8, top - 2)], W[2])
+                else:
+                    ellipse(fr, 6, top - 2, 10, top + 1, G[3])
+        px(f[5], [(6, by), (7, by), (8, by), (9, by), (10, by)], S[0]); px(f[5], [(7, by - 1), (8, by - 1), (9, by - 1)], S[1])
+        w_ = f[6]
+        rect(w_, 8, by - 9, 8, by, W[1])
+        px(w_, [(9, by - 9), (10, by - 8), (11, by - 7), (11, by - 6), (7, by - 5), (6, by - 4), (5, by - 3)], S[2])
+        px(w_, [(11, by - 5), (5, by - 2)], S[3])
+        save(strip(f), f"crops/plant_{kind}.png", {"frameSize": [16, 32], "frames": [f"stage_{i}" for i in range(7)]})
+
+
+def npc_frame(hair, hair_sh, top, top_sh, apron=None, hat=None, glasses=False, bob=0):
+    img = new(32, 32)
+    y = bob
+    rect(img, 10, 16 + y, 21, 28, top); rect(img, 19, 17 + y, 21, 28, top_sh)
+    rect(img, 12, 28, 14, 29, W[0]); rect(img, 17, 28, 19, 29, W[0])
+    if apron:
+        rect(img, 12, 18 + y, 19, 27, apron[0]); rect(img, 18, 19 + y, 19, 27, apron[1])
+    rect(img, 8, 17 + y, 9, 22 + y, top); rect(img, 8, 22 + y, 9, 23 + y, B[3])
+    rect(img, 22, 17 + y, 23, 22 + y, top_sh); rect(img, 22, 22 + y, 23, 23 + y, B[2])
+    ellipse(img, 10, 5 + y, 21, 15 + y, B[3]); rect(img, 19, 9 + y, 20, 13 + y, B[2])
+    rect(img, 10, 4 + y, 21, 8 + y, hair); rect(img, 10, 8 + y, 11, 12 + y, hair); rect(img, 20, 8 + y, 21, 11 + y, hair_sh)
+    px(img, [(13, 11 + y), (13, 12 + y), (18, 11 + y), (18, 12 + y)], OUT)
+    px(img, [(15, 14 + y), (16, 14 + y)], B[0])
+    if glasses:
+        px(img, [(12, 10 + y), (13, 10 + y), (14, 10 + y), (12, 13 + y), (14, 13 + y), (17, 10 + y), (18, 10 + y), (19, 10 + y), (17, 13 + y), (19, 13 + y), (15, 11 + y), (16, 11 + y)], T[1])
+    if hat:
+        rect(img, 8, 5 + y, 23, 6 + y, hat[0]); rect(img, 11, 1 + y, 20, 4 + y, hat[0]); rect(img, 11, 4 + y, 20, 4 + y, hat[1]); rect(img, 18, 1 + y, 20, 3 + y, hat[1])
+    return outline(img)
+
+
+def m2_npcs():
+    tobin = [npc_frame(W[1], W[0], PURPLE, K[0], hat=(W[2], W[1]), bob=b) for b in (0, 0, 1, 1)]
+    save(strip(tobin), "characters/npc_tobin.png", {"frameSize": [32, 32], "animations": {"idle_s": {"from": 0, "to": 3, "fps": 5}}})
+    ilse = [npc_frame(T[2], T[1], K[0], OUT, apron=(T[3], T[2]), glasses=True, bob=b) for b in (0, 0, 1, 1)]
+    save(strip(ilse), "characters/npc_ilse.png", {"frameSize": [32, 32], "animations": {"idle_s": {"from": 0, "to": 3, "fps": 5}}})
+
+
+def stall_like(a, a_sh, b, b_sh, goods, name):
+    stall = new(48, 48)
+    rect(stall, 3, 22, 44, 44, W[2]); rect(stall, 3, 22, 44, 24, W[3]); rect(stall, 3, 43, 44, 45, W[0])
+    for x in range(8, 44, 7):
+        rect(stall, x, 26, x, 42, W[1])
+    rect(stall, 3, 6, 5, 45, W[1]); rect(stall, 42, 6, 44, 45, W[1])
+    for i, x in enumerate(range(0, 48, 6)):
+        rect(stall, x, 2, x + 5, 12, a if i % 2 == 0 else b)
+        rect(stall, x, 11, x + 5, 12, a_sh if i % 2 == 0 else b_sh)
+        px(stall, [(x + 1, 13), (x + 2, 13), (x + 3, 13), (x + 4, 13), (x + 2, 14), (x + 3, 14)], a if i % 2 == 0 else b)
+    rect(stall, 0, 1, 47, 1, W[1])
+    for x, c in goods:
+        ellipse(stall, x, 18, x + 4, 22, c); px(stall, [(x + 1, 19)], B[3])
+    save(stall, name)
+
+
+def animal_frames(kind):
+    out = []
+    for bob in (0, 0, 1, 0):
+        img = new(32, 32)
+        if kind == "cow":
+            body, sh, spot = B[3], T[3], W[1]
+            ellipse(img, 3, 10, 26, 25, body); rect(img, 20, 12, 25, 24, sh)
+            ellipse(img, 8, 12, 14, 18, spot); ellipse(img, 16, 17, 21, 22, spot)
+            for x in (6, 11, 18, 22):
+                rect(img, x, 24, x + 2, 29, body if x < 15 else sh); rect(img, x, 29, x + 2, 30, W[0])
+            rect(img, 22, 6 + bob, 30, 16 + bob, body); rect(img, 24, 13 + bob, 30, 16 + bob, PINK)
+            px(img, [(25, 15 + bob), (29, 15 + bob)], B[0]); px(img, [(24, 9 + bob), (28, 9 + bob)], OUT)
+            px(img, [(22, 5 + bob), (21, 4 + bob), (30, 5 + bob), (31, 4 + bob)], T[3]); rect(img, 22, 6 + bob, 23, 8 + bob, spot)
+            px(img, [(2, 12), (1, 13), (1, 14), (1, 15)], spot); rect(img, 12, 25, 16, 26, PINK)
+        else:
+            body, sh = T[3], T[2]
+            for cx, cy in ((7, 15), (13, 12), (19, 13), (22, 17), (9, 20), (16, 20)):
+                ellipse(img, cx - 6, cy - 5, cx + 6, cy + 5, body)
+            for cx, cy in ((20, 20), (23, 17)):
+                ellipse(img, cx - 3, cy - 2, cx + 3, cy + 3, sh)
+            px(img, [(8, 12), (9, 12), (14, 10), (15, 10), (9, 13)], K[3])
+            for x in (7, 12, 18, 22):
+                rect(img, x, 24, x + 1, 29, W[1]); rect(img, x, 29, x + 1, 30, W[0])
+            rect(img, 23, 9 + bob, 29, 17 + bob, W[1]); rect(img, 27, 10 + bob, 29, 17 + bob, W[0])
+            px(img, [(24, 12 + bob), (27, 12 + bob)], B[3]); px(img, [(22, 10 + bob), (30, 10 + bob)], W[1])
+            ellipse(img, 22, 5 + bob, 30, 10 + bob, body)
+        out.append(outline(img))
+    return out
+
+
+def m2_buildings():
+    stall_like(PURPLE, K[0], S[4], S[3], [(9, YELLOW), (15, G[3]), (21, PINK), (27, YELLOW), (33, ORANGE), (38, TEAL)], "buildings/npc_cart_tobin.png")
+    stall_like(K[0], OUT, T[3], T[2], [(10, T[3]), (17, K[2]), (24, AMBER), (31, T[3]), (37, K[1])], "buildings/npc_stall_ilse.png")
+    for kind in ("cow", "sheep"):
+        save(strip(animal_frames(kind)), f"animals/animal_{kind}.png", {"frameSize": [32, 32], "animations": {"idle_e": {"from": 0, "to": 3, "fps": 5}}})
+
+    def shed(w, h, wall, wall_sh, roof_c, roof_sh, name, door_w):
+        img = new(w, h)
+        top = h * 2 // 5
+        rect(img, 3, top, w - 4, h - 1, wall); rect(img, w - 12, top, w - 4, h - 1, wall_sh)
+        for x in range(3, w - 3, 5):
+            rect(img, x, top, x, h - 1, wall_sh)
+        rect(img, 3, h - 4, w - 4, h - 1, T[1]); rect(img, 3, h - 4, w - 4, h - 4, T[2])
+        dx = (w - door_w) // 2
+        rect(img, dx, h - 5 - door_w, dx + door_w, h - 1, W[0]); rect(img, dx + 2, h - 3 - door_w, dx + door_w - 2, h - 1, W[1])
+        px(img, [(dx + door_w - 4, h - 8)], AMBER)
+        for row in range(top // 4 + 1):
+            y0 = 1 + row * 4
+            inset = max(0, 6 - row * 2)
+            rect(img, inset, y0, w - 1 - inset, y0 + 3, roof_c); rect(img, inset, y0 + 3, w - 1 - inset, y0 + 3, roof_sh)
+            for x in range(inset + (2 if row % 2 else 0), w - inset, 5):
+                rect(img, x, y0, x, y0 + 2, roof_sh)
+        if w < 60:
+            rect(img, 6, top + 6, 13, top + 11, W[0]); rect(img, 7, top + 7, 12, top + 10, K[1])
+        else:
+            rect(img, 8, top + 8, 19, top + 17, W[0]); rect(img, 9, top + 9, 18, top + 16, K[1])
+            rect(img, w - 20, top + 8, w - 9, top + 17, W[0]); rect(img, w - 19, top + 9, w - 10, top + 16, K[0])
+        save(img, name)
+
+    shed(48, 48, W[3], W[2], B[1], B[0], "buildings/bld_coop.png", 10)
+    shed(64, 64, B[0], W[1], T[2], T[1], "buildings/bld_barn.png", 18)
+    binp = new(16, 16)
+    rect(binp, 1, 5, 14, 14, W[2]); rect(binp, 1, 5, 14, 6, W[3]); rect(binp, 11, 7, 14, 14, W[1]); rect(binp, 1, 14, 14, 15, W[0])
+    for x in (5, 10):
+        rect(binp, x, 7, x, 13, W[1])
+    rect(binp, 0, 3, 15, 4, B[1]); rect(binp, 0, 4, 15, 4, B[0])
+    px(binp, [(7, 9), (8, 9), (7, 10), (8, 10)], AMBER)
+    save(binp, "props/shipping_bin.png")
+    pad = new(16, 16, S[3])
+    rng = random.Random(8)
+    clusters(pad, rng, [S[2]], 5); clusters(pad, rng, [S[4]], 3)
+    px(pad, [(x, 0) for x in range(0, 16, 2)] + [(0, y) for y in range(0, 16, 2)], W[1])
+    save(pad, "tiles/build_pad.png", {"frameSize": [16, 16], "tiles": ["pad"]})
+    ready = strip([new(16, 16), new(16, 16)])
+    for off, dy in ((0, 0), (16, -1)):
+        px(ready, [(off + 7, 4 + dy), (off + 8, 4 + dy), (off + 7, 5 + dy), (off + 8, 5 + dy), (off + 7, 6 + dy), (off + 8, 6 + dy), (off + 7, 7 + dy), (off + 8, 7 + dy), (off + 7, 10 + dy), (off + 8, 10 + dy)], AMBER)
+    save(outline(ready), "fx/ready_mark.png", {"frameSize": [16, 16], "animations": {"sparkle": {"from": 0, "to": 1, "fps": 3}}})
+
+
+def m2_icons():
+    def blob(c, sh, hi, leaf=None, speck=None, tall=False):
+        img = new(16, 16)
+        ellipse(img, 4, 3 if tall else 5, 11, 13, c)
+        px(img, [(10, 11), (11, 10), (10, 12), (9, 13), (8, 13), (11, 9)], sh)
+        px(img, [(5, 6 if not tall else 5), (6, 5 if not tall else 4), (5, 7 if not tall else 6)], hi)
+        if leaf:
+            px(img, [(7, 4), (8, 4), (6, 3), (9, 3), (8, 5)] if not tall else [], leaf)
+        for pt in speck or []:
+            px(img, [pt], sh)
+        return img
+    save(outline(blob(RED, B[0], PINK, leaf=G[1])), "items/crop_tomato.png")
+    t2 = blob(RED, B[0], PINK, leaf=G[1]); px(t2, [(2, 2), (1, 3), (2, 3), (3, 3), (2, 4)], AMBER); save(outline(t2), "items/merged_tomato_premium.png")
+    t3 = blob(YELLOW, ORANGE, AMBER, leaf=G[1]); px(t3, [(2, 2), (1, 3), (2, 3), (3, 3), (2, 4), (13, 11), (12, 12), (13, 12), (14, 12), (13, 13)], AMBER); save(outline(t3), "items/merged_tomato_golden.png")
+    save(outline(blob(B[3], T[3], K[3], tall=True)), "items/prod_egg.png")
+    save(outline(blob(B[3], T[3], K[3], tall=True, speck=[(6, 7), (9, 6), (7, 10), (9, 10), (6, 11)])), "items/merged_egg_speckled.png")
+    save(outline(blob(YELLOW, ORANGE, AMBER, tall=True)), "items/merged_egg_golden.png")
+    save(outline(blob(T[3], T[2], K[3])), "items/prod_wool.png")
+
+    def bottle(liquid, cap):
+        img = new(16, 16)
+        rect(img, 5, 6, 10, 13, K[3]); rect(img, 5, 8, 10, 13, liquid); rect(img, 9, 8, 10, 13, T[3]); rect(img, 6, 3, 9, 5, K[3]); rect(img, 6, 2, 9, 2, cap)
+        px(img, [(6, 7)], K[2])
+        return outline(img)
+    save(bottle(B[3], RED), "items/prod_milk.png")
+    save(bottle(AMBER, YELLOW), "items/merged_cream.png")
+    bale = new(16, 16)
+    rect(bale, 3, 5, 12, 12, T[3]); rect(bale, 10, 6, 12, 12, T[2]); rect(bale, 3, 7, 12, 7, RED); rect(bale, 3, 10, 12, 10, RED); px(bale, [(4, 6), (5, 6)], K[3])
+    save(outline(bale), "items/merged_wool_bale_fine.png")
+    for name, bunch in (("crop_sunflower", 1), ("merged_sun_bouquet", 3)):
+        img = new(16, 16)
+        for i in range(bunch):
+            cx = 8 if bunch == 1 else 4 + i * 4
+            cy = 6 if bunch == 1 else 5 + (i % 2)
+            rect(img, cx, cy + 2, cx, 13, G[1])
+            ellipse(img, cx - 3, cy - 3, cx + 3, cy + 3, YELLOW)
+            px(img, [(cx - 3, cy), (cx + 3, cy), (cx, cy - 3), (cx, cy + 3)], ORANGE)
+            ellipse(img, cx - 1, cy - 1, cx + 1, cy + 1, W[1])
+        if bunch == 3:
+            rect(img, 4, 11, 12, 12, PINK)
+        save(outline(img), f"items/{name}.png")
+    save(outline(carrot_icon(K[2], K[0], K[3])), "items/merged_carrot_crystal.png")
+    save(outline(carrot_icon(PURPLE, K[0], PINK)), "items/crop_carrot_ancient.png")
+    save(seed_bag(RED), "items/seed_tomato.png")
+    save(seed_bag(W[1]), "items/seed_sunflower.png")
+    save(seed_bag(PURPLE), "items/seed_carrot_ancient.png")
+    feed = new(16, 16)
+    rect(feed, 4, 5, 11, 13, S[3]); rect(feed, 10, 6, 11, 13, S[2]); rect(feed, 5, 3, 10, 4, S[3]); rect(feed, 6, 4, 9, 4, W[1])
+    px(feed, [(6, 8), (8, 9), (7, 11), (9, 7)], YELLOW)
+    save(outline(feed), "items/mat_feed.png")
+    star = new(16, 16)
+    px(star, [(8, 3), (8, 4), (7, 5), (8, 5), (9, 5), (5, 6), (6, 6), (7, 6), (8, 6), (9, 6), (10, 6), (11, 6), (6, 7), (7, 7), (8, 7), (9, 7), (10, 7), (7, 8), (8, 8), (9, 8), (6, 9), (7, 9), (9, 9), (10, 9), (6, 10), (10, 10)], AMBER)
+    px(star, [(8, 6), (8, 7), (7, 7)], K[3])
+    save(outline(star), "items/mat_stardust.png")
+    clover = new(16, 16)
+    for cx, cy in ((6, 6), (10, 6), (6, 10), (10, 10)):
+        ellipse(clover, cx - 2, cy - 2, cx + 2, cy + 2, G[2])
+        px(clover, [(cx - 1, cy - 1)], G[3])
+    px(clover, [(8, 8)], G[0]); px(clover, [(9, 12), (10, 13), (11, 14)], G[1])
+    save(outline(clover), "items/lucky_clover.png")
+    heart = new(8, 8)
+    px(heart, [(1, 2), (2, 1), (3, 2), (4, 2), (5, 1), (6, 2), (1, 3), (2, 3), (3, 3), (4, 3), (5, 3), (6, 3), (2, 4), (3, 4), (4, 4), (5, 4), (3, 5), (4, 5), (2, 2), (5, 2)], RED)
+    px(heart, [(2, 2)], PINK)
+    save(outline(heart), "ui/heart.png")
+
+
 def main():
     write_palette()
     ground_tiles()
@@ -669,6 +899,10 @@ def main():
     npcs()
     m1_buildings()
     icons()
+    m2_crops()
+    m2_npcs()
+    m2_buildings()
+    m2_icons()
     print("placeholder art written to", os.path.relpath(ASSETS, ROOT))
 
 

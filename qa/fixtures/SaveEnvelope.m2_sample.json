@@ -1,0 +1,840 @@
+{
+  "animals": [
+    {
+      "animalId": "animal_chicken",
+      "bornAt": -2520,
+      "breedReadyAt": 0,
+      "fertility": 0,
+      "happiness": 80.55,
+      "health": 100,
+      "housingId": "bld_coop#1",
+      "hunger": 30.625,
+      "instanceId": "an_0001",
+      "name": "Pip",
+      "oneTimeGiven": [],
+      "parents": [],
+      "pettedDay": 1,
+      "productionProgress": 0.844535,
+      "rarity": "common",
+      "stage": "adult",
+      "traits": []
+    },
+    {
+      "animalId": "animal_chicken",
+      "bornAt": -2520,
+      "breedReadyAt": 0,
+      "fertility": 0,
+      "happiness": 65.55,
+      "health": 100,
+      "housingId": "bld_coop#1",
+      "hunger": 30.625,
+      "instanceId": "an_0002",
+      "name": "Clover",
+      "oneTimeGiven": [],
+      "parents": [],
+      "pettedDay": 0,
+      "productionProgress": 0.789035,
+      "rarity": "common",
+      "stage": "adult",
+      "traits": []
+    },
+    {
+      "animalId": "animal_chicken",
+      "bornAt": -2520,
+      "breedReadyAt": 0,
+      "fertility": 0,
+      "happiness": 65.55,
+      "health": 100,
+      "housingId": "bld_coop#1",
+      "hunger": 30.625,
+      "instanceId": "an_0003",
+      "name": "Hazel",
+      "oneTimeGiven": [],
+      "parents": [],
+      "pettedDay": 0,
+      "productionProgress": 0.789035,
+      "rarity": "common",
+      "stage": "adult",
+      "traits": []
+    },
+    {
+      "animalId": "animal_chicken",
+      "bornAt": -2520,
+      "breedReadyAt": 0,
+      "fertility": 0,
+      "happiness": 65.55,
+      "health": 100,
+      "housingId": "bld_coop#1",
+      "hunger": 30.625,
+      "instanceId": "an_0004",
+      "name": "Dot",
+      "oneTimeGiven": [],
+      "parents": [],
+      "pettedDay": 0,
+      "productionProgress": 0.789035,
+      "rarity": "common",
+      "stage": "adult",
+      "traits": []
+    },
+    {
+      "animalId": "animal_cow",
+      "bornAt": -2520,
+      "breedReadyAt": 0,
+      "fertility": 0,
+      "happiness": 65.55,
+      "health": 100,
+      "housingId": "bld_barn#1",
+      "hunger": 30.625,
+      "instanceId": "an_0005",
+      "name": "Bramble",
+      "oneTimeGiven": [],
+      "parents": [],
+      "pettedDay": 0,
+      "productionProgress": 0.59177625,
+      "rarity": "common",
+      "stage": "adult",
+      "traits": []
+    },
+    {
+      "animalId": "animal_cow",
+      "bornAt": -2520,
+      "breedReadyAt": 0,
+      "fertility": 0,
+      "happiness": 65.55,
+      "health": 100,
+      "housingId": "bld_barn#1",
+      "hunger": 30.625,
+      "instanceId": "an_0006",
+      "name": "Moss",
+      "oneTimeGiven": [],
+      "parents": [],
+      "pettedDay": 0,
+      "productionProgress": 0.59177625,
+      "rarity": "common",
+      "stage": "adult",
+      "traits": []
+    }
+  ],
+  "buildings": [
+    {
+      "id": "bld_coop",
+      "level": 2
+    },
+    {
+      "id": "bld_shipping_bin",
+      "level": 1
+    },
+    {
+      "id": "bld_well",
+      "level": 1
+    },
+    {
+      "id": "bld_merge_table",
+      "level": 1
+    },
+    {
+      "id": "bld_barn",
+      "level": 1
+    }
+  ],
+  "dataVersion": "0.1.0",
+  "gameMinute": 693,
+  "inventory": {
+    "backpack": {
+      "slots": 24,
+      "stacks": [
+        {
+          "itemId": "seed_carrot",
+          "qty": 6,
+          "quality": 1
+        },
+        {
+          "itemId": "seed_wheat",
+          "qty": 6,
+          "quality": 1
+        },
+        {
+          "itemId": "seed_tomato",
+          "qty": 1,
+          "quality": 1
+        },
+        {
+          "itemId": "crop_carrot",
+          "qty": 22,
+          "quality": 1
+        },
+        {
+          "itemId": "merged_carrot_golden",
+          "qty": 2,
+          "quality": 3
+        },
+        {
+          "itemId": "merged_carrot_premium",
+          "qty": 1,
+          "quality": 1
+        }
+      ]
+    },
+    "chests": {},
+    "questPouch": [],
+    "silo": {
+      "mat_feed": 6
+    },
+    "wallet": {}
+  },
+  "orders": [
+    {
+      "category": "delivery",
+      "createdAt": 360,
+      "expiresAt": null,
+      "lines": [
+        {
+          "itemId": "crop_carrot",
+          "minQuality": 1,
+          "qty": 6
+        }
+      ],
+      "npcId": "npc_mara",
+      "orderId": "ord_000012",
+      "pinnedForSpirit": false,
+      "rewards": {
+        "bonusItems": [],
+        "coins": 62,
+        "reputation": 8,
+        "xp": 19
+      },
+      "slot": "npc_mara/2"
+    },
+    {
+      "category": "delivery",
+      "createdAt": 360,
+      "expiresAt": null,
+      "lines": [
+        {
+          "itemId": "crop_wheat",
+          "minQuality": 1,
+          "qty": 4
+        }
+      ],
+      "npcId": "npc_tobin",
+      "orderId": "ord_000013",
+      "pinnedForSpirit": false,
+      "rewards": {
+        "bonusItems": [],
+        "coins": 16,
+        "reputation": 8,
+        "xp": 5
+      },
+      "slot": "npc_tobin/1"
+    },
+    {
+      "category": "delivery",
+      "createdAt": 360,
+      "expiresAt": null,
+      "lines": [
+        {
+          "itemId": "crop_wheat",
+          "minQuality": 1,
+          "qty": 6
+        }
+      ],
+      "npcId": "npc_tobin",
+      "orderId": "ord_000014",
+      "pinnedForSpirit": false,
+      "rewards": {
+        "bonusItems": [],
+        "coins": 23,
+        "reputation": 8,
+        "xp": 7
+      },
+      "slot": "npc_tobin/2"
+    },
+    {
+      "category": "delivery",
+      "createdAt": 360,
+      "expiresAt": null,
+      "lines": [
+        {
+          "itemId": "crop_sunflower",
+          "minQuality": 1,
+          "qty": 5
+        }
+      ],
+      "npcId": "npc_ilse",
+      "orderId": "ord_000020",
+      "pinnedForSpirit": false,
+      "rewards": {
+        "bonusItems": [],
+        "coins": 143,
+        "reputation": 8,
+        "xp": 44
+      },
+      "slot": "npc_ilse/1"
+    },
+    {
+      "category": "delivery",
+      "createdAt": 360,
+      "expiresAt": null,
+      "lines": [
+        {
+          "itemId": "crop_tomato",
+          "minQuality": 1,
+          "qty": 5
+        }
+      ],
+      "npcId": "npc_ilse",
+      "orderId": "ord_000021",
+      "pinnedForSpirit": false,
+      "rewards": {
+        "bonusItems": [],
+        "coins": 39,
+        "reputation": 8,
+        "xp": 12
+      },
+      "slot": "npc_ilse/2"
+    },
+    {
+      "category": "delivery",
+      "createdAt": 420,
+      "expiresAt": null,
+      "lines": [
+        {
+          "itemId": "merged_cream",
+          "minQuality": 1,
+          "qty": 1
+        },
+        {
+          "itemId": "merged_egg_speckled",
+          "minQuality": 1,
+          "qty": 2
+        }
+      ],
+      "npcId": "npc_mara",
+      "orderId": "ord_000022",
+      "pinnedForSpirit": false,
+      "rewards": {
+        "bonusItems": [],
+        "coins": 311,
+        "reputation": 8,
+        "xp": 96
+      },
+      "slot": "npc_mara/1"
+    }
+  ],
+  "player": {
+    "coins": 1197,
+    "farmPoints": 1,
+    "level": 6,
+    "mergeMastery": {
+      "merge_carrot_premium": 1
+    },
+    "mergePity": {
+      "merge_carrot_premium": 0
+    },
+    "reputation": {
+      "npc_tobin": 120
+    },
+    "stats": {
+      "ordersCompleted": 0,
+      "timesProduced": {
+        "merged_carrot_premium": 1
+      }
+    },
+    "unlocked": [],
+    "xp": 3
+  },
+  "plots": [
+    {
+      "dryMinutes": 0,
+      "everDry": false,
+      "fertilizerItemId": null,
+      "growthMinutes": 333,
+      "harvestsTaken": 0,
+      "matureSince": null,
+      "moisture": 7.49999999999998,
+      "plantId": "plant_tomato",
+      "plantedAt": 360,
+      "plotId": "field_01/0",
+      "state": "growing"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": false,
+      "fertilizerItemId": null,
+      "growthMinutes": 0,
+      "harvestsTaken": 0,
+      "matureSince": null,
+      "moisture": 0,
+      "plantId": null,
+      "plantedAt": null,
+      "plotId": "field_01/1",
+      "state": "empty"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": false,
+      "fertilizerItemId": null,
+      "growthMinutes": 0,
+      "harvestsTaken": 0,
+      "matureSince": null,
+      "moisture": 0,
+      "plantId": null,
+      "plantedAt": null,
+      "plotId": "field_01/2",
+      "state": "empty"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": false,
+      "fertilizerItemId": null,
+      "growthMinutes": 0,
+      "harvestsTaken": 0,
+      "matureSince": null,
+      "moisture": 0,
+      "plantId": null,
+      "plantedAt": null,
+      "plotId": "field_01/3",
+      "state": "empty"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": false,
+      "fertilizerItemId": null,
+      "growthMinutes": 0,
+      "harvestsTaken": 0,
+      "matureSince": null,
+      "moisture": 0,
+      "plantId": null,
+      "plantedAt": null,
+      "plotId": "field_01/4",
+      "state": "empty"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": false,
+      "fertilizerItemId": null,
+      "growthMinutes": 0,
+      "harvestsTaken": 0,
+      "matureSince": null,
+      "moisture": 0,
+      "plantId": null,
+      "plantedAt": null,
+      "plotId": "field_01/5",
+      "state": "empty"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": false,
+      "fertilizerItemId": null,
+      "growthMinutes": 0,
+      "harvestsTaken": 0,
+      "matureSince": null,
+      "moisture": 0,
+      "plantId": null,
+      "plantedAt": null,
+      "plotId": "field_02/0",
+      "state": "empty"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": false,
+      "fertilizerItemId": null,
+      "growthMinutes": 0,
+      "harvestsTaken": 0,
+      "matureSince": null,
+      "moisture": 0,
+      "plantId": null,
+      "plantedAt": null,
+      "plotId": "field_02/1",
+      "state": "empty"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": false,
+      "fertilizerItemId": null,
+      "growthMinutes": 0,
+      "harvestsTaken": 0,
+      "matureSince": null,
+      "moisture": 0,
+      "plantId": null,
+      "plantedAt": null,
+      "plotId": "field_02/2",
+      "state": "empty"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": false,
+      "fertilizerItemId": null,
+      "growthMinutes": 0,
+      "harvestsTaken": 0,
+      "matureSince": null,
+      "moisture": 0,
+      "plantId": null,
+      "plantedAt": null,
+      "plotId": "field_02/3",
+      "state": "empty"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": false,
+      "fertilizerItemId": null,
+      "growthMinutes": 0,
+      "harvestsTaken": 0,
+      "matureSince": null,
+      "moisture": 0,
+      "plantId": null,
+      "plantedAt": null,
+      "plotId": "field_02/4",
+      "state": "empty"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": false,
+      "fertilizerItemId": null,
+      "growthMinutes": 0,
+      "harvestsTaken": 0,
+      "matureSince": null,
+      "moisture": 0,
+      "plantId": null,
+      "plantedAt": null,
+      "plotId": "field_02/5",
+      "state": "empty"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": false,
+      "fertilizerItemId": null,
+      "growthMinutes": 0,
+      "harvestsTaken": 0,
+      "matureSince": null,
+      "moisture": 0,
+      "plantId": null,
+      "plantedAt": null,
+      "plotId": "field_03/0",
+      "state": "empty"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": false,
+      "fertilizerItemId": null,
+      "growthMinutes": 0,
+      "harvestsTaken": 0,
+      "matureSince": null,
+      "moisture": 0,
+      "plantId": null,
+      "plantedAt": null,
+      "plotId": "field_03/1",
+      "state": "empty"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": false,
+      "fertilizerItemId": null,
+      "growthMinutes": 0,
+      "harvestsTaken": 0,
+      "matureSince": null,
+      "moisture": 0,
+      "plantId": null,
+      "plantedAt": null,
+      "plotId": "field_03/2",
+      "state": "empty"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": false,
+      "fertilizerItemId": null,
+      "growthMinutes": 0,
+      "harvestsTaken": 0,
+      "matureSince": null,
+      "moisture": 0,
+      "plantId": null,
+      "plantedAt": null,
+      "plotId": "field_03/3",
+      "state": "empty"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": false,
+      "fertilizerItemId": null,
+      "growthMinutes": 0,
+      "harvestsTaken": 0,
+      "matureSince": null,
+      "moisture": 0,
+      "plantId": null,
+      "plantedAt": null,
+      "plotId": "field_03/4",
+      "state": "empty"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": false,
+      "fertilizerItemId": null,
+      "growthMinutes": 0,
+      "harvestsTaken": 0,
+      "matureSince": null,
+      "moisture": 0,
+      "plantId": null,
+      "plantedAt": null,
+      "plotId": "field_03/5",
+      "state": "empty"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": false,
+      "fertilizerItemId": null,
+      "growthMinutes": 0,
+      "harvestsTaken": 0,
+      "matureSince": null,
+      "moisture": 0,
+      "plantId": null,
+      "plantedAt": null,
+      "plotId": "field_04/0",
+      "state": "empty"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": false,
+      "fertilizerItemId": null,
+      "growthMinutes": 0,
+      "harvestsTaken": 0,
+      "matureSince": null,
+      "moisture": 0,
+      "plantId": null,
+      "plantedAt": null,
+      "plotId": "field_04/1",
+      "state": "empty"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": false,
+      "fertilizerItemId": null,
+      "growthMinutes": 0,
+      "harvestsTaken": 0,
+      "matureSince": null,
+      "moisture": 0,
+      "plantId": null,
+      "plantedAt": null,
+      "plotId": "field_04/2",
+      "state": "empty"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": false,
+      "fertilizerItemId": null,
+      "growthMinutes": 0,
+      "harvestsTaken": 0,
+      "matureSince": null,
+      "moisture": 0,
+      "plantId": null,
+      "plantedAt": null,
+      "plotId": "field_04/3",
+      "state": "empty"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": false,
+      "fertilizerItemId": null,
+      "growthMinutes": 0,
+      "harvestsTaken": 0,
+      "matureSince": null,
+      "moisture": 0,
+      "plantId": null,
+      "plantedAt": null,
+      "plotId": "field_04/4",
+      "state": "empty"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": false,
+      "fertilizerItemId": null,
+      "growthMinutes": 0,
+      "harvestsTaken": 0,
+      "matureSince": null,
+      "moisture": 0,
+      "plantId": null,
+      "plantedAt": null,
+      "plotId": "field_04/5",
+      "state": "empty"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": false,
+      "fertilizerItemId": null,
+      "growthMinutes": 0,
+      "harvestsTaken": 0,
+      "matureSince": null,
+      "moisture": 0,
+      "plantId": null,
+      "plantedAt": null,
+      "plotId": "field_05/0",
+      "state": "empty"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": false,
+      "fertilizerItemId": null,
+      "growthMinutes": 0,
+      "harvestsTaken": 0,
+      "matureSince": null,
+      "moisture": 0,
+      "plantId": null,
+      "plantedAt": null,
+      "plotId": "field_05/1",
+      "state": "empty"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": false,
+      "fertilizerItemId": null,
+      "growthMinutes": 0,
+      "harvestsTaken": 0,
+      "matureSince": null,
+      "moisture": 0,
+      "plantId": null,
+      "plantedAt": null,
+      "plotId": "field_05/2",
+      "state": "empty"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": false,
+      "fertilizerItemId": null,
+      "growthMinutes": 0,
+      "harvestsTaken": 0,
+      "matureSince": null,
+      "moisture": 0,
+      "plantId": null,
+      "plantedAt": null,
+      "plotId": "field_05/3",
+      "state": "empty"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": false,
+      "fertilizerItemId": null,
+      "growthMinutes": 0,
+      "harvestsTaken": 0,
+      "matureSince": null,
+      "moisture": 0,
+      "plantId": null,
+      "plantedAt": null,
+      "plotId": "field_05/4",
+      "state": "empty"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": false,
+      "fertilizerItemId": null,
+      "growthMinutes": 0,
+      "harvestsTaken": 0,
+      "matureSince": null,
+      "moisture": 0,
+      "plantId": null,
+      "plantedAt": null,
+      "plotId": "field_05/5",
+      "state": "empty"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": false,
+      "fertilizerItemId": null,
+      "growthMinutes": 0,
+      "harvestsTaken": 0,
+      "matureSince": null,
+      "moisture": 0,
+      "plantId": null,
+      "plantedAt": null,
+      "plotId": "field_06/0",
+      "state": "empty"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": false,
+      "fertilizerItemId": null,
+      "growthMinutes": 0,
+      "harvestsTaken": 0,
+      "matureSince": null,
+      "moisture": 0,
+      "plantId": null,
+      "plantedAt": null,
+      "plotId": "field_06/1",
+      "state": "empty"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": false,
+      "fertilizerItemId": null,
+      "growthMinutes": 0,
+      "harvestsTaken": 0,
+      "matureSince": null,
+      "moisture": 0,
+      "plantId": null,
+      "plantedAt": null,
+      "plotId": "field_06/2",
+      "state": "empty"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": false,
+      "fertilizerItemId": null,
+      "growthMinutes": 0,
+      "harvestsTaken": 0,
+      "matureSince": null,
+      "moisture": 0,
+      "plantId": null,
+      "plantedAt": null,
+      "plotId": "field_06/3",
+      "state": "empty"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": false,
+      "fertilizerItemId": null,
+      "growthMinutes": 0,
+      "harvestsTaken": 0,
+      "matureSince": null,
+      "moisture": 0,
+      "plantId": null,
+      "plantedAt": null,
+      "plotId": "field_06/4",
+      "state": "empty"
+    },
+    {
+      "dryMinutes": 0,
+      "everDry": false,
+      "fertilizerItemId": null,
+      "growthMinutes": 0,
+      "harvestsTaken": 0,
+      "matureSince": null,
+      "moisture": 0,
+      "plantId": null,
+      "plantedAt": null,
+      "plotId": "field_06/5",
+      "state": "empty"
+    }
+  ],
+  "quests": {
+    "active": [],
+    "completed": [],
+    "orders": [
+      "ord_000012",
+      "ord_000013",
+      "ord_000014",
+      "ord_000020",
+      "ord_000021",
+      "ord_000022"
+    ],
+    "slotRefillAt": {}
+  },
+  "rng": {
+    "breeding": 2086917005,
+    "excavation": 497196720,
+    "harvest": 181332479,
+    "merge": 1196108234,
+    "orders": 3173573433
+  },
+  "saveVersion": 1,
+  "shipping": {
+    "crop_carrot": 5
+  }
+}

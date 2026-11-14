@@ -163,12 +163,32 @@
     "buildings": {
       "type": "array",
       "items": {
-        "type": "object"
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "level": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "id",
+          "level"
+        ],
+        "additionalProperties": false
       }
     },
     "fieldsOwned": {
       "type": "integer",
       "minimum": 0
+    },
+    "shipping": {
+      "type": "object"
+    },
+    "misc": {
+      "type": "object"
     }
   },
   "required": [

@@ -111,6 +111,11 @@
     },
     "pinnedForSpirit": {
       "type": "boolean"
+    },
+    "slot": {
+      "type": "string",
+      "pattern": "^npc_[a-z0-9_]+/[0-9]+$",
+      "description": "The board slot this order fills (runtime only)."
     }
   },
   "required": [

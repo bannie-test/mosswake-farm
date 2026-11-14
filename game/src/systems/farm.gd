@@ -4,10 +4,12 @@ extends Node
 
 signal plot_changed(plot_id: String)
 signal harvested(plot_id: String, item_id: String, qty: int)
+signal field_bought(field_number: int)
 
 const PLANTED := ["growing", "mature", "regrowing"]
 
 var plots: Dictionary = {}      # plot ID -> FarmPlotState
+var fields_owned := 0
 
 
 func _ready() -> void:
@@ -17,6 +19,38 @@ func _ready() -> void:
 
 func new_game() -> void:
 	plots.clear()
+	fields_owned = 0
+	for i: int in range(int(GameData.config["newGame"]["fields"])):
+		_add_field()
+
+
+func field_cfg() -> Dictionary:
+	return GameData.config["economy"]["fields"]
+
+
+func _add_field() -> void:
+	fields_owned += 1
+	for n: int in range(int(field_cfg()["plotsPerField"])):
+		add_plot("field_%02d/%d" % [fields_owned, n])
+
+
+## Cost of the next field: round(baseCost x growth^(n-1)) for the n-th field bought (section 10).
+func next_field_cost() -> int:
+	var bought := fields_owned - int(GameData.config["newGame"]["fields"])
+	return roundi(float(field_cfg()["baseCost"]) * pow(float(field_cfg()["growth"]), bought))
+
+
+func can_buy_field() -> bool:
+	return fields_owned < int(field_cfg()["maxFields"])
+
+
+func buy_field() -> bool:
+	if not can_buy_field() or not GameState.spend_coins(next_field_cost()):
+		return false
+	_add_field()
+	field_bought.emit(fields_owned)
+	Orders.fill_slots()
+	return true
 
 
 ## Called by the map for every plot of an owned field.
@@ -229,6 +263,9 @@ func save_state() -> Array:
 
 func load_state(data: Array) -> void:
 	plots.clear()
+	fields_owned = 0
+	for p: Dictionary in data:
+		fields_owned = maxi(fields_owned, int(p["plotId"].substr(6, 2)))
 	for p: Dictionary in data:
 		var copy: Dictionary = p.duplicate(true)
 		copy["harvestsTaken"] = int(copy["harvestsTaken"])

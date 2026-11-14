@@ -18,7 +18,7 @@ func recipe(recipe_id: String) -> Dictionary:
 func known_recipes() -> Array:
 	var out: Array = []
 	for recipe_id: String in GameData.ids("merge_recipes"):
-		if GameState.is_unlocked(recipe_id):
+		if Unlocks.recipe_known(recipe_id):
 			out.append(recipe_id)
 	return out
 
@@ -89,6 +89,24 @@ func stardust_on_fail(recipe_id: String) -> int:
 
 
 ## How many times the recipe can be made from current stock and coins.
+## Recipes not yet known, with where to look for them (section 6: silhouettes with their source).
+func unknown_recipes() -> Array:
+	var out: Array = []
+	for recipe_id: String in GameData.ids("merge_recipes"):
+		if not Unlocks.recipe_known(recipe_id):
+			out.append(recipe_id)
+	return out
+
+
+func source_hint(recipe_id: String) -> String:
+	var u: Dictionary = recipe(recipe_id)["unlock"]
+	if u.has("firstResearchOf") and not Unlocks.is_met({"firstResearchOf": u["firstResearchOf"]}):
+		return "Research a " + GameData.item(u["firstResearchOf"])["name"]
+	if u.has("quest") and not Unlocks.is_met({"quest": u["quest"]}):
+		return GameData.def("npcs", GameData.def("quests", u["quest"])["giver"])["name"].get_slice(" ", 0) + "'s story"
+	return Unlocks.missing_text(u)
+
+
 func affordable(recipe_id: String) -> int:
 	var r := recipe(recipe_id)
 	var n := 1 << 30
@@ -102,7 +120,7 @@ func affordable(recipe_id: String) -> int:
 ## "" when an attempt can be made, otherwise a short reason for the screen.
 func blocked_reason(recipe_id: String) -> String:
 	var r := recipe(recipe_id)
-	if not GameState.is_unlocked(recipe_id):
+	if not Unlocks.recipe_known(recipe_id):
 		return "Recipe not known"
 	if GameState.building_level(STATION) < int(r["minStationLevel"]):
 		return "Needs a better Merge Table"

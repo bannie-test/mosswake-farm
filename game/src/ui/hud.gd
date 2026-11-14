@@ -83,6 +83,7 @@ func _ready() -> void:
 	Inventory.changed.connect(refresh)
 	Farm.plot_changed.connect(func(_id: String) -> void: refresh())
 	Orders.changed.connect(refresh)
+	Animals.changed.connect(refresh)
 
 
 func bind(p: Player) -> void:
@@ -124,16 +125,24 @@ func refresh() -> void:
 
 ## The next step for a new player, worked out from the game state; no text tutorial.
 func guide_text() -> String:
-	if GameState.player["stats"]["ordersCompleted"] >= 3:
+	if GameState.player["level"] >= 4:
 		return ""
 	for order: Dictionary in Orders.orders:
 		if Orders.can_deliver(order):
-			return "> Deliver your goods at Mara's order board by the gate"
+			return "> Deliver your goods at the order board by the gate"
 	for order: Dictionary in Orders.orders:
 		for line: Dictionary in order["lines"]:
 			for recipe_id: String in Merge.known_recipes():
 				if Merge.recipe(recipe_id)["output"]["itemId"] == line["itemId"] and Merge.blocked_reason(recipe_id) == "":
 					return "> Make a %s at the Merge Table" % GameData.item(line["itemId"])["name"]
+	for building_id: String in ["bld_coop", "bld_barn"]:
+		if Animals.products_ready(building_id) > 0:
+			return "> Collect from your animals at the %s" % GameData.def("buildings", building_id)["name"]
+	for a: Dictionary in Animals.animals:
+		if a["hunger"] <= 0.0:
+			return "> Your animals are hungry: make Feed from Wheat at the Coop"
+	if GameState.building_level("bld_merge_table") == 0 and GameState.build_blocked("bld_merge_table") == "":
+		return "> You can build the Merge Table now: look for its sign"
 	var dry := false
 	var growing := false
 	for plot_id: String in Farm.plots:
@@ -152,8 +161,10 @@ func guide_text() -> String:
 			if Farm.plot(plot_id)["state"] in ["empty", "tilled"]:
 				return "> Till the soil and plant your seeds in the field"
 	if growing:
-		return "> Your crops are growing. See what Mara needs at the gate"
-	return "> Out of seeds: Mara will leave some at dawn"
+		return "> Crops are growing. Check the order board, or buy seeds from Tobin"
+	if GameState.coins() >= int(GameData.config["economy"]["deadlock"]["coinsBelow"]):
+		return "> Buy seeds at Tobin's cart by the gate"
+	return "> Out of seeds and coins: Mara will leave some at dawn"
 
 
 func toast(text: String) -> void:

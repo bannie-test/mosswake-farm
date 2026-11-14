@@ -117,7 +117,9 @@
     "fallbackQty": {
       "min": 4,
       "max": 6
-    }
+    },
+    "likeWeight": 2.0,
+    "easyStockShare": 0.5
   },
   "reputation": {
     "delivery": 8,
@@ -156,5 +158,39 @@
   "player": {
     "moveTilesPerSecond": 5.0,
     "waterPromptBelow": 90
+  },
+  "animals": {
+    "startHappiness": 60,
+    "petBonus": 15,
+    "outdoorPerHour": 3,
+    "hungryPenaltyPerHour": 10,
+    "healthLossPerHourHungry": 5,
+    "healthGainPerHourFed": 5,
+    "sickBelow": 30,
+    "productivity": {
+      "base": 0.4,
+      "happiness": 0.4,
+      "health": 0.2
+    },
+    "elderProductionFactor": 0.75,
+    "purchasedStage": "baby",
+    "names": [
+      "Pip",
+      "Clover",
+      "Hazel",
+      "Dot",
+      "Bramble",
+      "Moss",
+      "Poppy",
+      "Fern",
+      "Biscuit",
+      "Nettle",
+      "Sorrel",
+      "Tansy",
+      "Burdock",
+      "Yarrow",
+      "Daisy",
+      "Juniper"
+    ]
   }
 }

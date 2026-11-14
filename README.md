@@ -44,4 +44,5 @@ run `python3 tools/asset_lint.py`.
 | Milestone | State |
 | --- | --- |
 | M0 Foundations | Accepted 2026-11-14 |
-| M1 First playable | Built; waiting for the Director's playtest and go or no-go |
+| M1 First playable | Accepted 2026-11-14 (human playtest items still open, see D-010) |
+| M2 Complete farm | Built on branch `m2-complete-farm`; waiting for the Director's go or no-go |
