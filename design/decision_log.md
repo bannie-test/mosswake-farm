@@ -26,6 +26,8 @@ until the Director confirms it.
 
 | D-013 | 2026-11-14 | M3 accepted and merged into `main`; go for M4. Finding F-03 (Ancient Carrot playtest) stays open for human playtests | Milestone gate | - |
 
+| D-014 | 2026-11-14 | M4 accepted and merged into `main`; go for M5. Findings F-04 and F-05 go to the balance pass | Milestone gate | - |
+
 ## Made during M0, approved by the Director on 2026-11-14 ("approve all")
 
 | # | Decision | Reason |
@@ -83,7 +85,7 @@ until the Director confirms it.
 | P-36 | Display text for quests lives in `data/strings_en.json`, checked by the validator | Section 14's quest example uses text keys; section 18 names a string table |
 | P-37 | One Storage Chest on a fixed pad next to the shipping bin; pressing a stack moves it between backpack and chest | Section 13 says chests are "placed anywhere"; free placement is left for a later release |
 
-## Provisional (made to finish M4; need the Director's confirmation)
+## Made during M4, approved by the Director on 2026-11-14
 
 | # | Decision | Reason |
 | --- | --- | --- |
