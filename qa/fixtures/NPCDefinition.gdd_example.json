@@ -1,0 +1,57 @@
+{
+  "id": "npc_ilse",
+  "name": "Ilse Quill",
+  "role": "scholar",
+  "appears": {
+    "playerLevel": 4
+  },
+  "likes": [
+    "magical",
+    "flower",
+    "merged"
+  ],
+  "orderRules": {
+    "tags": [
+      "merged",
+      "flower",
+      "magical"
+    ],
+    "sizeFactor": 0.9,
+    "maxLines": 2,
+    "deliverySlots": 2,
+    "specialFromReputation": 3
+  },
+  "reputationThresholds": [
+    0,
+    40,
+    120,
+    250,
+    450,
+    700,
+    1000,
+    1400
+  ],
+  "reputationRewards": [
+    {
+      "level": 2,
+      "unlocks": [
+        "seed_moonbell"
+      ]
+    },
+    {
+      "level": 3,
+      "unlocks": [
+        "recipe_gene_mulch"
+      ]
+    },
+    {
+      "level": 4,
+      "unlocks": [
+        "bld_genetic_lab"
+      ]
+    }
+  ],
+  "specialBonusTable": "bonus_default",
+  "dialogue": "dialogue/ilse.json",
+  "portrait": "npc/ilse_portrait.png"
+}

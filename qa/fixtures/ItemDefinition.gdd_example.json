@@ -1,0 +1,28 @@
+{
+  "id": "merged_carrot_crystal",
+  "name": "Crystal Carrot",
+  "category": "merged",
+  "tags": [
+    "vegetable",
+    "root",
+    "carrot",
+    "merged"
+  ],
+  "rarity": "rare",
+  "tier": 4,
+  "species": "carrot",
+  "baseValue": 700,
+  "stackSize": 99,
+  "storage": "inventory",
+  "hasQuality": true,
+  "sellable": true,
+  "research": {
+    "geneId": "gene_carrot",
+    "fragments": 8,
+    "stardust": 3,
+    "hours": 6,
+    "coins": 120
+  },
+  "lucky": null,
+  "icon": "items/merged_carrot_crystal.png"
+}

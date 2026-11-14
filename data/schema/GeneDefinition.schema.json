@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "mosswake/GeneDefinition.schema.json",
+  "title": "GeneDefinition",
+  "x-kind": "static",
+  "x-file": "genes.json",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^(gene)_[a-z0-9]+(_[a-z0-9]+)*$"
+    },
+    "species": {
+      "type": "string"
+    },
+    "kind": {
+      "enum": [
+        "crop",
+        "animal"
+      ]
+    },
+    "walletCap": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "blueprintIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^(bp)_[a-z0-9]+(_[a-z0-9]+)*$"
+      }
+    }
+  },
+  "required": [
+    "id",
+    "species",
+    "kind",
+    "walletCap",
+    "blueprintIds"
+  ],
+  "additionalProperties": false
+}

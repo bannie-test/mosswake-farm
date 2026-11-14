@@ -1,0 +1,28 @@
+{
+  "instanceId": "an_0007",
+  "animalId": "animal_chicken",
+  "name": "Pip",
+  "rarity": "uncommon",
+  "traits": [
+    {
+      "traitId": "trait_golden_comb",
+      "level": 1
+    }
+  ],
+  "parents": [
+    "an_0002",
+    "an_0003"
+  ],
+  "bornAt": 21600,
+  "stage": "adult",
+  "hunger": 71,
+  "happiness": 88,
+  "health": 100,
+  "fertility": 62,
+  "productionProgress": 0.42,
+  "breedReadyAt": 30240,
+  "oneTimeGiven": [
+    "became_adult"
+  ],
+  "housingId": "bld_coop#1"
+}

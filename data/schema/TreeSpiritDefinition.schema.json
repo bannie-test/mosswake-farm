@@ -1,0 +1,222 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "mosswake/TreeSpiritDefinition.schema.json",
+  "title": "TreeSpiritDefinition",
+  "x-kind": "static",
+  "x-file": "spirits.json",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^(spirit)_[a-z0-9]+(_[a-z0-9]+)*$"
+    },
+    "name": {
+      "type": "string"
+    },
+    "jobId": {
+      "type": "string",
+      "pattern": "^(job)_[a-z0-9]+(_[a-z0-9]+)*$"
+    },
+    "charmRecipe": {
+      "type": "object",
+      "properties": {
+        "inputs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "itemId": {
+                "type": "string",
+                "pattern": "^(seed|crop|prod|merged|food|gene|lucky|mat|spirit|embryo|quest|tool|special)_[a-z0-9]+(_[a-z0-9]+)*$"
+              },
+              "qty": {
+                "type": "integer",
+                "minimum": 1
+              }
+            },
+            "required": [
+              "itemId",
+              "qty"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "coins": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "inputs",
+        "coins"
+      ],
+      "additionalProperties": false
+    },
+    "base": {
+      "type": "object",
+      "properties": {
+        "actionSeconds": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "moveTilesPerSecond": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "carry": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": [
+        "actionSeconds",
+        "moveTilesPerSecond",
+        "carry"
+      ],
+      "additionalProperties": false
+    },
+    "levels": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "level": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "xp": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "zoneTiles": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "speed": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "stamina": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "restHours": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "perk": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "level",
+          "xp",
+          "zoneTiles",
+          "speed",
+          "stamina",
+          "restHours"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "upkeep": {
+      "type": "object",
+      "properties": {
+        "itemId": {
+          "type": "string",
+          "pattern": "^(seed|crop|prod|merged|food|gene|lucky|mat|spirit|embryo|quest|tool|special)_[a-z0-9]+(_[a-z0-9]+)*$"
+        },
+        "qtyPerDay": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "unpaidSpeed": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      },
+      "required": [
+        "itemId",
+        "qtyPerDay",
+        "unpaidSpeed"
+      ],
+      "additionalProperties": false
+    },
+    "unlock": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "type": "boolean"
+        },
+        "playerLevel": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "quest": {
+          "type": "string",
+          "pattern": "^(quest)_[a-z0-9]+(_[a-z0-9]+)*$"
+        },
+        "questState": {
+          "enum": [
+            "started",
+            "completed"
+          ]
+        },
+        "building": {
+          "type": "string",
+          "pattern": "^(bld)_[a-z0-9]+(_[a-z0-9]+)*$"
+        },
+        "firstResearchOf": {
+          "type": "string",
+          "pattern": "^(seed|crop|prod|merged|food|gene|lucky|mat|spirit|embryo|quest|tool|special)_[a-z0-9]+(_[a-z0-9]+)*$"
+        },
+        "blueprint": {
+          "type": "string",
+          "pattern": "^(bp)_[a-z0-9]+(_[a-z0-9]+)*$"
+        },
+        "researchLevel": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "npcReputation": {
+          "type": "object",
+          "properties": {
+            "npcId": {
+              "type": "string",
+              "pattern": "^(npc)_[a-z0-9]+(_[a-z0-9]+)*$"
+            },
+            "level": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 8
+            }
+          },
+          "required": [
+            "npcId",
+            "level"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
+    "sprite": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "jobId",
+    "charmRecipe",
+    "base",
+    "levels",
+    "upkeep",
+    "unlock",
+    "sprite"
+  ],
+  "additionalProperties": false
+}

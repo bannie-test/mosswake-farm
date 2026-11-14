@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "mosswake/ResearchProgress.schema.json",
+  "title": "ResearchProgress",
+  "x-kind": "runtime",
+  "x-file": null,
+  "type": "object",
+  "properties": {
+    "level": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 10
+    },
+    "xp": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "queue": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "itemId": {
+            "type": "string",
+            "pattern": "^(seed|crop|prod|merged|food|gene|lucky|mat|spirit|embryo|quest|tool|special)_[a-z0-9]+(_[a-z0-9]+)*$"
+          },
+          "quality": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 4
+          },
+          "startedAt": {
+            "type": "number"
+          },
+          "readyAt": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "itemId",
+          "quality",
+          "startedAt",
+          "readyAt"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "researchedOnce": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^(seed|crop|prod|merged|food|gene|lucky|mat|spirit|embryo|quest|tool|special)_[a-z0-9]+(_[a-z0-9]+)*$"
+      }
+    },
+    "blueprints": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^(bp)_[a-z0-9]+(_[a-z0-9]+)*$"
+      }
+    },
+    "codex": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "enum": [
+            "discovered",
+            "researched",
+            "blueprint",
+            "pristine",
+            "traits"
+          ]
+        }
+      }
+    },
+    "traitsSeen": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^(trait)_[a-z0-9]+(_[a-z0-9]+)*$"
+      }
+    }
+  },
+  "required": [
+    "level",
+    "xp",
+    "queue",
+    "researchedOnce",
+    "blueprints",
+    "codex",
+    "traitsSeen"
+  ],
+  "additionalProperties": false
+}

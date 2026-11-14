@@ -1,0 +1,145 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "mosswake/SpiritInstance.schema.json",
+  "title": "SpiritInstance",
+  "x-kind": "runtime",
+  "x-file": null,
+  "type": "object",
+  "properties": {
+    "instanceId": {
+      "type": "string",
+      "pattern": "^sp_[0-9]{4}$"
+    },
+    "spiritId": {
+      "type": "string",
+      "pattern": "^(spirit)_[a-z0-9]+(_[a-z0-9]+)*$"
+    },
+    "name": {
+      "type": "string"
+    },
+    "isElder": {
+      "type": "boolean"
+    },
+    "skillLevel": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 7
+    },
+    "skillXp": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "skillCap": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 7
+    },
+    "stamina": {
+      "type": "number",
+      "minimum": 0
+    },
+    "state": {
+      "enum": [
+        "awakening",
+        "idle",
+        "working",
+        "walking",
+        "resting",
+        "drowsy"
+      ]
+    },
+    "zone": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "map": {
+              "type": "string"
+            },
+            "x": {
+              "type": "integer"
+            },
+            "y": {
+              "type": "integer"
+            },
+            "w": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "h": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          "required": [
+            "map",
+            "x",
+            "y",
+            "w",
+            "h"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "chestId": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "carrying": {
+      "type": "object"
+    },
+    "upkeepPaidDay": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "grafts": {
+      "type": "object",
+      "properties": {
+        "tool": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3
+        },
+        "heartwood": {
+          "type": "boolean"
+        },
+        "rootbed": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "tool",
+        "heartwood",
+        "rootbed"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "instanceId",
+    "spiritId",
+    "name",
+    "isElder",
+    "skillLevel",
+    "skillXp",
+    "skillCap",
+    "stamina",
+    "state",
+    "zone",
+    "chestId",
+    "carrying",
+    "upkeepPaidDay",
+    "grafts"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,45 @@
+; Engine configuration file.
+; Mosswake Farm - settings follow GDD Appendix A ("Godot setup").
+
+config_version=5
+
+[application]
+
+config/name="Mosswake Farm"
+config/description="A cozy pixel-art farming game with merging, gene research and Tree Spirit automation."
+run/main_scene="res://scenes/style_sheet.tscn"
+config/features=PackedStringArray("4.7", "GL Compatibility")
+
+[autoload]
+
+GameData="*res://src/core/game_data.gd"
+Sim="*res://src/core/sim.gd"
+SaveGame="*res://src/core/save_game.gd"
+GameState="*res://src/core/game_state.gd"
+
+[display]
+
+window/size/viewport_width=640
+window/size/viewport_height=360
+window/size/window_width_override=1280
+window/size/window_height_override=720
+window/stretch/mode="viewport"
+window/stretch/aspect="keep"
+window/stretch/scale_mode="integer"
+
+[layer_names]
+
+2d_physics/layer_1="world"
+2d_physics/layer_2="player"
+2d_physics/layer_3="animals"
+2d_physics/layer_4="spirits"
+2d_physics/layer_5="interactables"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
+2d/snap/snap_2d_transforms_to_pixel=true
+2d/snap/snap_2d_vertices_to_pixel=true
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+environment/defaults/default_clear_color=Color(0.1647, 0.1216, 0.1686, 1)

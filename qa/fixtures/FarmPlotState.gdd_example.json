@@ -1,0 +1,13 @@
+{
+  "plotId": "field_02/3",
+  "plantId": "plant_tomato",
+  "plantedAt": 31020,
+  "growthMinutes": 512,
+  "moisture": 46.5,
+  "dryMinutes": 0,
+  "everDry": false,
+  "fertilizerItemId": "mat_compost",
+  "harvestsTaken": 1,
+  "matureSince": null,
+  "state": "regrowing"
+}

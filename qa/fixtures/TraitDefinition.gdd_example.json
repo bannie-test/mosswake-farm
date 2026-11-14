@@ -1,0 +1,18 @@
+{
+  "id": "trait_prolific",
+  "appliesTo": [
+    "chicken",
+    "cow",
+    "sheep",
+    "pig"
+  ],
+  "maxLevel": 3,
+  "effects": [
+    {
+      "stat": "productionInterval",
+      "op": "mul",
+      "perLevel": -0.08
+    }
+  ],
+  "codexStamp": true
+}

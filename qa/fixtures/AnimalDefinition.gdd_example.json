@@ -1,0 +1,39 @@
+{
+  "id": "animal_chicken",
+  "species": "chicken",
+  "housing": "bld_coop",
+  "buyCost": 150,
+  "stageHours": {
+    "baby": 24,
+    "juvenile": 24,
+    "elderAfterDays": 40
+  },
+  "feed": {
+    "itemId": "mat_feed",
+    "qtyPer8h": 1
+  },
+  "hungerDrainPerHour": 12.5,
+  "happinessDecayPerHour": 2,
+  "renewable": {
+    "itemId": "prod_egg",
+    "intervalHours": 6,
+    "qty": 1,
+    "needsTool": null
+  },
+  "oneTime": [
+    {
+      "event": "became_adult",
+      "itemId": "prod_first_molt_feather"
+    },
+    {
+      "event": "retired",
+      "itemId": "prod_keepsake_chicken"
+    }
+  ],
+  "geneId": "gene_chicken",
+  "breedingRuleId": "breed_chicken",
+  "defaultRarity": "common",
+  "unlock": {
+    "playerLevel": 1
+  }
+}

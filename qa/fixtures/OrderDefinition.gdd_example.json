@@ -1,0 +1,26 @@
+{
+  "orderId": "ord_000142",
+  "npcId": "npc_mara",
+  "category": "delivery",
+  "lines": [
+    {
+      "itemId": "crop_carrot",
+      "qty": 12,
+      "minQuality": 1
+    },
+    {
+      "itemId": "prod_egg",
+      "qty": 4,
+      "minQuality": 1
+    }
+  ],
+  "rewards": {
+    "coins": 198,
+    "xp": 61,
+    "reputation": 8,
+    "bonusItems": []
+  },
+  "createdAt": 31680,
+  "expiresAt": null,
+  "pinnedForSpirit": false
+}

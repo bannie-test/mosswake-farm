@@ -1,0 +1,227 @@
+[
+  {
+    "id": "quest_first_harvest",
+    "giver": "npc_mara",
+    "category": "story",
+    "requires": {
+      "playerLevel": 1
+    },
+    "steps": [
+      {
+        "id": "s1",
+        "type": "deliver",
+        "itemId": "crop_carrot",
+        "qty": 6,
+        "text": "quest.first_harvest.s1"
+      }
+    ],
+    "rewards": {
+      "reputation": {
+        "npc_mara": 60
+      },
+      "xp": 40,
+      "unlocks": [
+        "feature_order_board"
+      ],
+      "items": [
+        {
+          "itemId": "seed_tomato",
+          "qty": 5
+        }
+      ]
+    },
+    "next": null
+  },
+  {
+    "id": "quest_table_for_two",
+    "giver": "npc_tobin",
+    "category": "story",
+    "requires": {
+      "playerLevel": 3
+    },
+    "steps": [
+      {
+        "id": "s1",
+        "type": "build",
+        "buildingId": "bld_merge_table",
+        "text": "quest.table_for_two.s1"
+      },
+      {
+        "id": "s2",
+        "type": "produce",
+        "itemId": "merged_carrot_premium",
+        "qty": 1,
+        "text": "quest.table_for_two.s2"
+      }
+    ],
+    "rewards": {
+      "reputation": {
+        "npc_tobin": 60
+      },
+      "xp": 100,
+      "unlocks": [
+        "merge_carrot_golden"
+      ],
+      "items": [
+        {
+          "itemId": "lucky_clover",
+          "qty": 2
+        }
+      ]
+    },
+    "next": null
+  },
+  {
+    "id": "quest_strange_carrot",
+    "giver": "npc_ilse",
+    "category": "story",
+    "requires": {
+      "playerLevel": 4,
+      "npcMet": [
+        "npc_ilse"
+      ]
+    },
+    "steps": [
+      {
+        "id": "s1",
+        "type": "deliver",
+        "itemId": "merged_carrot_golden",
+        "qty": 1,
+        "text": "quest.strange_carrot.s1"
+      }
+    ],
+    "rewards": {
+      "reputation": {
+        "npc_ilse": 60
+      },
+      "xp": 200,
+      "unlocks": [
+        "bld_research_station"
+      ],
+      "items": []
+    },
+    "next": "quest_what_carrots_remember"
+  },
+  {
+    "id": "quest_what_carrots_remember",
+    "giver": "npc_ilse",
+    "category": "story",
+    "requires": {
+      "quest": "quest_strange_carrot",
+      "building": "bld_research_station"
+    },
+    "steps": [
+      {
+        "id": "s1",
+        "type": "research",
+        "distinct": true,
+        "qty": 3,
+        "text": "quest.what_carrots_remember.s1"
+      }
+    ],
+    "rewards": {
+      "reputation": {
+        "npc_ilse": 60
+      },
+      "xp": 300,
+      "unlocks": [
+        "merge_carrot_crystal"
+      ],
+      "items": []
+    },
+    "next": "quest_sleeper"
+  },
+  {
+    "id": "quest_sleeper",
+    "giver": "npc_ilse",
+    "category": "story",
+    "requires": {
+      "playerLevel": 8,
+      "quest": "quest_what_carrots_remember"
+    },
+    "steps": [
+      {
+        "id": "s1",
+        "type": "deliver",
+        "itemId": "crop_carrot_ancient",
+        "qty": 1,
+        "text": "quest.sleeper.s1",
+        "grants": [
+          {
+            "itemId": "tool_dig_kit",
+            "qty": 1
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "type": "reach",
+        "stat": "item_owned",
+        "itemId": "spirit_husk_dormant",
+        "qty": 1,
+        "text": "quest.sleeper.s2"
+      }
+    ],
+    "rewards": {
+      "reputation": {
+        "npc_ilse": 60
+      },
+      "xp": 300,
+      "unlocks": [
+        "bld_spirit_bench",
+        "site_mossy_hollow_mvp"
+      ],
+      "items": []
+    },
+    "next": "quest_first_vocation"
+  },
+  {
+    "id": "quest_first_vocation",
+    "giver": "npc_ilse",
+    "category": "story",
+    "requires": {
+      "quest": "quest_sleeper",
+      "building": "bld_spirit_bench"
+    },
+    "steps": [
+      {
+        "id": "s1",
+        "type": "interact",
+        "target": "clean_husk",
+        "text": "quest.first_vocation.s1"
+      },
+      {
+        "id": "s2",
+        "type": "produce",
+        "itemId": "spirit_revival_potion",
+        "qty": 1,
+        "text": "quest.first_vocation.s2"
+      },
+      {
+        "id": "s3",
+        "type": "interact",
+        "target": "revive_husk",
+        "text": "quest.first_vocation.s3"
+      },
+      {
+        "id": "s4",
+        "type": "interact",
+        "target": "awaken_spirit",
+        "spiritId": "spirit_rootling",
+        "text": "quest.first_vocation.s4"
+      }
+    ],
+    "rewards": {
+      "reputation": {
+        "npc_ilse": 60
+      },
+      "xp": 400,
+      "unlocks": [
+        "feature_zone_tool",
+        "craft_sap"
+      ],
+      "items": []
+    },
+    "next": null
+  }
+]

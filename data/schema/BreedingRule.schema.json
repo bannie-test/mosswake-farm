@@ -1,0 +1,187 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "mosswake/BreedingRule.schema.json",
+  "title": "BreedingRule",
+  "x-kind": "static",
+  "x-file": "breeding_rules.json",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^(breed)_[a-z0-9]+(_[a-z0-9]+)*$"
+    },
+    "species": {
+      "type": "string"
+    },
+    "conditions": {
+      "type": "object",
+      "properties": {
+        "minHappiness": {
+          "type": "number"
+        },
+        "minFertility": {
+          "type": "number"
+        },
+        "minHealth": {
+          "type": "number"
+        },
+        "cooldownHours": {
+          "type": "number"
+        },
+        "forbidParentChild": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "minHappiness",
+        "minFertility",
+        "minHealth",
+        "cooldownHours",
+        "forbidParentChild"
+      ],
+      "additionalProperties": false
+    },
+    "gestationHours": {
+      "type": "number"
+    },
+    "slotInheritance": {
+      "type": "object",
+      "properties": {
+        "parentA": {
+          "type": "number"
+        },
+        "parentB": {
+          "type": "number"
+        },
+        "mutation": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "parentA",
+        "parentB",
+        "mutation"
+      ],
+      "additionalProperties": false
+    },
+    "sharedTraitLevelUpChance": {
+      "type": "number"
+    },
+    "tonic": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "itemId": {
+              "type": "string",
+              "pattern": "^(seed|crop|prod|merged|food|gene|lucky|mat|spirit|embryo|quest|tool|special)_[a-z0-9]+(_[a-z0-9]+)*$"
+            },
+            "mutation": {
+              "type": "number"
+            },
+            "lockSlots": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "itemId",
+            "mutation",
+            "lockSlots"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "rarity": {
+      "type": "object",
+      "properties": {
+        "same": {
+          "type": "object"
+        },
+        "different": {
+          "type": "object"
+        },
+        "max": {
+          "enum": [
+            "common",
+            "uncommon",
+            "rare",
+            "epic",
+            "legendary",
+            "mythical"
+          ]
+        }
+      },
+      "required": [
+        "same",
+        "different",
+        "max"
+      ],
+      "additionalProperties": false
+    },
+    "traitPool": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^(trait)_[a-z0-9]+(_[a-z0-9]+)*$"
+      }
+    },
+    "specialOffspring": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "resultAnimalId": {
+            "type": "string",
+            "pattern": "^(animal)_[a-z0-9]+(_[a-z0-9]+)*$"
+          },
+          "requires": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "traitId": {
+                  "type": "string",
+                  "pattern": "^(trait)_[a-z0-9]+(_[a-z0-9]+)*$"
+                },
+                "minLevel": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "traitId",
+                "minLevel"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "chance": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "resultAnimalId",
+          "requires",
+          "chance"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "id",
+    "species",
+    "conditions",
+    "gestationHours",
+    "slotInheritance",
+    "sharedTraitLevelUpChance",
+    "tonic",
+    "rarity",
+    "traitPool",
+    "specialOffspring"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,92 @@
+[
+  {
+    "id": "animal_chicken",
+    "species": "chicken",
+    "housing": "bld_coop",
+    "buyCost": 150,
+    "stageHours": {
+      "baby": 24,
+      "juvenile": 24,
+      "elderAfterDays": 40
+    },
+    "feed": {
+      "itemId": "mat_feed",
+      "qtyPer8h": 1
+    },
+    "hungerDrainPerHour": 12.5,
+    "happinessDecayPerHour": 2,
+    "renewable": {
+      "itemId": "prod_egg",
+      "intervalHours": 6,
+      "qty": 1,
+      "needsTool": null
+    },
+    "oneTime": [],
+    "geneId": null,
+    "breedingRuleId": null,
+    "defaultRarity": "common",
+    "unlock": {
+      "playerLevel": 1
+    }
+  },
+  {
+    "id": "animal_cow",
+    "species": "cow",
+    "housing": "bld_barn",
+    "buyCost": 450,
+    "stageHours": {
+      "baby": 24,
+      "juvenile": 24,
+      "elderAfterDays": 40
+    },
+    "feed": {
+      "itemId": "mat_feed",
+      "qtyPer8h": 2
+    },
+    "hungerDrainPerHour": 12.5,
+    "happinessDecayPerHour": 2,
+    "renewable": {
+      "itemId": "prod_milk",
+      "intervalHours": 8,
+      "qty": 1,
+      "needsTool": null
+    },
+    "oneTime": [],
+    "geneId": null,
+    "breedingRuleId": null,
+    "defaultRarity": "common",
+    "unlock": {
+      "playerLevel": 4
+    }
+  },
+  {
+    "id": "animal_sheep",
+    "species": "sheep",
+    "housing": "bld_barn",
+    "buyCost": 400,
+    "stageHours": {
+      "baby": 24,
+      "juvenile": 24,
+      "elderAfterDays": 40
+    },
+    "feed": {
+      "itemId": "mat_feed",
+      "qtyPer8h": 1
+    },
+    "hungerDrainPerHour": 12.5,
+    "happinessDecayPerHour": 2,
+    "renewable": {
+      "itemId": "prod_wool",
+      "intervalHours": 16,
+      "qty": 1,
+      "needsTool": null
+    },
+    "oneTime": [],
+    "geneId": null,
+    "breedingRuleId": null,
+    "defaultRarity": "common",
+    "unlock": {
+      "playerLevel": 6
+    }
+  }
+]

@@ -1,0 +1,16 @@
+{
+  "frameSize": [
+    16,
+    16
+  ],
+  "tiles": [
+    "grass_a",
+    "grass_b",
+    "grass_c",
+    "path_a",
+    "path_b",
+    "path_c",
+    "edge_grass_path",
+    "edge_path_grass"
+  ]
+}

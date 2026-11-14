@@ -1,0 +1,31 @@
+{
+  "id": "quest_strange_carrot",
+  "giver": "npc_ilse",
+  "category": "story",
+  "requires": {
+    "playerLevel": 4,
+    "npcMet": [
+      "npc_ilse"
+    ]
+  },
+  "steps": [
+    {
+      "id": "s1",
+      "type": "deliver",
+      "itemId": "merged_carrot_golden",
+      "qty": 1,
+      "text": "quest.strange_carrot.s1"
+    }
+  ],
+  "rewards": {
+    "reputation": {
+      "npc_ilse": 60
+    },
+    "xp": 200,
+    "unlocks": [
+      "bld_research_station"
+    ],
+    "items": []
+  },
+  "next": "quest_what_carrots_remember"
+}

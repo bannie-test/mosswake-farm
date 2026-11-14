@@ -1,0 +1,235 @@
+[
+  {
+    "id": "bld_coop",
+    "name": "Coop",
+    "footprint": {
+      "w": 3,
+      "h": 3
+    },
+    "placement": "pad",
+    "levels": [
+      {
+        "level": 1,
+        "coins": 0,
+        "materials": [],
+        "effects": {
+          "capacity": 4
+        }
+      },
+      {
+        "level": 2,
+        "coins": 800,
+        "materials": [],
+        "effects": {
+          "capacity": 8
+        }
+      },
+      {
+        "level": 3,
+        "coins": 2500,
+        "materials": [],
+        "effects": {
+          "capacity": 12
+        }
+      }
+    ],
+    "farmPoints": 1,
+    "unlock": {
+      "start": true
+    },
+    "scene": "buildings/coop.tscn"
+  },
+  {
+    "id": "bld_barn",
+    "name": "Barn",
+    "footprint": {
+      "w": 4,
+      "h": 4
+    },
+    "placement": "pad",
+    "levels": [
+      {
+        "level": 1,
+        "coins": 1200,
+        "materials": [],
+        "effects": {
+          "capacity": 4
+        }
+      },
+      {
+        "level": 2,
+        "coins": 4000,
+        "materials": [],
+        "effects": {
+          "capacity": 8
+        }
+      }
+    ],
+    "farmPoints": 1,
+    "unlock": {
+      "playerLevel": 4
+    },
+    "scene": "buildings/barn.tscn"
+  },
+  {
+    "id": "bld_merge_table",
+    "name": "Merge Table",
+    "footprint": {
+      "w": 2,
+      "h": 2
+    },
+    "placement": "pad",
+    "levels": [
+      {
+        "level": 1,
+        "coins": 250,
+        "materials": [],
+        "effects": {
+          "mergeBonus": 0
+        }
+      },
+      {
+        "level": 2,
+        "coins": 2000,
+        "materials": [],
+        "effects": {
+          "mergeBonus": 3
+        }
+      },
+      {
+        "level": 3,
+        "coins": 8000,
+        "materials": [
+          {
+            "itemId": "spirit_essence",
+            "qty": 5
+          }
+        ],
+        "effects": {
+          "mergeBonus": 6
+        }
+      }
+    ],
+    "farmPoints": 1,
+    "unlock": {
+      "playerLevel": 3
+    },
+    "scene": "buildings/merge_table.tscn"
+  },
+  {
+    "id": "bld_chest",
+    "name": "Storage Chest",
+    "footprint": {
+      "w": 1,
+      "h": 1
+    },
+    "placement": "free",
+    "levels": [
+      {
+        "level": 1,
+        "coins": 100,
+        "materials": [],
+        "effects": {
+          "slots": 36
+        }
+      }
+    ],
+    "farmPoints": 0,
+    "unlock": {
+      "playerLevel": 1
+    },
+    "scene": "buildings/chest.tscn"
+  },
+  {
+    "id": "bld_research_station",
+    "name": "Research Station",
+    "footprint": {
+      "w": 4,
+      "h": 4
+    },
+    "placement": "pad",
+    "levels": [
+      {
+        "level": 1,
+        "coins": 2000,
+        "materials": [],
+        "effects": {
+          "queueSlots": 1
+        }
+      }
+    ],
+    "farmPoints": 1,
+    "unlock": {
+      "quest": "quest_strange_carrot"
+    },
+    "scene": "buildings/research_station.tscn"
+  },
+  {
+    "id": "bld_spirit_bench",
+    "name": "Spirit Bench",
+    "footprint": {
+      "w": 2,
+      "h": 2
+    },
+    "placement": "pad",
+    "levels": [
+      {
+        "level": 1,
+        "coins": 1500,
+        "materials": [],
+        "effects": {
+          "spiritCap": 1
+        }
+      }
+    ],
+    "farmPoints": 1,
+    "unlock": {
+      "quest": "quest_sleeper"
+    },
+    "scene": "buildings/spirit_bench.tscn"
+  },
+  {
+    "id": "bld_shipping_bin",
+    "name": "Shipping Bin",
+    "footprint": {
+      "w": 1,
+      "h": 1
+    },
+    "placement": "pad",
+    "levels": [
+      {
+        "level": 1,
+        "coins": 0,
+        "materials": [],
+        "effects": {}
+      }
+    ],
+    "farmPoints": 0,
+    "unlock": {
+      "start": true
+    },
+    "scene": "buildings/shipping_bin.tscn"
+  },
+  {
+    "id": "bld_well",
+    "name": "Well",
+    "footprint": {
+      "w": 2,
+      "h": 2
+    },
+    "placement": "pad",
+    "levels": [
+      {
+        "level": 1,
+        "coins": 0,
+        "materials": [],
+        "effects": {}
+      }
+    ],
+    "farmPoints": 0,
+    "unlock": {
+      "start": true
+    },
+    "scene": "buildings/well.tscn"
+  }
+]

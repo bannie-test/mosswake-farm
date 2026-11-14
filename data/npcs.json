@@ -1,0 +1,212 @@
+[
+  {
+    "id": "npc_mara",
+    "name": "Mara Oakhollow",
+    "role": "innkeeper",
+    "appears": {
+      "playerLevel": 1
+    },
+    "likes": [
+      "vegetable",
+      "egg",
+      "dairy",
+      "cooked"
+    ],
+    "orderRules": {
+      "tags": [
+        "vegetable",
+        "egg",
+        "dairy",
+        "cooked"
+      ],
+      "sizeFactor": 1.0,
+      "maxLines": 3,
+      "deliverySlots": 2,
+      "specialFromReputation": 3
+    },
+    "reputationThresholds": [
+      0,
+      40,
+      120,
+      250,
+      450,
+      700,
+      1000,
+      1400
+    ],
+    "reputationRewards": [],
+    "specialBonusTable": null,
+    "shop": [],
+    "dialogue": "dialogue/mara.json",
+    "portrait": "npc/mara_portrait.png"
+  },
+  {
+    "id": "npc_tobin",
+    "name": "Tobin Reed",
+    "role": "peddler",
+    "appears": {
+      "playerLevel": 1
+    },
+    "likes": [
+      "flower",
+      "merged",
+      "lucky"
+    ],
+    "orderRules": {
+      "tags": [
+        "flower",
+        "merged"
+      ],
+      "sizeFactor": 1.0,
+      "maxLines": 2,
+      "deliverySlots": 2,
+      "specialFromReputation": 3
+    },
+    "reputationThresholds": [
+      0,
+      40,
+      120,
+      250,
+      450,
+      700,
+      1000,
+      1400
+    ],
+    "reputationRewards": [
+      {
+        "level": 2,
+        "unlocks": [
+          "shop_tobin_clover"
+        ]
+      },
+      {
+        "level": 3,
+        "unlocks": [
+          "merge_sun_bouquet"
+        ]
+      }
+    ],
+    "specialBonusTable": null,
+    "shop": [
+      {
+        "id": "shop_tobin_seed_carrot",
+        "itemId": "seed_carrot",
+        "price": 4,
+        "unlock": {
+          "playerLevel": 1
+        }
+      },
+      {
+        "id": "shop_tobin_seed_wheat",
+        "itemId": "seed_wheat",
+        "price": 2,
+        "unlock": {
+          "playerLevel": 1
+        }
+      },
+      {
+        "id": "shop_tobin_seed_tomato",
+        "itemId": "seed_tomato",
+        "price": 20,
+        "unlock": {
+          "playerLevel": 2
+        }
+      },
+      {
+        "id": "shop_tobin_seed_sunflower",
+        "itemId": "seed_sunflower",
+        "price": 6,
+        "unlock": {
+          "playerLevel": 3
+        }
+      },
+      {
+        "id": "shop_tobin_clover",
+        "itemId": "lucky_clover",
+        "price": 40,
+        "unlock": {
+          "npcReputation": {
+            "npcId": "npc_tobin",
+            "level": 2
+          }
+        }
+      },
+      {
+        "id": "shop_tobin_dig_kit",
+        "itemId": "tool_dig_kit",
+        "price": 150,
+        "unlock": {
+          "quest": "quest_sleeper",
+          "questState": "started"
+        }
+      },
+      {
+        "id": "shop_tobin_chicken",
+        "animalId": "animal_chicken",
+        "price": 150,
+        "unlock": {
+          "playerLevel": 1
+        }
+      },
+      {
+        "id": "shop_tobin_cow",
+        "animalId": "animal_cow",
+        "price": 450,
+        "unlock": {
+          "playerLevel": 4,
+          "building": "bld_barn"
+        }
+      },
+      {
+        "id": "shop_tobin_sheep",
+        "animalId": "animal_sheep",
+        "price": 400,
+        "unlock": {
+          "playerLevel": 6,
+          "building": "bld_barn"
+        }
+      }
+    ],
+    "dialogue": "dialogue/tobin.json",
+    "portrait": "npc/tobin_portrait.png"
+  },
+  {
+    "id": "npc_ilse",
+    "name": "Ilse Quill",
+    "role": "scholar",
+    "appears": {
+      "playerLevel": 4
+    },
+    "likes": [
+      "magical",
+      "flower",
+      "merged"
+    ],
+    "orderRules": {
+      "tags": [
+        "merged",
+        "flower",
+        "magical"
+      ],
+      "sizeFactor": 0.9,
+      "maxLines": 2,
+      "deliverySlots": 2,
+      "specialFromReputation": 3
+    },
+    "reputationThresholds": [
+      0,
+      40,
+      120,
+      250,
+      450,
+      700,
+      1000,
+      1400
+    ],
+    "reputationRewards": [],
+    "specialBonusTable": null,
+    "shop": [],
+    "dialogue": "dialogue/ilse.json",
+    "portrait": "npc/ilse_portrait.png"
+  }
+]

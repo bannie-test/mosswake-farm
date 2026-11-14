@@ -1,0 +1,13 @@
+{
+  "frameSize": [
+    16,
+    16
+  ],
+  "animations": {
+    "sparkle": {
+      "from": 0,
+      "to": 1,
+      "fps": 4
+    }
+  }
+}

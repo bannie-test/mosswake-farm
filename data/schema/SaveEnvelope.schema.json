@@ -1,0 +1,182 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "mosswake/SaveEnvelope.schema.json",
+  "title": "SaveEnvelope",
+  "x-kind": "runtime",
+  "x-file": null,
+  "type": "object",
+  "properties": {
+    "saveVersion": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "dataVersion": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "gameMinute": {
+      "type": "number",
+      "minimum": 0
+    },
+    "rng": {
+      "type": "object",
+      "properties": {
+        "merge": {
+          "type": "integer"
+        },
+        "harvest": {
+          "type": "integer"
+        },
+        "orders": {
+          "type": "integer"
+        },
+        "breeding": {
+          "type": "integer"
+        },
+        "excavation": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "merge",
+        "harvest",
+        "orders",
+        "breeding",
+        "excavation"
+      ],
+      "additionalProperties": false
+    },
+    "player": {
+      "type": "object",
+      "properties": {
+        "level": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "xp": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "coins": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "farmPoints": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "reputation": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "unlocked": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "stats": {
+          "type": "object",
+          "properties": {
+            "ordersCompleted": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "timesProduced": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "integer",
+                "minimum": 0
+              }
+            }
+          },
+          "required": [
+            "ordersCompleted",
+            "timesProduced"
+          ],
+          "additionalProperties": false
+        },
+        "mergePity": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "mergeMastery": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      },
+      "required": [
+        "level",
+        "xp",
+        "coins",
+        "farmPoints",
+        "reputation",
+        "unlocked",
+        "stats",
+        "mergePity",
+        "mergeMastery"
+      ],
+      "additionalProperties": false
+    },
+    "plots": {
+      "type": "array",
+      "items": {
+        "$ref": "FarmPlotState.schema.json"
+      }
+    },
+    "animals": {
+      "type": "array",
+      "items": {
+        "$ref": "AnimalInstance.schema.json"
+      }
+    },
+    "inventory": {
+      "$ref": "InventoryState.schema.json"
+    },
+    "research": {
+      "$ref": "ResearchProgress.schema.json"
+    },
+    "quests": {
+      "$ref": "QuestProgress.schema.json"
+    },
+    "spirits": {
+      "type": "array",
+      "items": {
+        "$ref": "SpiritInstance.schema.json"
+      }
+    },
+    "orders": {
+      "type": "array",
+      "items": {
+        "$ref": "OrderDefinition.schema.json"
+      }
+    },
+    "buildings": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "fieldsOwned": {
+      "type": "integer",
+      "minimum": 0
+    }
+  },
+  "required": [
+    "saveVersion",
+    "dataVersion",
+    "gameMinute",
+    "rng",
+    "player"
+  ],
+  "additionalProperties": false
+}

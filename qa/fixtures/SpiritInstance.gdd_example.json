@@ -1,0 +1,28 @@
+{
+  "instanceId": "sp_0001",
+  "spiritId": "spirit_rootling",
+  "name": "Mossy",
+  "isElder": false,
+  "skillLevel": 2,
+  "skillXp": 141,
+  "skillCap": 5,
+  "stamina": 23,
+  "state": "working",
+  "zone": {
+    "map": "farm",
+    "x": 34,
+    "y": 20,
+    "w": 6,
+    "h": 4
+  },
+  "chestId": null,
+  "carrying": {
+    "water": 4
+  },
+  "upkeepPaidDay": 22,
+  "grafts": {
+    "tool": 0,
+    "heartwood": false,
+    "rootbed": true
+  }
+}

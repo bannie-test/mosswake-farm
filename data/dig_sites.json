@@ -1,0 +1,30 @@
+[
+  {
+    "id": "site_mossy_hollow_mvp",
+    "name": "Mossy Hollow",
+    "grid": {
+      "w": 6,
+      "h": 6
+    },
+    "layers": 1,
+    "husks": 1,
+    "huskCondition": [
+      "muddy"
+    ],
+    "rootSense": {
+      "hot": 1,
+      "warm": 3
+    },
+    "guaranteedLoot": [
+      {
+        "itemId": "spirit_essence",
+        "qty": 2
+      }
+    ],
+    "digsPerKit": 10,
+    "unlock": {
+      "quest": "quest_sleeper",
+      "questState": "started"
+    }
+  }
+]

@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "mosswake/FarmPlotState.schema.json",
+  "title": "FarmPlotState",
+  "x-kind": "runtime",
+  "x-file": null,
+  "type": "object",
+  "properties": {
+    "plotId": {
+      "type": "string",
+      "pattern": "^field_[0-9]{2}/[0-9]+$"
+    },
+    "plantId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^(plant)_[a-z0-9]+(_[a-z0-9]+)*$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "plantedAt": {
+      "anyOf": [
+        {
+          "type": "number",
+          "minimum": 0
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "growthMinutes": {
+      "type": "number",
+      "minimum": 0
+    },
+    "moisture": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "dryMinutes": {
+      "type": "number",
+      "minimum": 0
+    },
+    "everDry": {
+      "type": "boolean"
+    },
+    "fertilizerItemId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^(seed|crop|prod|merged|food|gene|lucky|mat|spirit|embryo|quest|tool|special)_[a-z0-9]+(_[a-z0-9]+)*$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "harvestsTaken": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "matureSince": {
+      "anyOf": [
+        {
+          "type": "number",
+          "minimum": 0
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "state": {
+      "enum": [
+        "empty",
+        "tilled",
+        "growing",
+        "mature",
+        "regrowing",
+        "withered"
+      ]
+    }
+  },
+  "required": [
+    "plotId",
+    "plantId",
+    "plantedAt",
+    "growthMinutes",
+    "moisture",
+    "dryMinutes",
+    "everDry",
+    "fertilizerItemId",
+    "harvestsTaken",
+    "matureSince",
+    "state"
+  ],
+  "additionalProperties": false
+}

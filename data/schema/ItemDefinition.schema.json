@@ -1,0 +1,187 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "mosswake/ItemDefinition.schema.json",
+  "title": "ItemDefinition",
+  "x-kind": "static",
+  "x-file": "items.json",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^(seed|crop|prod|merged|food|gene|lucky|mat|spirit|embryo|quest|tool|special)_[a-z0-9]+(_[a-z0-9]+)*$"
+    },
+    "name": {
+      "type": "string"
+    },
+    "category": {
+      "enum": [
+        "seed",
+        "crop",
+        "animal_product",
+        "merged",
+        "food",
+        "gene_fragment",
+        "lucky",
+        "material",
+        "spirit_material",
+        "embryo",
+        "quest",
+        "tool",
+        "special"
+      ]
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z_]+$"
+      }
+    },
+    "rarity": {
+      "enum": [
+        "common",
+        "uncommon",
+        "rare",
+        "epic",
+        "legendary",
+        "mythical"
+      ]
+    },
+    "tier": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "species": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "baseValue": {
+      "type": "number",
+      "minimum": 0
+    },
+    "stackSize": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 999
+    },
+    "storage": {
+      "enum": [
+        "inventory",
+        "wallet",
+        "silo",
+        "quest_pouch"
+      ]
+    },
+    "hasQuality": {
+      "type": "boolean"
+    },
+    "sellable": {
+      "type": "boolean"
+    },
+    "research": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "geneId": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^(gene)_[a-z0-9]+(_[a-z0-9]+)*$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "fragments": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "stardust": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "hours": {
+              "type": "number",
+              "minimum": 0
+            },
+            "coins": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "geneId",
+            "fragments",
+            "stardust",
+            "hours",
+            "coins"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "lucky": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "slot": {
+              "enum": [
+                "charm",
+                "blessing"
+              ]
+            },
+            "bonus": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "refundOnFail": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "slot",
+            "bonus"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "icon": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "category",
+    "tags",
+    "rarity",
+    "tier",
+    "species",
+    "baseValue",
+    "stackSize",
+    "storage",
+    "hasQuality",
+    "sellable",
+    "research",
+    "lucky",
+    "icon"
+  ],
+  "additionalProperties": false
+}

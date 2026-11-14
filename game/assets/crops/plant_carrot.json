@@ -1,0 +1,15 @@
+{
+  "frameSize": [
+    16,
+    32
+  ],
+  "frames": [
+    "stage_0",
+    "stage_1",
+    "stage_2",
+    "stage_3",
+    "stage_4",
+    "stage_5",
+    "stage_6"
+  ]
+}

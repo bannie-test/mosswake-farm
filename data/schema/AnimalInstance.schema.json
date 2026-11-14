@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "mosswake/AnimalInstance.schema.json",
+  "title": "AnimalInstance",
+  "x-kind": "runtime",
+  "x-file": null,
+  "type": "object",
+  "properties": {
+    "instanceId": {
+      "type": "string",
+      "pattern": "^an_[0-9]{4}$"
+    },
+    "animalId": {
+      "type": "string",
+      "pattern": "^(animal)_[a-z0-9]+(_[a-z0-9]+)*$"
+    },
+    "name": {
+      "type": "string"
+    },
+    "rarity": {
+      "enum": [
+        "common",
+        "uncommon",
+        "rare",
+        "epic",
+        "legendary",
+        "mythical"
+      ]
+    },
+    "traits": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "traitId": {
+            "type": "string",
+            "pattern": "^(trait)_[a-z0-9]+(_[a-z0-9]+)*$"
+          },
+          "level": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 3
+          }
+        },
+        "required": [
+          "traitId",
+          "level"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 3
+    },
+    "parents": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 2
+    },
+    "bornAt": {
+      "type": "number"
+    },
+    "stage": {
+      "enum": [
+        "baby",
+        "juvenile",
+        "adult",
+        "elder"
+      ]
+    },
+    "hunger": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "happiness": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "health": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "fertility": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "productionProgress": {
+      "type": "number",
+      "minimum": 0
+    },
+    "breedReadyAt": {
+      "type": "number",
+      "minimum": 0
+    },
+    "oneTimeGiven": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "housingId": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "instanceId",
+    "animalId",
+    "name",
+    "rarity",
+    "traits",
+    "parents",
+    "bornAt",
+    "stage",
+    "hunger",
+    "happiness",
+    "health",
+    "fertility",
+    "productionProgress",
+    "breedReadyAt",
+    "oneTimeGiven",
+    "housingId"
+  ],
+  "additionalProperties": false
+}

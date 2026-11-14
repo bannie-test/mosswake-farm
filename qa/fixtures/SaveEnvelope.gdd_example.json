@@ -1,0 +1,43 @@
+{
+  "saveVersion": 3,
+  "dataVersion": "1.0.0",
+  "gameMinute": 31925,
+  "rng": {
+    "merge": 918273645,
+    "harvest": 55512,
+    "orders": 7781,
+    "breeding": 40961,
+    "excavation": 1203
+  },
+  "player": {
+    "level": 6,
+    "xp": 412,
+    "coins": 1840,
+    "farmPoints": 7,
+    "reputation": {
+      "npc_mara": 164,
+      "npc_tobin": 96,
+      "npc_ilse": 60
+    },
+    "unlocked": [
+      "plant_carrot",
+      "plant_wheat",
+      "plant_tomato",
+      "plant_sunflower",
+      "merge_carrot_premium",
+      "merge_carrot_golden"
+    ],
+    "stats": {
+      "ordersCompleted": 23,
+      "timesProduced": {
+        "merged_carrot_golden": 2
+      }
+    },
+    "mergePity": {
+      "merge_carrot_crystal": 1
+    },
+    "mergeMastery": {
+      "merge_carrot_premium": 14
+    }
+  }
+}

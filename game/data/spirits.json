@@ -1,0 +1,62 @@
+[
+  {
+    "id": "spirit_rootling",
+    "name": "Rootling",
+    "jobId": "job_water_plots",
+    "charmRecipe": {
+      "inputs": [
+        {
+          "itemId": "merged_carrot_premium",
+          "qty": 5
+        },
+        {
+          "itemId": "spirit_essence",
+          "qty": 1
+        }
+      ],
+      "coins": 200
+    },
+    "base": {
+      "actionSeconds": 6,
+      "moveTilesPerSecond": 2.5,
+      "carry": 10
+    },
+    "levels": [
+      {
+        "level": 1,
+        "xp": 0,
+        "zoneTiles": 16,
+        "speed": 1.0,
+        "stamina": 40,
+        "restHours": 3
+      },
+      {
+        "level": 2,
+        "xp": 100,
+        "zoneTiles": 24,
+        "speed": 1.2,
+        "stamina": 50,
+        "restHours": 3
+      },
+      {
+        "level": 3,
+        "xp": 300,
+        "zoneTiles": 36,
+        "speed": 1.5,
+        "stamina": 60,
+        "restHours": 2.5,
+        "perk": "perk_apply_fertilizer"
+      }
+    ],
+    "upkeep": {
+      "itemId": "mat_sap",
+      "qtyPerDay": 1,
+      "unpaidSpeed": 0.5
+    },
+    "unlock": {
+      "quest": "quest_first_vocation",
+      "questState": "started"
+    },
+    "sprite": "spirits/spirit_rootling.png"
+  }
+]

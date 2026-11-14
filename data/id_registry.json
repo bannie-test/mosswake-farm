@@ -1,0 +1,522 @@
+{
+  "version": 1,
+  "note": "Every ID must be registered here before it is used anywhere (GDD section 18). IDs are permanent once shipped; retire them in retired_ids.json, never reuse.",
+  "ids": [
+    {
+      "id": "crop_carrot",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "crop_wheat",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "crop_tomato",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "crop_sunflower",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "crop_carrot_ancient",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "prod_egg",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "prod_milk",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "prod_wool",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "merged_carrot_premium",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "merged_carrot_golden",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "merged_carrot_crystal",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "merged_tomato_premium",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "merged_tomato_golden",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "merged_sun_bouquet",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "merged_egg_speckled",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "merged_egg_golden",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "merged_cream",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "merged_wool_bale_fine",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "seed_carrot",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "seed_wheat",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "seed_tomato",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "seed_sunflower",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "seed_carrot_ancient",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "mat_feed",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "mat_sap",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "mat_stardust",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "gene_carrot",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "lucky_clover",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "spirit_essence",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "spirit_husk_dormant",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "spirit_revival_potion",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "tool_dig_kit",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "plant_carrot",
+      "type": "plant",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "plant_wheat",
+      "type": "plant",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "plant_tomato",
+      "type": "plant",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "plant_sunflower",
+      "type": "plant",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "plant_carrot_ancient",
+      "type": "plant",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "animal_chicken",
+      "type": "animal",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "animal_cow",
+      "type": "animal",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "animal_sheep",
+      "type": "animal",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "merge_carrot_premium",
+      "type": "merge_recipe",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "merge_carrot_golden",
+      "type": "merge_recipe",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "merge_carrot_crystal",
+      "type": "merge_recipe",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "merge_tomato_premium",
+      "type": "merge_recipe",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "merge_tomato_golden",
+      "type": "merge_recipe",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "merge_sun_bouquet",
+      "type": "merge_recipe",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "merge_egg_speckled",
+      "type": "merge_recipe",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "merge_egg_golden",
+      "type": "merge_recipe",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "merge_cream",
+      "type": "merge_recipe",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "merge_wool_bale_fine",
+      "type": "merge_recipe",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "bp_carrot_ancient",
+      "type": "blueprint",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "quest_first_harvest",
+      "type": "quest",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "quest_table_for_two",
+      "type": "quest",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "quest_strange_carrot",
+      "type": "quest",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "quest_what_carrots_remember",
+      "type": "quest",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "quest_sleeper",
+      "type": "quest",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "quest_first_vocation",
+      "type": "quest",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "npc_mara",
+      "type": "npc",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "npc_tobin",
+      "type": "npc",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "shop_tobin_seed_carrot",
+      "type": "shop_entry",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "shop_tobin_seed_wheat",
+      "type": "shop_entry",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "shop_tobin_seed_tomato",
+      "type": "shop_entry",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "shop_tobin_seed_sunflower",
+      "type": "shop_entry",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "shop_tobin_clover",
+      "type": "shop_entry",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "shop_tobin_dig_kit",
+      "type": "shop_entry",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "shop_tobin_chicken",
+      "type": "shop_entry",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "shop_tobin_cow",
+      "type": "shop_entry",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "shop_tobin_sheep",
+      "type": "shop_entry",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "npc_ilse",
+      "type": "npc",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "spirit_rootling",
+      "type": "spirit",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "job_water_plots",
+      "type": "spirit_job",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "bld_coop",
+      "type": "building",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "bld_barn",
+      "type": "building",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "bld_merge_table",
+      "type": "building",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "bld_chest",
+      "type": "building",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "bld_research_station",
+      "type": "building",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "bld_spirit_bench",
+      "type": "building",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "bld_shipping_bin",
+      "type": "building",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "bld_well",
+      "type": "building",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "craft_feed",
+      "type": "craft_recipe",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "craft_sap",
+      "type": "craft_recipe",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "craft_revival_potion",
+      "type": "craft_recipe",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "site_mossy_hollow_mvp",
+      "type": "dig_site",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "feature_order_board",
+      "type": "feature",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "feature_zone_tool",
+      "type": "feature",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "perk_apply_fertilizer",
+      "type": "perk",
+      "owner": "Systems Designer",
+      "status": "active"
+    }
+  ]
+}

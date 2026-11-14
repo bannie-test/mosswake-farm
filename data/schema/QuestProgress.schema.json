@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "mosswake/QuestProgress.schema.json",
+  "title": "QuestProgress",
+  "x-kind": "runtime",
+  "x-file": null,
+  "type": "object",
+  "properties": {
+    "active": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "questId": {
+            "type": "string",
+            "pattern": "^(quest)_[a-z0-9]+(_[a-z0-9]+)*$"
+          },
+          "stepId": {
+            "type": "string"
+          },
+          "counters": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "questId",
+          "stepId",
+          "counters"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "completed": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^(quest)_[a-z0-9]+(_[a-z0-9]+)*$"
+      }
+    },
+    "orders": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^ord_[0-9]{6}$"
+      }
+    },
+    "slotRefillAt": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "number"
+      }
+    }
+  },
+  "required": [
+    "active",
+    "completed",
+    "orders",
+    "slotRefillAt"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,32 @@
+{
+  "level": 2,
+  "xp": 17,
+  "queue": [
+    {
+      "itemId": "merged_carrot_golden",
+      "quality": 1,
+      "startedAt": 31800,
+      "readyAt": 31980
+    }
+  ],
+  "researchedOnce": [
+    "merged_carrot_premium",
+    "merged_tomato_premium"
+  ],
+  "blueprints": [
+    "bp_carrot_ancient"
+  ],
+  "codex": {
+    "carrot": [
+      "discovered",
+      "researched",
+      "blueprint"
+    ],
+    "chicken": [
+      "discovered"
+    ]
+  },
+  "traitsSeen": [
+    "trait_golden_comb"
+  ]
+}

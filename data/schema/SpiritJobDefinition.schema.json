@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "mosswake/SpiritJobDefinition.schema.json",
+  "title": "SpiritJobDefinition",
+  "x-kind": "static",
+  "x-file": "spirit_jobs.json",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^(job)_[a-z0-9]+(_[a-z0-9]+)*$"
+    },
+    "targetType": {
+      "enum": [
+        "plot",
+        "animal",
+        "housing",
+        "chest",
+        "order"
+      ]
+    },
+    "targetFilter": {
+      "type": "object"
+    },
+    "action": {
+      "type": "string"
+    },
+    "consumes": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "resource": {
+              "type": "string"
+            },
+            "perAction": {
+              "type": "number"
+            },
+            "refillAt": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "resource",
+            "perAction",
+            "refillAt"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "outputTo": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "priority": {
+      "type": "string"
+    },
+    "needsChest": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "id",
+    "targetType",
+    "targetFilter",
+    "action",
+    "consumes",
+    "outputTo",
+    "priority",
+    "needsChest"
+  ],
+  "additionalProperties": false
+}

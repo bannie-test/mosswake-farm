@@ -1,0 +1,38 @@
+{
+  "frameSize": [
+    32,
+    32
+  ],
+  "animations": {
+    "idle_s": {
+      "from": 0,
+      "to": 3,
+      "fps": 5
+    },
+    "walk_s": {
+      "from": 4,
+      "to": 9,
+      "fps": 10
+    },
+    "idle_n": {
+      "from": 10,
+      "to": 13,
+      "fps": 5
+    },
+    "walk_n": {
+      "from": 14,
+      "to": 19,
+      "fps": 10
+    },
+    "idle_e": {
+      "from": 20,
+      "to": 23,
+      "fps": 5
+    },
+    "walk_e": {
+      "from": 24,
+      "to": 29,
+      "fps": 10
+    }
+  }
+}

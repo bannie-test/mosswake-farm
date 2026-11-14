@@ -1,0 +1,12 @@
+{
+  "frameSize": [
+    16,
+    16
+  ],
+  "tiles": [
+    "tuft",
+    "pebbles",
+    "flowers_yellow",
+    "flowers_pink"
+  ]
+}

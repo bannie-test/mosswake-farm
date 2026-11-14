@@ -1,0 +1,67 @@
+[
+  {
+    "id": "craft_feed",
+    "name": "Feed",
+    "inputs": [
+      {
+        "itemId": "crop_wheat",
+        "qty": 2
+      }
+    ],
+    "coins": 0,
+    "hours": 0,
+    "output": {
+      "itemId": "mat_feed",
+      "qty": 1
+    },
+    "station": null,
+    "unlock": {
+      "playerLevel": 1
+    }
+  },
+  {
+    "id": "craft_sap",
+    "name": "Sap",
+    "inputs": [
+      {
+        "tag": "crop",
+        "rarity": "common",
+        "qty": 6
+      }
+    ],
+    "coins": 0,
+    "hours": 0,
+    "output": {
+      "itemId": "mat_sap",
+      "qty": 2
+    },
+    "station": null,
+    "unlock": {
+      "quest": "quest_first_vocation"
+    }
+  },
+  {
+    "id": "craft_revival_potion",
+    "name": "Revival Potion",
+    "inputs": [
+      {
+        "itemId": "spirit_essence",
+        "qty": 1
+      },
+      {
+        "itemId": "merged_sun_bouquet",
+        "qty": 2
+      }
+    ],
+    "coins": 100,
+    "hours": 3,
+    "output": {
+      "itemId": "spirit_revival_potion",
+      "qty": 1
+    },
+    "station": "bld_spirit_bench",
+    "unlock": {
+      "building": "bld_spirit_bench"
+    }
+  }
+]

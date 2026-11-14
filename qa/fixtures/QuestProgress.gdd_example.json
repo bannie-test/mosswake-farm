@@ -1,0 +1,23 @@
+{
+  "active": [
+    {
+      "questId": "quest_what_carrots_remember",
+      "stepId": "s1",
+      "counters": {
+        "research": 2
+      }
+    }
+  ],
+  "completed": [
+    "quest_first_harvest",
+    "quest_table_for_two",
+    "quest_strange_carrot"
+  ],
+  "orders": [
+    "ord_000142",
+    "ord_000143"
+  ],
+  "slotRefillAt": {
+    "npc_mara/1": 31985
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "id": "bp_carrot_ancient",
+  "kind": "seed",
+  "fragmentCost": [
+    {
+      "geneId": "gene_carrot",
+      "qty": 10
+    }
+  ],
+  "prismMaxRatio": 0.3,
+  "creation": {
+    "station": "bld_research_station",
+    "inputs": [
+      {
+        "itemId": "merged_carrot_crystal",
+        "qty": 1
+      },
+      {
+        "itemId": "mat_stardust",
+        "qty": 5
+      }
+    ],
+    "coins": 200,
+    "hours": 2,
+    "output": {
+      "itemId": "seed_carrot_ancient",
+      "qty": 4
+    }
+  },
+  "unlock": {
+    "researchLevel": 1
+  }
+}

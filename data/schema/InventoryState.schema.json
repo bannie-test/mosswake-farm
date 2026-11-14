@@ -1,0 +1,153 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "mosswake/InventoryState.schema.json",
+  "title": "InventoryState",
+  "x-kind": "runtime",
+  "x-file": null,
+  "type": "object",
+  "properties": {
+    "backpack": {
+      "type": "object",
+      "properties": {
+        "slots": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "stacks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "itemId": {
+                "type": "string",
+                "pattern": "^(seed|crop|prod|merged|food|gene|lucky|mat|spirit|embryo|quest|tool|special)_[a-z0-9]+(_[a-z0-9]+)*$"
+              },
+              "quality": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 4
+              },
+              "qty": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "instanceData": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "itemId",
+              "quality",
+              "qty"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "slots",
+        "stacks"
+      ],
+      "additionalProperties": false
+    },
+    "chests": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "slots": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "stacks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "itemId": {
+                  "type": "string",
+                  "pattern": "^(seed|crop|prod|merged|food|gene|lucky|mat|spirit|embryo|quest|tool|special)_[a-z0-9]+(_[a-z0-9]+)*$"
+                },
+                "quality": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 4
+                },
+                "qty": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "instanceData": {
+                  "type": "object"
+                }
+              },
+              "required": [
+                "itemId",
+                "quality",
+                "qty"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "slots",
+          "stacks"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "silo": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "integer",
+        "minimum": 0
+      }
+    },
+    "wallet": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "integer",
+        "minimum": 0
+      }
+    },
+    "questPouch": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "itemId": {
+            "type": "string",
+            "pattern": "^(seed|crop|prod|merged|food|gene|lucky|mat|spirit|embryo|quest|tool|special)_[a-z0-9]+(_[a-z0-9]+)*$"
+          },
+          "quality": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 4
+          },
+          "qty": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "instanceData": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "itemId",
+          "quality",
+          "qty"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "backpack",
+    "chests",
+    "silo",
+    "wallet",
+    "questPouch"
+  ],
+  "additionalProperties": false
+}

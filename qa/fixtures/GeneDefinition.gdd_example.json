@@ -1,0 +1,9 @@
+{
+  "id": "gene_carrot",
+  "species": "carrot",
+  "kind": "crop",
+  "walletCap": 99,
+  "blueprintIds": [
+    "bp_carrot_ancient"
+  ]
+}

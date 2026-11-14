@@ -1,0 +1,179 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "mosswake/ResearchRecipe.schema.json",
+  "title": "ResearchRecipe",
+  "x-kind": "static",
+  "x-file": "blueprints.json",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^(bp)_[a-z0-9]+(_[a-z0-9]+)*$"
+    },
+    "kind": {
+      "enum": [
+        "seed",
+        "embryo"
+      ]
+    },
+    "fragmentCost": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "geneId": {
+            "type": "string",
+            "pattern": "^(gene)_[a-z0-9]+(_[a-z0-9]+)*$"
+          },
+          "qty": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "geneId",
+          "qty"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "prismMaxRatio": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "creation": {
+      "type": "object",
+      "properties": {
+        "station": {
+          "type": "string",
+          "pattern": "^(bld)_[a-z0-9]+(_[a-z0-9]+)*$"
+        },
+        "inputs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "itemId": {
+                "type": "string",
+                "pattern": "^(seed|crop|prod|merged|food|gene|lucky|mat|spirit|embryo|quest|tool|special)_[a-z0-9]+(_[a-z0-9]+)*$"
+              },
+              "qty": {
+                "type": "integer",
+                "minimum": 1
+              }
+            },
+            "required": [
+              "itemId",
+              "qty"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "coins": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "hours": {
+          "type": "number",
+          "minimum": 0
+        },
+        "output": {
+          "type": "object",
+          "properties": {
+            "itemId": {
+              "type": "string",
+              "pattern": "^(seed|crop|prod|merged|food|gene|lucky|mat|spirit|embryo|quest|tool|special)_[a-z0-9]+(_[a-z0-9]+)*$"
+            },
+            "qty": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          "required": [
+            "itemId",
+            "qty"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "station",
+        "inputs",
+        "coins",
+        "hours",
+        "output"
+      ],
+      "additionalProperties": false
+    },
+    "unlock": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "type": "boolean"
+        },
+        "playerLevel": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "quest": {
+          "type": "string",
+          "pattern": "^(quest)_[a-z0-9]+(_[a-z0-9]+)*$"
+        },
+        "questState": {
+          "enum": [
+            "started",
+            "completed"
+          ]
+        },
+        "building": {
+          "type": "string",
+          "pattern": "^(bld)_[a-z0-9]+(_[a-z0-9]+)*$"
+        },
+        "firstResearchOf": {
+          "type": "string",
+          "pattern": "^(seed|crop|prod|merged|food|gene|lucky|mat|spirit|embryo|quest|tool|special)_[a-z0-9]+(_[a-z0-9]+)*$"
+        },
+        "blueprint": {
+          "type": "string",
+          "pattern": "^(bp)_[a-z0-9]+(_[a-z0-9]+)*$"
+        },
+        "researchLevel": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "npcReputation": {
+          "type": "object",
+          "properties": {
+            "npcId": {
+              "type": "string",
+              "pattern": "^(npc)_[a-z0-9]+(_[a-z0-9]+)*$"
+            },
+            "level": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 8
+            }
+          },
+          "required": [
+            "npcId",
+            "level"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "id",
+    "kind",
+    "fragmentCost",
+    "prismMaxRatio",
+    "creation",
+    "unlock"
+  ],
+  "additionalProperties": false
+}

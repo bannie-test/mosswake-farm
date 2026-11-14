@@ -1,0 +1,47 @@
+{
+  "mergeConfig": {
+    "baseRate": {
+      "basic": 100,
+      "advanced": 85,
+      "rare": 65,
+      "epic": 40,
+      "legendary": 20,
+      "mythical": 10
+    },
+    "modifierCap": {
+      "basic": 100,
+      "default": 95
+    },
+    "pityStep": 5,
+    "tableBonus": [
+      0,
+      3,
+      6
+    ],
+    "masteryPerSuccesses": 5,
+    "masteryMax": 5,
+    "qualityBonus": {
+      "minQuality": 3,
+      "bonus": 5
+    },
+    "critBase": 5,
+    "critPerMastery": 1,
+    "failRefundRatio": 0.5,
+    "stardustPerFailByTier": {
+      "advanced": 1,
+      "rare": 3,
+      "epic": 6,
+      "legendary": 12,
+      "mythical": 25
+    },
+    "feeRatio": 0.1,
+    "valueFactor": {
+      "basic": 1.25,
+      "advanced": 1.45,
+      "rare": 1.8,
+      "epic": 2.6,
+      "legendary": 4.5,
+      "mythical": 8.0
+    }
+  }
+}

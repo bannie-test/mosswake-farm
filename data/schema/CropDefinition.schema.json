@@ -1,0 +1,283 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "mosswake/CropDefinition.schema.json",
+  "title": "CropDefinition",
+  "x-kind": "static",
+  "x-file": "plants.json",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^(plant)_[a-z0-9]+(_[a-z0-9]+)*$"
+    },
+    "species": {
+      "type": "string"
+    },
+    "seedItemId": {
+      "type": "string",
+      "pattern": "^(seed)_[a-z0-9]+(_[a-z0-9]+)*$"
+    },
+    "productItemId": {
+      "type": "string",
+      "pattern": "^(crop)_[a-z0-9]+(_[a-z0-9]+)*$"
+    },
+    "rarity": {
+      "enum": [
+        "common",
+        "uncommon",
+        "rare",
+        "epic",
+        "legendary",
+        "mythical"
+      ]
+    },
+    "growthHours": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "stages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "enum": [
+              "seed",
+              "sprout",
+              "young",
+              "growing",
+              "mature"
+            ]
+          },
+          "until": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "maximum": 1
+          }
+        },
+        "required": [
+          "name",
+          "until"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 5,
+      "maxItems": 5
+    },
+    "waterIntervalHours": {
+      "anyOf": [
+        {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "fertilizerRequired": {
+      "type": "boolean"
+    },
+    "yield": {
+      "type": "object",
+      "properties": {
+        "min": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "max": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": [
+        "min",
+        "max"
+      ],
+      "additionalProperties": false
+    },
+    "regrow": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "hours": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "maxHarvests": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 2
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "hours",
+            "maxHarvests"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "witherDryHours": {
+      "type": "number",
+      "minimum": 1
+    },
+    "witherUnharvestedHours": {
+      "type": "number",
+      "minimum": 1
+    },
+    "nightOnly": {
+      "type": "boolean"
+    },
+    "needsShade": {
+      "type": "boolean"
+    },
+    "mutation": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "chance": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 0.25
+            },
+            "resultItemId": {
+              "type": "string",
+              "pattern": "^(seed|crop|prod|merged|food|gene|lucky|mat|spirit|embryo|quest|tool|special)_[a-z0-9]+(_[a-z0-9]+)*$"
+            },
+            "sportGeneId": {
+              "type": "string",
+              "pattern": "^(gene)_[a-z0-9]+(_[a-z0-9]+)*$"
+            }
+          },
+          "required": [
+            "chance",
+            "resultItemId",
+            "sportGeneId"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "innateTraits": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^(trait)_[a-z0-9]+(_[a-z0-9]+)*$"
+      }
+    },
+    "favouredSeason": {
+      "enum": [
+        "spring",
+        "summer",
+        "autumn",
+        "winter",
+        "any"
+      ]
+    },
+    "xpPerUnit": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "unlock": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "type": "boolean"
+        },
+        "playerLevel": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "quest": {
+          "type": "string",
+          "pattern": "^(quest)_[a-z0-9]+(_[a-z0-9]+)*$"
+        },
+        "questState": {
+          "enum": [
+            "started",
+            "completed"
+          ]
+        },
+        "building": {
+          "type": "string",
+          "pattern": "^(bld)_[a-z0-9]+(_[a-z0-9]+)*$"
+        },
+        "firstResearchOf": {
+          "type": "string",
+          "pattern": "^(seed|crop|prod|merged|food|gene|lucky|mat|spirit|embryo|quest|tool|special)_[a-z0-9]+(_[a-z0-9]+)*$"
+        },
+        "blueprint": {
+          "type": "string",
+          "pattern": "^(bp)_[a-z0-9]+(_[a-z0-9]+)*$"
+        },
+        "researchLevel": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "npcReputation": {
+          "type": "object",
+          "properties": {
+            "npcId": {
+              "type": "string",
+              "pattern": "^(npc)_[a-z0-9]+(_[a-z0-9]+)*$"
+            },
+            "level": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 8
+            }
+          },
+          "required": [
+            "npcId",
+            "level"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
+    "sprite": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "species",
+    "seedItemId",
+    "productItemId",
+    "rarity",
+    "growthHours",
+    "stages",
+    "waterIntervalHours",
+    "fertilizerRequired",
+    "yield",
+    "regrow",
+    "witherDryHours",
+    "witherUnharvestedHours",
+    "nightOnly",
+    "needsShade",
+    "mutation",
+    "innateTraits",
+    "favouredSeason",
+    "xpPerUnit",
+    "unlock",
+    "sprite"
+  ],
+  "additionalProperties": false
+}

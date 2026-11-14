@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "mosswake/TraitDefinition.schema.json",
+  "title": "TraitDefinition",
+  "x-kind": "static",
+  "x-file": "traits.json",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^(trait)_[a-z0-9]+(_[a-z0-9]+)*$"
+    },
+    "appliesTo": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "maxLevel": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 3
+    },
+    "effects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "stat": {
+            "type": "string"
+          },
+          "op": {
+            "enum": [
+              "add",
+              "mul",
+              "chance"
+            ]
+          },
+          "perLevel": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "stat",
+          "op",
+          "perLevel"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "codexStamp": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "id",
+    "appliesTo",
+    "maxLevel",
+    "effects",
+    "codexStamp"
+  ],
+  "additionalProperties": false
+}

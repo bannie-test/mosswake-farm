@@ -1,0 +1,19 @@
+[
+  {
+    "id": "job_water_plots",
+    "targetType": "plot",
+    "targetFilter": {
+      "moistureBelow": 30,
+      "hasCrop": true
+    },
+    "action": "water",
+    "consumes": {
+      "resource": "water",
+      "perAction": 1,
+      "refillAt": "well"
+    },
+    "outputTo": null,
+    "priority": "lowestMoistureFirst",
+    "needsChest": false
+  }
+]

@@ -1,0 +1,53 @@
+{
+  "id": "plant_carrot",
+  "species": "carrot",
+  "seedItemId": "seed_carrot",
+  "productItemId": "crop_carrot",
+  "rarity": "common",
+  "growthHours": 6,
+  "stages": [
+    {
+      "name": "seed",
+      "until": 0.1
+    },
+    {
+      "name": "sprout",
+      "until": 0.35
+    },
+    {
+      "name": "young",
+      "until": 0.55
+    },
+    {
+      "name": "growing",
+      "until": 0.75
+    },
+    {
+      "name": "mature",
+      "until": 1.0
+    }
+  ],
+  "waterIntervalHours": 8,
+  "fertilizerRequired": false,
+  "yield": {
+    "min": 2,
+    "max": 2
+  },
+  "regrow": null,
+  "witherDryHours": 24,
+  "witherUnharvestedHours": 48,
+  "nightOnly": false,
+  "needsShade": false,
+  "mutation": {
+    "chance": 0.005,
+    "resultItemId": "merged_carrot_premium",
+    "sportGeneId": "gene_carrot"
+  },
+  "innateTraits": [],
+  "favouredSeason": "spring",
+  "xpPerUnit": 1,
+  "unlock": {
+    "playerLevel": 1
+  },
+  "sprite": "crops/carrot.png"
+}

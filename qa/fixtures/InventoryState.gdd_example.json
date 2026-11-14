@@ -1,0 +1,48 @@
+{
+  "backpack": {
+    "slots": 24,
+    "stacks": [
+      {
+        "itemId": "crop_carrot",
+        "quality": 1,
+        "qty": 14
+      },
+      {
+        "itemId": "crop_carrot",
+        "quality": 3,
+        "qty": 2
+      },
+      {
+        "itemId": "embryo_sunhen",
+        "quality": 1,
+        "qty": 1,
+        "instanceData": {
+          "rarity": "epic",
+          "traits": [
+            {
+              "traitId": "trait_sun_feather",
+              "level": 2
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "chests": {
+    "chest_01": {
+      "slots": 36,
+      "stacks": []
+    }
+  },
+  "silo": {
+    "mat_feed": 38
+  },
+  "wallet": {
+    "gene_carrot": 6,
+    "prism_fragment": 2,
+    "mat_stardust": 4,
+    "lucky_clover": 3,
+    "spirit_essence": 0
+  },
+  "questPouch": []
+}

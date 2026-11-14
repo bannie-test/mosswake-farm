@@ -1,0 +1,10 @@
+{
+  "frameSize": [
+    16,
+    16
+  ],
+  "tiles": [
+    "soil_dry",
+    "soil_wet"
+  ]
+}

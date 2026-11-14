@@ -1,0 +1,209 @@
+[
+  {
+    "id": "merge_carrot_premium",
+    "rarity": "basic",
+    "inputs": [
+      {
+        "itemId": "crop_carrot",
+        "qty": 3
+      }
+    ],
+    "output": {
+      "itemId": "merged_carrot_premium",
+      "qty": 1
+    },
+    "station": "bld_merge_table",
+    "minStationLevel": 1,
+    "allowLucky": true,
+    "unlock": {
+      "building": "bld_merge_table"
+    }
+  },
+  {
+    "id": "merge_carrot_golden",
+    "rarity": "advanced",
+    "inputs": [
+      {
+        "itemId": "merged_carrot_premium",
+        "qty": 3
+      }
+    ],
+    "output": {
+      "itemId": "merged_carrot_golden",
+      "qty": 1
+    },
+    "station": "bld_merge_table",
+    "minStationLevel": 1,
+    "allowLucky": true,
+    "unlock": {
+      "quest": "quest_table_for_two"
+    }
+  },
+  {
+    "id": "merge_carrot_crystal",
+    "rarity": "rare",
+    "inputs": [
+      {
+        "itemId": "merged_carrot_golden",
+        "qty": 3
+      }
+    ],
+    "output": {
+      "itemId": "merged_carrot_crystal",
+      "qty": 1
+    },
+    "station": "bld_merge_table",
+    "minStationLevel": 1,
+    "allowLucky": true,
+    "unlock": {
+      "firstResearchOf": "merged_carrot_golden"
+    }
+  },
+  {
+    "id": "merge_tomato_premium",
+    "rarity": "basic",
+    "inputs": [
+      {
+        "itemId": "crop_tomato",
+        "qty": 3
+      }
+    ],
+    "output": {
+      "itemId": "merged_tomato_premium",
+      "qty": 1
+    },
+    "station": "bld_merge_table",
+    "minStationLevel": 1,
+    "allowLucky": true,
+    "unlock": {
+      "building": "bld_merge_table",
+      "playerLevel": 2
+    }
+  },
+  {
+    "id": "merge_tomato_golden",
+    "rarity": "advanced",
+    "inputs": [
+      {
+        "itemId": "merged_tomato_premium",
+        "qty": 3
+      }
+    ],
+    "output": {
+      "itemId": "merged_tomato_golden",
+      "qty": 1
+    },
+    "station": "bld_merge_table",
+    "minStationLevel": 1,
+    "allowLucky": true,
+    "unlock": {
+      "firstResearchOf": "merged_tomato_premium"
+    }
+  },
+  {
+    "id": "merge_sun_bouquet",
+    "rarity": "basic",
+    "inputs": [
+      {
+        "itemId": "crop_sunflower",
+        "qty": 3
+      }
+    ],
+    "output": {
+      "itemId": "merged_sun_bouquet",
+      "qty": 1
+    },
+    "station": "bld_merge_table",
+    "minStationLevel": 1,
+    "allowLucky": true,
+    "unlock": {
+      "building": "bld_merge_table",
+      "npcReputation": {
+        "npcId": "npc_tobin",
+        "level": 3
+      }
+    }
+  },
+  {
+    "id": "merge_egg_speckled",
+    "rarity": "basic",
+    "inputs": [
+      {
+        "itemId": "prod_egg",
+        "qty": 3
+      }
+    ],
+    "output": {
+      "itemId": "merged_egg_speckled",
+      "qty": 1
+    },
+    "station": "bld_merge_table",
+    "minStationLevel": 1,
+    "allowLucky": true,
+    "unlock": {
+      "building": "bld_merge_table"
+    }
+  },
+  {
+    "id": "merge_egg_golden",
+    "rarity": "advanced",
+    "inputs": [
+      {
+        "itemId": "merged_egg_speckled",
+        "qty": 3
+      }
+    ],
+    "output": {
+      "itemId": "merged_egg_golden",
+      "qty": 1
+    },
+    "station": "bld_merge_table",
+    "minStationLevel": 1,
+    "allowLucky": true,
+    "unlock": {
+      "firstResearchOf": "merged_egg_speckled"
+    }
+  },
+  {
+    "id": "merge_cream",
+    "rarity": "basic",
+    "inputs": [
+      {
+        "itemId": "prod_milk",
+        "qty": 3
+      }
+    ],
+    "output": {
+      "itemId": "merged_cream",
+      "qty": 1
+    },
+    "station": "bld_merge_table",
+    "minStationLevel": 1,
+    "allowLucky": true,
+    "unlock": {
+      "building": "bld_merge_table",
+      "playerLevel": 4
+    }
+  },
+  {
+    "id": "merge_wool_bale_fine",
+    "rarity": "basic",
+    "inputs": [
+      {
+        "itemId": "prod_wool",
+        "qty": 3
+      }
+    ],
+    "output": {
+      "itemId": "merged_wool_bale_fine",
+      "qty": 1
+    },
+    "station": "bld_merge_table",
+    "minStationLevel": 1,
+    "allowLucky": true,
+    "unlock": {
+      "building": "bld_merge_table",
+      "playerLevel": 6
+    }
+  }
+]

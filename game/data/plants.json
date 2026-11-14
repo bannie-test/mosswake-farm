@@ -1,0 +1,250 @@
+[
+  {
+    "id": "plant_carrot",
+    "species": "carrot",
+    "seedItemId": "seed_carrot",
+    "productItemId": "crop_carrot",
+    "rarity": "common",
+    "growthHours": 6,
+    "stages": [
+      {
+        "name": "seed",
+        "until": 0.1
+      },
+      {
+        "name": "sprout",
+        "until": 0.35
+      },
+      {
+        "name": "young",
+        "until": 0.55
+      },
+      {
+        "name": "growing",
+        "until": 0.75
+      },
+      {
+        "name": "mature",
+        "until": 1.0
+      }
+    ],
+    "waterIntervalHours": 8,
+    "fertilizerRequired": false,
+    "yield": {
+      "min": 2,
+      "max": 2
+    },
+    "regrow": null,
+    "witherDryHours": 24,
+    "witherUnharvestedHours": 48,
+    "nightOnly": false,
+    "needsShade": false,
+    "mutation": null,
+    "innateTraits": [],
+    "favouredSeason": "spring",
+    "xpPerUnit": 1,
+    "unlock": {
+      "playerLevel": 1
+    },
+    "sprite": "crops/plant_carrot.png"
+  },
+  {
+    "id": "plant_wheat",
+    "species": "wheat",
+    "seedItemId": "seed_wheat",
+    "productItemId": "crop_wheat",
+    "rarity": "common",
+    "growthHours": 4,
+    "stages": [
+      {
+        "name": "seed",
+        "until": 0.1
+      },
+      {
+        "name": "sprout",
+        "until": 0.35
+      },
+      {
+        "name": "young",
+        "until": 0.55
+      },
+      {
+        "name": "growing",
+        "until": 0.75
+      },
+      {
+        "name": "mature",
+        "until": 1.0
+      }
+    ],
+    "waterIntervalHours": 12,
+    "fertilizerRequired": false,
+    "yield": {
+      "min": 3,
+      "max": 3
+    },
+    "regrow": null,
+    "witherDryHours": 24,
+    "witherUnharvestedHours": 48,
+    "nightOnly": false,
+    "needsShade": false,
+    "mutation": null,
+    "innateTraits": [],
+    "favouredSeason": "summer",
+    "xpPerUnit": 1,
+    "unlock": {
+      "playerLevel": 1
+    },
+    "sprite": "crops/plant_wheat.png"
+  },
+  {
+    "id": "plant_tomato",
+    "species": "tomato",
+    "seedItemId": "seed_tomato",
+    "productItemId": "crop_tomato",
+    "rarity": "common",
+    "growthHours": 10,
+    "stages": [
+      {
+        "name": "seed",
+        "until": 0.1
+      },
+      {
+        "name": "sprout",
+        "until": 0.35
+      },
+      {
+        "name": "young",
+        "until": 0.55
+      },
+      {
+        "name": "growing",
+        "until": 0.75
+      },
+      {
+        "name": "mature",
+        "until": 1.0
+      }
+    ],
+    "waterIntervalHours": 6,
+    "fertilizerRequired": false,
+    "yield": {
+      "min": 3,
+      "max": 3
+    },
+    "regrow": {
+      "hours": 5,
+      "maxHarvests": 4
+    },
+    "witherDryHours": 24,
+    "witherUnharvestedHours": 48,
+    "nightOnly": false,
+    "needsShade": false,
+    "mutation": null,
+    "innateTraits": [],
+    "favouredSeason": "summer",
+    "xpPerUnit": 1,
+    "unlock": {
+      "playerLevel": 2
+    },
+    "sprite": "crops/plant_tomato.png"
+  },
+  {
+    "id": "plant_sunflower",
+    "species": "sunflower",
+    "seedItemId": "seed_sunflower",
+    "productItemId": "crop_sunflower",
+    "rarity": "common",
+    "growthHours": 8,
+    "stages": [
+      {
+        "name": "seed",
+        "until": 0.1
+      },
+      {
+        "name": "sprout",
+        "until": 0.35
+      },
+      {
+        "name": "young",
+        "until": 0.55
+      },
+      {
+        "name": "growing",
+        "until": 0.75
+      },
+      {
+        "name": "mature",
+        "until": 1.0
+      }
+    ],
+    "waterIntervalHours": 10,
+    "fertilizerRequired": false,
+    "yield": {
+      "min": 1,
+      "max": 1
+    },
+    "regrow": null,
+    "witherDryHours": 24,
+    "witherUnharvestedHours": 48,
+    "nightOnly": false,
+    "needsShade": false,
+    "mutation": null,
+    "innateTraits": [],
+    "favouredSeason": "summer",
+    "xpPerUnit": 1,
+    "unlock": {
+      "playerLevel": 3
+    },
+    "sprite": "crops/plant_sunflower.png"
+  },
+  {
+    "id": "plant_carrot_ancient",
+    "species": "carrot",
+    "seedItemId": "seed_carrot_ancient",
+    "productItemId": "crop_carrot_ancient",
+    "rarity": "legendary",
+    "growthHours": 14,
+    "stages": [
+      {
+        "name": "seed",
+        "until": 0.1
+      },
+      {
+        "name": "sprout",
+        "until": 0.35
+      },
+      {
+        "name": "young",
+        "until": 0.55
+      },
+      {
+        "name": "growing",
+        "until": 0.75
+      },
+      {
+        "name": "mature",
+        "until": 1.0
+      }
+    ],
+    "waterIntervalHours": 8,
+    "fertilizerRequired": false,
+    "yield": {
+      "min": 2,
+      "max": 2
+    },
+    "regrow": null,
+    "witherDryHours": 24,
+    "witherUnharvestedHours": 48,
+    "nightOnly": false,
+    "needsShade": false,
+    "mutation": null,
+    "innateTraits": [],
+    "favouredSeason": "any",
+    "xpPerUnit": 5,
+    "unlock": {
+      "blueprint": "bp_carrot_ancient"
+    },
+    "sprite": "crops/plant_carrot_ancient.png"
+  }
+]

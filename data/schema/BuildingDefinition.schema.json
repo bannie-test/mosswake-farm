@@ -1,0 +1,166 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "mosswake/BuildingDefinition.schema.json",
+  "title": "BuildingDefinition",
+  "x-kind": "static",
+  "x-file": "buildings.json",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^(bld)_[a-z0-9]+(_[a-z0-9]+)*$"
+    },
+    "name": {
+      "type": "string"
+    },
+    "footprint": {
+      "type": "object",
+      "properties": {
+        "w": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "h": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": [
+        "w",
+        "h"
+      ],
+      "additionalProperties": false
+    },
+    "placement": {
+      "enum": [
+        "pad",
+        "free"
+      ]
+    },
+    "levels": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "level": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "coins": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "materials": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "itemId": {
+                  "type": "string",
+                  "pattern": "^(seed|crop|prod|merged|food|gene|lucky|mat|spirit|embryo|quest|tool|special)_[a-z0-9]+(_[a-z0-9]+)*$"
+                },
+                "qty": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              },
+              "required": [
+                "itemId",
+                "qty"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "effects": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "level",
+          "coins",
+          "materials",
+          "effects"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "farmPoints": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "unlock": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "type": "boolean"
+        },
+        "playerLevel": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "quest": {
+          "type": "string",
+          "pattern": "^(quest)_[a-z0-9]+(_[a-z0-9]+)*$"
+        },
+        "questState": {
+          "enum": [
+            "started",
+            "completed"
+          ]
+        },
+        "building": {
+          "type": "string",
+          "pattern": "^(bld)_[a-z0-9]+(_[a-z0-9]+)*$"
+        },
+        "firstResearchOf": {
+          "type": "string",
+          "pattern": "^(seed|crop|prod|merged|food|gene|lucky|mat|spirit|embryo|quest|tool|special)_[a-z0-9]+(_[a-z0-9]+)*$"
+        },
+        "blueprint": {
+          "type": "string",
+          "pattern": "^(bp)_[a-z0-9]+(_[a-z0-9]+)*$"
+        },
+        "researchLevel": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "npcReputation": {
+          "type": "object",
+          "properties": {
+            "npcId": {
+              "type": "string",
+              "pattern": "^(npc)_[a-z0-9]+(_[a-z0-9]+)*$"
+            },
+            "level": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 8
+            }
+          },
+          "required": [
+            "npcId",
+            "level"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
+    "scene": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "footprint",
+    "placement",
+    "levels",
+    "farmPoints",
+    "unlock",
+    "scene"
+  ],
+  "additionalProperties": false
+}

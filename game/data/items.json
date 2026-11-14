@@ -1,0 +1,730 @@
+[
+  {
+    "id": "crop_carrot",
+    "name": "Carrot",
+    "category": "crop",
+    "tags": [
+      "crop",
+      "vegetable",
+      "root",
+      "carrot"
+    ],
+    "rarity": "common",
+    "tier": 1,
+    "species": "carrot",
+    "baseValue": 8,
+    "stackSize": 99,
+    "storage": "inventory",
+    "hasQuality": true,
+    "sellable": true,
+    "research": null,
+    "lucky": null,
+    "icon": "items/crop_carrot.png"
+  },
+  {
+    "id": "crop_wheat",
+    "name": "Wheat",
+    "category": "crop",
+    "tags": [
+      "crop",
+      "vegetable",
+      "grain",
+      "wheat"
+    ],
+    "rarity": "common",
+    "tier": 1,
+    "species": "wheat",
+    "baseValue": 3,
+    "stackSize": 99,
+    "storage": "inventory",
+    "hasQuality": true,
+    "sellable": true,
+    "research": null,
+    "lucky": null,
+    "icon": "items/crop_wheat.png"
+  },
+  {
+    "id": "crop_tomato",
+    "name": "Tomato",
+    "category": "crop",
+    "tags": [
+      "crop",
+      "vegetable",
+      "tomato"
+    ],
+    "rarity": "common",
+    "tier": 1,
+    "species": "tomato",
+    "baseValue": 6,
+    "stackSize": 99,
+    "storage": "inventory",
+    "hasQuality": true,
+    "sellable": true,
+    "research": null,
+    "lucky": null,
+    "icon": "items/crop_tomato.png"
+  },
+  {
+    "id": "crop_sunflower",
+    "name": "Sunflower",
+    "category": "crop",
+    "tags": [
+      "crop",
+      "flower",
+      "sunflower"
+    ],
+    "rarity": "common",
+    "tier": 1,
+    "species": "sunflower",
+    "baseValue": 22,
+    "stackSize": 99,
+    "storage": "inventory",
+    "hasQuality": true,
+    "sellable": true,
+    "research": null,
+    "lucky": null,
+    "icon": "items/crop_sunflower.png"
+  },
+  {
+    "id": "crop_carrot_ancient",
+    "name": "Ancient Carrot",
+    "category": "crop",
+    "tags": [
+      "crop",
+      "vegetable",
+      "root",
+      "carrot",
+      "ancient"
+    ],
+    "rarity": "legendary",
+    "tier": 1,
+    "species": "carrot",
+    "baseValue": 220,
+    "stackSize": 99,
+    "storage": "inventory",
+    "hasQuality": true,
+    "sellable": true,
+    "research": {
+      "geneId": "gene_carrot",
+      "fragments": 8,
+      "stardust": 2,
+      "hours": 4,
+      "coins": 150
+    },
+    "lucky": null,
+    "icon": "items/crop_carrot_ancient.png"
+  },
+  {
+    "id": "prod_egg",
+    "name": "Egg",
+    "category": "animal_product",
+    "tags": [
+      "egg",
+      "chicken"
+    ],
+    "rarity": "common",
+    "tier": 1,
+    "species": "chicken",
+    "baseValue": 14,
+    "stackSize": 99,
+    "storage": "inventory",
+    "hasQuality": true,
+    "sellable": true,
+    "research": null,
+    "lucky": null,
+    "icon": "items/prod_egg.png"
+  },
+  {
+    "id": "prod_milk",
+    "name": "Milk",
+    "category": "animal_product",
+    "tags": [
+      "dairy",
+      "cow"
+    ],
+    "rarity": "common",
+    "tier": 1,
+    "species": "cow",
+    "baseValue": 36,
+    "stackSize": 99,
+    "storage": "inventory",
+    "hasQuality": true,
+    "sellable": true,
+    "research": null,
+    "lucky": null,
+    "icon": "items/prod_milk.png"
+  },
+  {
+    "id": "prod_wool",
+    "name": "Wool",
+    "category": "animal_product",
+    "tags": [
+      "wool",
+      "sheep"
+    ],
+    "rarity": "common",
+    "tier": 1,
+    "species": "sheep",
+    "baseValue": 52,
+    "stackSize": 99,
+    "storage": "inventory",
+    "hasQuality": true,
+    "sellable": true,
+    "research": null,
+    "lucky": null,
+    "icon": "items/prod_wool.png"
+  },
+  {
+    "id": "merged_carrot_premium",
+    "name": "Premium Carrot",
+    "category": "merged",
+    "tags": [
+      "vegetable",
+      "root",
+      "carrot",
+      "merged"
+    ],
+    "rarity": "common",
+    "tier": 2,
+    "species": "carrot",
+    "baseValue": 30,
+    "stackSize": 99,
+    "storage": "inventory",
+    "hasQuality": true,
+    "sellable": true,
+    "research": {
+      "geneId": "gene_carrot",
+      "fragments": 1,
+      "stardust": 0,
+      "hours": 1,
+      "coins": 10
+    },
+    "lucky": null,
+    "icon": "items/merged_carrot_premium.png"
+  },
+  {
+    "id": "merged_carrot_golden",
+    "name": "Golden Carrot",
+    "category": "merged",
+    "tags": [
+      "vegetable",
+      "root",
+      "carrot",
+      "merged"
+    ],
+    "rarity": "uncommon",
+    "tier": 3,
+    "species": "carrot",
+    "baseValue": 130,
+    "stackSize": 99,
+    "storage": "inventory",
+    "hasQuality": true,
+    "sellable": true,
+    "research": {
+      "geneId": "gene_carrot",
+      "fragments": 3,
+      "stardust": 1,
+      "hours": 3,
+      "coins": 40
+    },
+    "lucky": null,
+    "icon": "items/merged_carrot_golden.png"
+  },
+  {
+    "id": "merged_carrot_crystal",
+    "name": "Crystal Carrot",
+    "category": "merged",
+    "tags": [
+      "vegetable",
+      "root",
+      "carrot",
+      "merged"
+    ],
+    "rarity": "rare",
+    "tier": 4,
+    "species": "carrot",
+    "baseValue": 700,
+    "stackSize": 99,
+    "storage": "inventory",
+    "hasQuality": true,
+    "sellable": true,
+    "research": {
+      "geneId": "gene_carrot",
+      "fragments": 8,
+      "stardust": 3,
+      "hours": 6,
+      "coins": 120
+    },
+    "lucky": null,
+    "icon": "items/merged_carrot_crystal.png"
+  },
+  {
+    "id": "merged_tomato_premium",
+    "name": "Premium Tomato",
+    "category": "merged",
+    "tags": [
+      "vegetable",
+      "tomato",
+      "merged"
+    ],
+    "rarity": "common",
+    "tier": 2,
+    "species": "tomato",
+    "baseValue": 22,
+    "stackSize": 99,
+    "storage": "inventory",
+    "hasQuality": true,
+    "sellable": true,
+    "research": {
+      "geneId": null,
+      "fragments": 1,
+      "stardust": 0,
+      "hours": 1,
+      "coins": 10
+    },
+    "lucky": null,
+    "icon": "items/merged_tomato_premium.png"
+  },
+  {
+    "id": "merged_tomato_golden",
+    "name": "Golden Tomato",
+    "category": "merged",
+    "tags": [
+      "vegetable",
+      "tomato",
+      "merged"
+    ],
+    "rarity": "uncommon",
+    "tier": 3,
+    "species": "tomato",
+    "baseValue": 96,
+    "stackSize": 99,
+    "storage": "inventory",
+    "hasQuality": true,
+    "sellable": true,
+    "research": {
+      "geneId": null,
+      "fragments": 3,
+      "stardust": 1,
+      "hours": 3,
+      "coins": 40
+    },
+    "lucky": null,
+    "icon": "items/merged_tomato_golden.png"
+  },
+  {
+    "id": "merged_sun_bouquet",
+    "name": "Sun Bouquet",
+    "category": "merged",
+    "tags": [
+      "flower",
+      "sunflower",
+      "merged"
+    ],
+    "rarity": "common",
+    "tier": 2,
+    "species": "sunflower",
+    "baseValue": 82,
+    "stackSize": 99,
+    "storage": "inventory",
+    "hasQuality": true,
+    "sellable": true,
+    "research": {
+      "geneId": null,
+      "fragments": 1,
+      "stardust": 0,
+      "hours": 1,
+      "coins": 10
+    },
+    "lucky": null,
+    "icon": "items/merged_sun_bouquet.png"
+  },
+  {
+    "id": "merged_egg_speckled",
+    "name": "Speckled Egg",
+    "category": "merged",
+    "tags": [
+      "egg",
+      "chicken",
+      "merged"
+    ],
+    "rarity": "common",
+    "tier": 2,
+    "species": "chicken",
+    "baseValue": 52,
+    "stackSize": 99,
+    "storage": "inventory",
+    "hasQuality": true,
+    "sellable": true,
+    "research": {
+      "geneId": null,
+      "fragments": 1,
+      "stardust": 0,
+      "hours": 1,
+      "coins": 10
+    },
+    "lucky": null,
+    "icon": "items/merged_egg_speckled.png"
+  },
+  {
+    "id": "merged_egg_golden",
+    "name": "Golden Egg",
+    "category": "merged",
+    "tags": [
+      "egg",
+      "chicken",
+      "merged"
+    ],
+    "rarity": "uncommon",
+    "tier": 3,
+    "species": "chicken",
+    "baseValue": 225,
+    "stackSize": 99,
+    "storage": "inventory",
+    "hasQuality": true,
+    "sellable": true,
+    "research": {
+      "geneId": null,
+      "fragments": 3,
+      "stardust": 1,
+      "hours": 3,
+      "coins": 40
+    },
+    "lucky": null,
+    "icon": "items/merged_egg_golden.png"
+  },
+  {
+    "id": "merged_cream",
+    "name": "Cream",
+    "category": "merged",
+    "tags": [
+      "dairy",
+      "cow",
+      "merged"
+    ],
+    "rarity": "common",
+    "tier": 2,
+    "species": "cow",
+    "baseValue": 135,
+    "stackSize": 99,
+    "storage": "inventory",
+    "hasQuality": true,
+    "sellable": true,
+    "research": {
+      "geneId": null,
+      "fragments": 1,
+      "stardust": 0,
+      "hours": 1,
+      "coins": 10
+    },
+    "lucky": null,
+    "icon": "items/merged_cream.png"
+  },
+  {
+    "id": "merged_wool_bale_fine",
+    "name": "Fine Wool Bale",
+    "category": "merged",
+    "tags": [
+      "wool",
+      "sheep",
+      "merged"
+    ],
+    "rarity": "common",
+    "tier": 2,
+    "species": "sheep",
+    "baseValue": 195,
+    "stackSize": 99,
+    "storage": "inventory",
+    "hasQuality": true,
+    "sellable": true,
+    "research": {
+      "geneId": null,
+      "fragments": 1,
+      "stardust": 0,
+      "hours": 1,
+      "coins": 10
+    },
+    "lucky": null,
+    "icon": "items/merged_wool_bale_fine.png"
+  },
+  {
+    "id": "seed_carrot",
+    "name": "Carrot Seeds",
+    "category": "seed",
+    "tags": [
+      "seed",
+      "carrot"
+    ],
+    "rarity": "common",
+    "tier": 1,
+    "species": "carrot",
+    "baseValue": 4,
+    "stackSize": 99,
+    "storage": "inventory",
+    "hasQuality": false,
+    "sellable": false,
+    "research": null,
+    "lucky": null,
+    "icon": "items/seed_carrot.png"
+  },
+  {
+    "id": "seed_wheat",
+    "name": "Wheat Seeds",
+    "category": "seed",
+    "tags": [
+      "seed",
+      "wheat"
+    ],
+    "rarity": "common",
+    "tier": 1,
+    "species": "wheat",
+    "baseValue": 2,
+    "stackSize": 99,
+    "storage": "inventory",
+    "hasQuality": false,
+    "sellable": false,
+    "research": null,
+    "lucky": null,
+    "icon": "items/seed_wheat.png"
+  },
+  {
+    "id": "seed_tomato",
+    "name": "Tomato Seeds",
+    "category": "seed",
+    "tags": [
+      "seed",
+      "tomato"
+    ],
+    "rarity": "common",
+    "tier": 1,
+    "species": "tomato",
+    "baseValue": 20,
+    "stackSize": 99,
+    "storage": "inventory",
+    "hasQuality": false,
+    "sellable": false,
+    "research": null,
+    "lucky": null,
+    "icon": "items/seed_tomato.png"
+  },
+  {
+    "id": "seed_sunflower",
+    "name": "Sunflower Seeds",
+    "category": "seed",
+    "tags": [
+      "seed",
+      "sunflower"
+    ],
+    "rarity": "common",
+    "tier": 1,
+    "species": "sunflower",
+    "baseValue": 6,
+    "stackSize": 99,
+    "storage": "inventory",
+    "hasQuality": false,
+    "sellable": false,
+    "research": null,
+    "lucky": null,
+    "icon": "items/seed_sunflower.png"
+  },
+  {
+    "id": "seed_carrot_ancient",
+    "name": "Ancient Carrot Seeds",
+    "category": "seed",
+    "tags": [
+      "seed",
+      "carrot",
+      "ancient"
+    ],
+    "rarity": "legendary",
+    "tier": 1,
+    "species": "carrot",
+    "baseValue": 225,
+    "stackSize": 99,
+    "storage": "inventory",
+    "hasQuality": false,
+    "sellable": false,
+    "research": null,
+    "lucky": null,
+    "icon": "items/seed_carrot_ancient.png"
+  },
+  {
+    "id": "mat_feed",
+    "name": "Feed",
+    "category": "material",
+    "tags": [
+      "feed"
+    ],
+    "rarity": "common",
+    "tier": 1,
+    "species": null,
+    "baseValue": 6,
+    "stackSize": 99,
+    "storage": "silo",
+    "hasQuality": false,
+    "sellable": false,
+    "research": null,
+    "lucky": null,
+    "icon": "items/mat_feed.png"
+  },
+  {
+    "id": "mat_sap",
+    "name": "Sap",
+    "category": "material",
+    "tags": [
+      "sap",
+      "spirit"
+    ],
+    "rarity": "common",
+    "tier": 1,
+    "species": null,
+    "baseValue": 0,
+    "stackSize": 99,
+    "storage": "inventory",
+    "hasQuality": false,
+    "sellable": false,
+    "research": null,
+    "lucky": null,
+    "icon": "items/mat_sap.png"
+  },
+  {
+    "id": "mat_stardust",
+    "name": "Stardust",
+    "category": "material",
+    "tags": [
+      "research"
+    ],
+    "rarity": "common",
+    "tier": 1,
+    "species": null,
+    "baseValue": 0,
+    "stackSize": 999,
+    "storage": "wallet",
+    "hasQuality": false,
+    "sellable": false,
+    "research": null,
+    "lucky": null,
+    "icon": "items/mat_stardust.png"
+  },
+  {
+    "id": "gene_carrot",
+    "name": "Carrot Gene Fragment",
+    "category": "gene_fragment",
+    "tags": [
+      "gene",
+      "carrot"
+    ],
+    "rarity": "common",
+    "tier": 1,
+    "species": "carrot",
+    "baseValue": 0,
+    "stackSize": 99,
+    "storage": "wallet",
+    "hasQuality": false,
+    "sellable": false,
+    "research": null,
+    "lucky": null,
+    "icon": "items/gene_carrot.png"
+  },
+  {
+    "id": "lucky_clover",
+    "name": "Clover",
+    "category": "lucky",
+    "tags": [
+      "lucky"
+    ],
+    "rarity": "common",
+    "tier": 1,
+    "species": null,
+    "baseValue": 40,
+    "stackSize": 20,
+    "storage": "wallet",
+    "hasQuality": false,
+    "sellable": false,
+    "research": null,
+    "lucky": {
+      "slot": "charm",
+      "bonus": 5
+    },
+    "icon": "items/lucky_clover.png"
+  },
+  {
+    "id": "spirit_essence",
+    "name": "Spirit Essence",
+    "category": "spirit_material",
+    "tags": [
+      "spirit"
+    ],
+    "rarity": "rare",
+    "tier": 1,
+    "species": null,
+    "baseValue": 0,
+    "stackSize": 99,
+    "storage": "wallet",
+    "hasQuality": false,
+    "sellable": false,
+    "research": null,
+    "lucky": null,
+    "icon": "items/spirit_essence.png"
+  },
+  {
+    "id": "spirit_husk_dormant",
+    "name": "Dormant Husk",
+    "category": "spirit_material",
+    "tags": [
+      "spirit",
+      "husk"
+    ],
+    "rarity": "rare",
+    "tier": 1,
+    "species": null,
+    "baseValue": 0,
+    "stackSize": 1,
+    "storage": "inventory",
+    "hasQuality": false,
+    "sellable": false,
+    "research": null,
+    "lucky": null,
+    "icon": "items/spirit_husk_dormant.png"
+  },
+  {
+    "id": "spirit_revival_potion",
+    "name": "Revival Potion",
+    "category": "spirit_material",
+    "tags": [
+      "spirit",
+      "potion"
+    ],
+    "rarity": "rare",
+    "tier": 1,
+    "species": null,
+    "baseValue": 0,
+    "stackSize": 99,
+    "storage": "inventory",
+    "hasQuality": false,
+    "sellable": false,
+    "research": null,
+    "lucky": null,
+    "icon": "items/spirit_revival_potion.png"
+  },
+  {
+    "id": "tool_dig_kit",
+    "name": "Dig Kit",
+    "category": "tool",
+    "tags": [
+      "tool",
+      "excavation"
+    ],
+    "rarity": "common",
+    "tier": 1,
+    "species": null,
+    "baseValue": 150,
+    "stackSize": 99,
+    "storage": "inventory",
+    "hasQuality": false,
+    "sellable": false,
+    "research": null,
+    "lucky": null,
+    "icon": "items/tool_dig_kit.png"
+  }
+]

@@ -1,0 +1,59 @@
+{
+  "id": "breed_chicken",
+  "species": "chicken",
+  "conditions": {
+    "minHappiness": 70,
+    "minFertility": 60,
+    "minHealth": 30,
+    "cooldownHours": 48,
+    "forbidParentChild": true
+  },
+  "gestationHours": 12,
+  "slotInheritance": {
+    "parentA": 0.45,
+    "parentB": 0.45,
+    "mutation": 0.1
+  },
+  "sharedTraitLevelUpChance": 0.25,
+  "tonic": {
+    "itemId": "mat_gene_tonic",
+    "mutation": 0.3,
+    "lockSlots": 1
+  },
+  "rarity": {
+    "same": {
+      "same": 0.8,
+      "up": 0.15,
+      "down": 0.05
+    },
+    "different": {
+      "lower": 0.5,
+      "higher": 0.45,
+      "up": 0.05
+    },
+    "max": "epic"
+  },
+  "traitPool": [
+    "trait_prolific",
+    "trait_hardy",
+    "trait_gentle",
+    "trait_golden_comb",
+    "trait_sun_feather"
+  ],
+  "specialOffspring": [
+    {
+      "resultAnimalId": "animal_sunhen",
+      "requires": [
+        {
+          "traitId": "trait_golden_comb",
+          "minLevel": 2
+        },
+        {
+          "traitId": "trait_sun_feather",
+          "minLevel": 2
+        }
+      ],
+      "chance": 0.15
+    }
+  ]
+}

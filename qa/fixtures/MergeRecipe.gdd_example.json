@@ -1,0 +1,20 @@
+{
+  "id": "merge_carrot_crystal",
+  "rarity": "rare",
+  "inputs": [
+    {
+      "itemId": "merged_carrot_golden",
+      "qty": 3
+    }
+  ],
+  "output": {
+    "itemId": "merged_carrot_crystal",
+    "qty": 1
+  },
+  "station": "bld_merge_table",
+  "minStationLevel": 1,
+  "allowLucky": true,
+  "unlock": {
+    "firstResearchOf": "merged_carrot_golden"
+  }
+}

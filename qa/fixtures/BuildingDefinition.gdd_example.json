@@ -1,0 +1,45 @@
+{
+  "id": "bld_merge_table",
+  "name": "Merge Table",
+  "footprint": {
+    "w": 2,
+    "h": 2
+  },
+  "placement": "pad",
+  "levels": [
+    {
+      "level": 1,
+      "coins": 250,
+      "materials": [],
+      "effects": {
+        "mergeBonus": 0
+      }
+    },
+    {
+      "level": 2,
+      "coins": 2000,
+      "materials": [],
+      "effects": {
+        "mergeBonus": 3
+      }
+    },
+    {
+      "level": 3,
+      "coins": 8000,
+      "materials": [
+        {
+          "itemId": "spirit_essence",
+          "qty": 5
+        }
+      ],
+      "effects": {
+        "mergeBonus": 6
+      }
+    }
+  ],
+  "farmPoints": 1,
+  "unlock": {
+    "playerLevel": 3
+  },
+  "scene": "buildings/merge_table.tscn"
+}

@@ -1,0 +1,40 @@
+GIMP Palette
+Name: Mosswake Farm master palette
+Columns: 6
+#
+ 47  93  58	Grass 1
+ 74 138  69	Grass 2
+111 174  79	Grass 3
+163 204  92	Grass 4
+212 224 122	Grass 5
+ 74  47  37	Soil and path 1
+110  70  48	Soil and path 2
+150 100  60	Soil and path 3
+192 138  78	Soil and path 4
+224 184 114	Soil and path 5
+ 58  38  32	Wood 1
+ 90  58  42	Wood 2
+125  82  54	Wood 3
+166 115  72	Wood 4
+143  59  50	Building warm 1
+194  98  61	Building warm 2
+217 160 102	Building warm 3
+240 220 174	Building warm 4
+ 75  74  82	Stone 1
+111 110 114	Stone 2
+154 151 144	Stone 3
+201 196 180	Stone 4
+ 63 110 165	Sky and water 1
+109 159 209	Sky and water 2
+169 208 232	Sky and water 3
+230 242 240	Sky and water 4
+217  72  59	Flower accents 1
+242 163  58	Flower accents 2
+244 214  78	Flower accents 3
+242 155 181	Flower accents 4
+181 101 201	Flower accents 5
+ 91 127 214	Flower accents 6
+126 224 194	Magic glow 1
+200 240 143	Magic glow 2
+255 233 163	Magic glow 3
+ 42  31  43	Outline and shadow 1

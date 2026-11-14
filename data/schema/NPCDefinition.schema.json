@@ -1,0 +1,274 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "mosswake/NPCDefinition.schema.json",
+  "title": "NPCDefinition",
+  "x-kind": "static",
+  "x-file": "npcs.json",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^(npc)_[a-z0-9]+(_[a-z0-9]+)*$"
+    },
+    "name": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string"
+    },
+    "appears": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "type": "boolean"
+        },
+        "playerLevel": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "quest": {
+          "type": "string",
+          "pattern": "^(quest)_[a-z0-9]+(_[a-z0-9]+)*$"
+        },
+        "questState": {
+          "enum": [
+            "started",
+            "completed"
+          ]
+        },
+        "building": {
+          "type": "string",
+          "pattern": "^(bld)_[a-z0-9]+(_[a-z0-9]+)*$"
+        },
+        "firstResearchOf": {
+          "type": "string",
+          "pattern": "^(seed|crop|prod|merged|food|gene|lucky|mat|spirit|embryo|quest|tool|special)_[a-z0-9]+(_[a-z0-9]+)*$"
+        },
+        "blueprint": {
+          "type": "string",
+          "pattern": "^(bp)_[a-z0-9]+(_[a-z0-9]+)*$"
+        },
+        "researchLevel": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "npcReputation": {
+          "type": "object",
+          "properties": {
+            "npcId": {
+              "type": "string",
+              "pattern": "^(npc)_[a-z0-9]+(_[a-z0-9]+)*$"
+            },
+            "level": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 8
+            }
+          },
+          "required": [
+            "npcId",
+            "level"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
+    "likes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "orderRules": {
+      "type": "object",
+      "properties": {
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "sizeFactor": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "maxLines": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3
+        },
+        "deliverySlots": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "specialFromReputation": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": [
+        "tags",
+        "sizeFactor",
+        "maxLines",
+        "deliverySlots",
+        "specialFromReputation"
+      ],
+      "additionalProperties": false
+    },
+    "reputationThresholds": {
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "minimum": 0
+      },
+      "minItems": 8,
+      "maxItems": 8
+    },
+    "reputationRewards": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "level": {
+            "type": "integer",
+            "minimum": 2,
+            "maximum": 8
+          },
+          "unlocks": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "level",
+          "unlocks"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "specialBonusTable": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "dialogue": {
+      "type": "string"
+    },
+    "portrait": {
+      "type": "string"
+    },
+    "shop": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^(shop)_[a-z0-9]+(_[a-z0-9]+)*$"
+          },
+          "price": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "unlock": {
+            "type": "object",
+            "properties": {
+              "start": {
+                "type": "boolean"
+              },
+              "playerLevel": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "quest": {
+                "type": "string",
+                "pattern": "^(quest)_[a-z0-9]+(_[a-z0-9]+)*$"
+              },
+              "questState": {
+                "enum": [
+                  "started",
+                  "completed"
+                ]
+              },
+              "building": {
+                "type": "string",
+                "pattern": "^(bld)_[a-z0-9]+(_[a-z0-9]+)*$"
+              },
+              "firstResearchOf": {
+                "type": "string",
+                "pattern": "^(seed|crop|prod|merged|food|gene|lucky|mat|spirit|embryo|quest|tool|special)_[a-z0-9]+(_[a-z0-9]+)*$"
+              },
+              "blueprint": {
+                "type": "string",
+                "pattern": "^(bp)_[a-z0-9]+(_[a-z0-9]+)*$"
+              },
+              "researchLevel": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "npcReputation": {
+                "type": "object",
+                "properties": {
+                  "npcId": {
+                    "type": "string",
+                    "pattern": "^(npc)_[a-z0-9]+(_[a-z0-9]+)*$"
+                  },
+                  "level": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 8
+                  }
+                },
+                "required": [
+                  "npcId",
+                  "level"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          },
+          "itemId": {
+            "type": "string",
+            "pattern": "^(seed|crop|prod|merged|food|gene|lucky|mat|spirit|embryo|quest|tool|special)_[a-z0-9]+(_[a-z0-9]+)*$"
+          },
+          "animalId": {
+            "type": "string",
+            "pattern": "^(animal)_[a-z0-9]+(_[a-z0-9]+)*$"
+          }
+        },
+        "required": [
+          "id",
+          "price",
+          "unlock"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "role",
+    "appears",
+    "likes",
+    "orderRules",
+    "reputationThresholds",
+    "reputationRewards",
+    "specialBonusTable",
+    "dialogue",
+    "portrait"
+  ],
+  "additionalProperties": false
+}
