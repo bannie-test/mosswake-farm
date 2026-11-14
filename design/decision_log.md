@@ -16,7 +16,10 @@ until the Director confirms it.
 | D-006 | 2026-11-14 | Sun Bouquet unlocks at Tobin reputation 3, not with the Sunflower | Sections 6 and 8 disagree; the NPC table wins | `data/merge_recipes.json`, `data/npcs.json` |
 | D-007 | 2026-11-14 | Spirit Bench: 1,500 coins, plans rewarded by the MVP quest The Sleeper | The GDD gives no cost or unlock | `data/buildings.json`, `data/quests.json` |
 
-## Provisional (made to finish M0; need the Director's confirmation)
+| D-008 | 2026-11-14 | M0 accepted; go for M1. The M0 style test screen (`design/art_bible/style_test_m0.png`) is approved as the placeholder style and the master palette is locked | Milestone gate | `design/art_bible/palette.gpl` may no longer change |
+| D-009 | 2026-11-14 | Finding F-01 (Phase 1 income overshoot): re-tune after the M1 playtests, when the simulated player can be calibrated | Avoids tuning against a guess | `tools/economy_sim.py`, field prices stay as in the GDD for now |
+
+## Made during M0, approved by the Director on 2026-11-14 ("approve all")
 
 | # | Decision | Reason |
 | --- | --- | --- |
@@ -33,8 +36,20 @@ until the Director confirms it.
 | P-11 | Renderer: GL Compatibility. Random streams: a 32-bit generator whose whole state is one integer | Runs on Steam Deck and low-end PCs; a 32-bit state survives JSON exactly, so a reload cannot change a roll |
 | P-12 | Revival Potion ID is `spirit_revival_potion`; it brews for 3 game hours as in the full design | ID rules of section 13 |
 
-## Open findings
+## Provisional (made to finish M1; need the Director's confirmation)
 
-| # | Finding | Options |
+| # | Decision | Reason |
 | --- | --- | --- |
-| F-01 | Economy simulator, Phase 1: income is inside the 300-600 target on days 1-3 (mean about 430) but reaches 1,500-2,000 on days 4-5 while the player is still level 4-5, because all four buyable fields (300 / 450 / 675 / 1,012 coins) are affordable by day 4. Section 10 plans only "fields 1-2" for Phase 1. Median time to level 5 is 96 minutes against a 60-90 target. Report: `qa/reports/economy_sim_m0.md` | (a) accept: the targets are tuning targets and the bot never idles; (b) gate fields 3-4 behind level 6; (c) raise field prices; (d) re-tune after M1 playtests, when the player model can be calibrated |
+| P-13 | M1 scaffolding (`game/dev/m1_scenario.json`, removed in M2): the Merge Table is already built and both carrot recipes are known; Mara's orders come from a fixed list of 8; orders hand out seeds as bonus items | The data gates the Merge Table behind level 3 and 250 coins and the shop arrives in M2, but M1 must show the whole loop in under 10 minutes |
+| P-14 | One context action (E or Space) on the faced tile: Till, Plant, Water, Harvest or Clear, whichever applies. Q changes the selected seed. No tool items, and the watering can never runs dry | The GDD names no tools among its items and gives the player's can no capacity |
+| P-15 | After a single-harvest crop is picked, or a withered plant is cleared, the plot stays tilled | The GDD says the plot is cleared but not whether it must be tilled again |
+| P-16 | Moisture drains and the dry timer runs on a Mature crop too, so an unwatered ripe crop can wither after 24 dry hours | Section 4 does not exclude Mature crops from the dry rule |
+| P-17 | Clearing a withered plant returns nothing in the MVP (Compost is outside the MVP item list) | Section 15 |
+| P-18 | New numbers in `data/config.json`: the player walks 5 tiles per second; Water is offered once moisture is under 90 | The GDD gives no player speed; without the second number the Water prompt returns the instant after watering |
+| P-19 | UI text uses the engine's default font, anti-aliased, at 8 px. A proper pixel font is part of the M5 UI pass | No licensed pixel font is in the project yet |
+
+## Findings
+
+| # | Finding | Status |
+| --- | --- | --- |
+| F-01 | Economy simulator, Phase 1: income is inside the 300-600 target on days 1-3 (mean about 430) but reaches 1,500-2,000 on days 4-5 while the player is still level 4-5, because all four buyable fields (300 / 450 / 675 / 1,012 coins) are affordable by day 4. Section 10 plans only "fields 1-2" for Phase 1. Median time to level 5 is 96 minutes against a 60-90 target. Report: `qa/reports/economy_sim_m0.md` | Deferred to after the M1 playtests (D-009) |

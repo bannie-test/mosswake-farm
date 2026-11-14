@@ -7,6 +7,7 @@ const TILE := 16
 const GROUND_SHEET := "res://assets/tiles/farm_ground.png"
 const DETAIL_SHEET := "res://assets/tiles/farm_ground_detail.png"
 const PLOT_SHEET := "res://assets/tiles/farm_plots.png"
+const FIELD_SHEET := "res://assets/tiles/farm_field.png"
 const SHADOW := "res://assets/props/shadow_small.png"
 const SHADOW_OPACITY := 0.35     # Appendix A: cast shadows are a flat shape at 35% opacity
 
@@ -22,7 +23,7 @@ const SHADOW_OPACITY := 0.35     # Appendix A: cast shadows are a flat shape at 
 func _ready() -> void:
 	ground.tile_set = SpriteSheet.tileset(GROUND_SHEET)
 	ground_detail.tile_set = SpriteSheet.tileset(DETAIL_SHEET)
-	plots.tile_set = SpriteSheet.tileset(PLOT_SHEET)
+	plots.tile_set = SpriteSheet.tileset_multi([PLOT_SHEET, FIELD_SHEET])
 
 
 ## Pixel position of the feet point (bottom-centre) of a tile.

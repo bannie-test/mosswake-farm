@@ -13,7 +13,8 @@ step "game/data is in sync with data" python3 tools/sync_data.py --check
 step "asset lint" python3 tools/asset_lint.py
 if [ -n "$GODOT" ]; then
   "$GODOT" --headless --path game --import >/dev/null 2>&1
-  step "engine tests (simulation core, random streams, save round trip)" "$GODOT" --headless --path game -s res://tests/run_tests.gd
+  step "engine and gameplay tests" "$GODOT" --headless --path game -s res://tests/run_tests.gd
+  step "scripted playthrough of the first loop" timeout 180 "$GODOT" --headless --path game -s res://tests/run_playthrough.gd
 else
   echo; echo "WARNING: Godot not found; engine tests skipped"; fail=1
 fi

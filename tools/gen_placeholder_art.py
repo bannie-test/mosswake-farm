@@ -486,6 +486,176 @@ def props():
     save(sparkle, "fx/mature_sparkle.png", {"frameSize": [16, 16], "animations": {"sparkle": {"from": 0, "to": 1, "fps": 4}}})
 
 
+# ------------------------------------------------------------------ M1 additions
+def mara_frame(bob=0):
+    """Mara Oakhollow, innkeeper (original design): auburn hair in a bun, green dress, cream apron."""
+    img = new(32, 32)
+    y = bob
+    rect(img, 10, 16 + y, 21, 28, G[1])                    # dress
+    rect(img, 19, 17 + y, 21, 28, G[0])
+    rect(img, 12, 28, 14, 29, W[0]); rect(img, 17, 28, 19, 29, W[0])   # shoes
+    rect(img, 12, 18 + y, 19, 27, B[3])                    # apron
+    rect(img, 18, 19 + y, 19, 27, B[2])
+    rect(img, 12, 18 + y, 19, 18 + y, T[3])
+    rect(img, 8, 17 + y, 9, 22 + y, G[1]); rect(img, 8, 22 + y, 9, 23 + y, B[3])     # arms
+    rect(img, 22, 17 + y, 23, 22 + y, G[0]); rect(img, 22, 22 + y, 23, 23 + y, B[2])
+    ellipse(img, 10, 5 + y, 21, 15 + y, B[3])              # head
+    rect(img, 19, 9 + y, 20, 13 + y, B[2])
+    rect(img, 10, 4 + y, 21, 8 + y, B[1])                  # hair
+    rect(img, 10, 8 + y, 11, 12 + y, B[1]); rect(img, 20, 8 + y, 21, 11 + y, B[0])
+    ellipse(img, 13, 0 + y, 18, 4 + y, B[1])               # bun
+    px(img, [(14, 1 + y), (15, 1 + y), (12, 5 + y), (13, 5 + y)], B[2])
+    px(img, [(17, 3 + y), (18, 2 + y), (19, 6 + y), (20, 6 + y)], B[0])
+    px(img, [(13, 11 + y), (13, 12 + y), (18, 11 + y), (18, 12 + y)], OUT)
+    px(img, [(12, 13 + y), (19, 13 + y)], PINK)
+    px(img, [(15, 14 + y), (16, 14 + y)], B[0])
+    return outline(img)
+
+
+def npcs():
+    idle = [mara_frame(b) for b in (0, 0, 1, 1)]
+    save(strip(idle), "characters/npc_mara.png", {"frameSize": [32, 32], "animations": {"idle_s": {"from": 0, "to": 3, "fps": 5}}})
+
+
+def m1_buildings():
+    well = new(32, 32)                                     # stone well with a small roof
+    ellipse(well, 3, 14, 28, 31, T[2])
+    ellipse(well, 3, 12, 28, 26, T[3])
+    ellipse(well, 7, 14, 24, 23, K[0])
+    ellipse(well, 9, 15, 18, 20, K[1])
+    for x in range(5, 27, 5):
+        rect(well, x, 26, x, 30, T[1])
+    rect(well, 4, 27, 27, 27, T[1])
+    rect(well, 4, 4, 6, 20, W[1]); rect(well, 25, 4, 27, 20, W[1])
+    rect(well, 4, 4, 4, 20, W[2]); rect(well, 25, 4, 25, 20, W[2])
+    rect(well, 1, 1, 30, 5, B[1]); rect(well, 1, 5, 30, 5, B[0]); rect(well, 3, 0, 28, 0, B[2])
+    for x in range(4, 30, 5):
+        rect(well, x, 1, x, 4, B[0])
+    rect(well, 15, 6, 15, 13, S[4]); rect(well, 13, 13, 17, 16, W[2]); rect(well, 13, 16, 17, 16, W[0])
+    save(well, "buildings/bld_well.png")
+
+    table = new(32, 32)                                    # Merge Table: heavy bench with a faintly glowing ring
+    rect(table, 2, 12, 29, 22, W[2])
+    rect(table, 2, 12, 29, 13, W[3])
+    rect(table, 2, 21, 29, 23, W[1])
+    for x in (9, 16, 23):
+        rect(table, x, 14, x, 20, W[1])
+    rect(table, 3, 24, 6, 30, W[1]); rect(table, 25, 24, 28, 30, W[1])
+    rect(table, 3, 24, 3, 30, W[2]); rect(table, 25, 24, 25, 30, W[2])
+    rect(table, 6, 26, 25, 27, W[0])
+    ring = [(12, 14), (13, 13), (14, 13), (15, 13), (16, 13), (17, 13), (18, 13), (19, 14), (20, 15), (20, 16), (20, 17),
+            (19, 18), (18, 19), (17, 19), (16, 19), (15, 19), (14, 19), (13, 19), (12, 18), (11, 17), (11, 16), (11, 15)]
+    px(table, ring, TEAL)
+    px(table, [(15, 15), (16, 15), (15, 16), (16, 17), (16, 16)], AMBER)
+    rect(table, 23, 8, 26, 12, S[4]); rect(table, 25, 8, 26, 12, S[3]); px(table, [(24, 7), (25, 7)], W[1])   # jar
+    rect(table, 4, 9, 8, 12, T[2]); rect(table, 4, 9, 8, 9, T[3])                                               # mortar
+    save(table, "buildings/bld_merge_table.png")
+
+    stall = new(48, 48)                                    # Mara's stall at the farm gate
+    rect(stall, 3, 22, 44, 44, W[2])
+    rect(stall, 3, 22, 44, 24, W[3])
+    rect(stall, 3, 43, 44, 45, W[0])
+    for x in range(8, 44, 7):
+        rect(stall, x, 26, x, 42, W[1])
+    rect(stall, 3, 6, 5, 45, W[1]); rect(stall, 42, 6, 44, 45, W[1])
+    for i, x in enumerate(range(0, 48, 6)):               # striped awning
+        rect(stall, x, 2, x + 5, 12, RED if i % 2 == 0 else B[3])
+        rect(stall, x, 11, x + 5, 12, B[0] if i % 2 == 0 else B[2])
+        px(stall, [(x + 1, 13), (x + 2, 13), (x + 3, 13), (x + 4, 13), (x + 2, 14), (x + 3, 14)], RED if i % 2 == 0 else B[3])
+    rect(stall, 0, 1, 47, 1, W[1])
+    for x, c in ((9, ORANGE), (14, ORANGE), (20, YELLOW), (27, RED), (33, G[3]), (38, ORANGE)):   # goods on the counter
+        ellipse(stall, x, 18, x + 4, 22, c)
+        px(stall, [(x + 1, 19)], B[3])
+    save(stall, "buildings/npc_stall.png")
+
+    board = new(16, 32)                                    # order board
+    rect(board, 1, 6, 14, 22, W[2]); rect(board, 1, 6, 14, 7, W[3]); rect(board, 1, 21, 14, 22, W[1])
+    rect(board, 3, 22, 4, 31, W[1]); rect(board, 11, 22, 12, 31, W[1])
+    rect(board, 0, 4, 15, 5, B[1]); rect(board, 0, 5, 15, 5, B[0])
+    for x, y, c in ((3, 9, B[3]), (9, 9, T[3]), (3, 15, T[3]), (9, 15, B[3])):
+        rect(board, x, y, x + 3, y + 4, c)
+        px(board, [(x + 1, y + 1), (x + 2, y + 1), (x + 1, y + 3)], S[2])
+        px(board, [(x + 1, y - 1)], RED)
+    save(board, "props/order_board.png")
+
+    sign = new(16, 16)                                     # an untended field site
+    rect(sign, 7, 8, 8, 15, W[1])
+    rect(sign, 2, 2, 13, 9, W[3]); rect(sign, 2, 9, 13, 9, W[1]); rect(sign, 12, 3, 13, 9, W[2])
+    px(sign, [(4, 4), (5, 4), (6, 4), (8, 4), (9, 4), (11, 4), (4, 6), (5, 6), (7, 6), (8, 6), (9, 6), (10, 6)], W[0])
+    save(sign, "props/field_sign.png")
+
+    cursor = new(16, 16)                                   # tile cursor: four corner brackets
+    for cx, cy, dx, dy in ((0, 0, 1, 1), (15, 0, -1, 1), (0, 15, 1, -1), (15, 15, -1, -1)):
+        px(cursor, [(cx, cy), (cx + dx, cy), (cx + 2 * dx, cy), (cx, cy + dy), (cx, cy + 2 * dy)], AMBER)
+    save(cursor, "fx/tile_cursor.png")
+
+    weeds = new(16, 16, G[2])                              # untended field ground
+    rng = random.Random(21)
+    clusters(weeds, rng, [G[1]], 9)
+    clusters(weeds, rng, [G[0]], 4)
+    clusters(weeds, rng, [S[2]], 3)
+    untilled = new(16, 16, S[3])                           # owned but not yet tilled
+    clusters(untilled, rng, [S[2]], 6)
+    clusters(untilled, rng, [G[1]], 3)
+    rect(untilled, 0, 0, 15, 0, S[2]); rect(untilled, 0, 0, 0, 15, S[2])
+    save(strip([weeds, untilled]), "tiles/farm_field.png", {"frameSize": [16, 16], "tiles": ["untended", "untilled"]})
+
+
+def carrot_icon(body, shade, light, leaf=True):
+    img = new(16, 16)
+    pts = [(9, 5), (10, 5), (8, 6), (9, 6), (10, 6), (11, 6), (7, 7), (8, 7), (9, 7), (10, 7), (6, 8), (7, 8), (8, 8), (9, 8),
+           (5, 9), (6, 9), (7, 9), (8, 9), (4, 10), (5, 10), (6, 10), (7, 10), (3, 11), (4, 11), (5, 11), (3, 12), (4, 12)]
+    px(img, pts, body)
+    px(img, [(11, 6), (10, 7), (9, 8), (8, 9), (7, 10), (5, 11), (4, 12)], shade)
+    px(img, [(9, 5), (8, 6), (7, 7), (6, 8)], light)
+    if leaf:
+        px(img, [(11, 4), (12, 3), (12, 4), (13, 2), (11, 3)], G[2])
+        px(img, [(12, 5), (13, 4), (13, 5), (14, 4)], G[1])
+        px(img, [(10, 3), (11, 2)], G[3])
+    return img
+
+
+def seed_bag(dot):
+    img = new(16, 16)
+    rect(img, 4, 6, 11, 13, S[4])
+    rect(img, 10, 7, 11, 13, S[3])
+    rect(img, 5, 4, 10, 5, S[4]); rect(img, 6, 5, 9, 5, W[1])
+    px(img, [(5, 13), (4, 13), (11, 13)], S[3])
+    rect(img, 6, 8, 9, 11, B[3])
+    px(img, [(7, 9), (8, 9), (7, 10), (8, 10)], dot)
+    return outline(img)
+
+
+def icons():
+    save(outline(carrot_icon(ORANGE, RED, YELLOW)), "items/crop_carrot.png")
+    prem = carrot_icon(ORANGE, RED, YELLOW)
+    px(prem, [(3, 4), (2, 5), (3, 5), (4, 5), (3, 6)], AMBER)             # a sparkle marks the premium grade
+    save(outline(prem), "items/merged_carrot_premium.png")
+    gold = carrot_icon(YELLOW, ORANGE, AMBER)
+    px(gold, [(3, 4), (2, 5), (3, 5), (4, 5), (3, 6), (12, 11), (11, 12), (12, 12), (13, 12), (12, 13)], AMBER)
+    save(outline(gold), "items/merged_carrot_golden.png")
+    wheat = new(16, 16)
+    for x, top in ((5, 3), (8, 2), (11, 3)):
+        rect(wheat, x, top + 5, x, 13, S[4])
+        for k in range(5):
+            px(wheat, [(x, top + k)], YELLOW)
+            px(wheat, [(x + 1, top + k)], ORANGE if k % 2 else S[4])
+            px(wheat, [(x - 1, top + k)], AMBER if k % 2 else YELLOW)
+    rect(wheat, 4, 10, 12, 11, RED)
+    save(outline(wheat), "items/crop_wheat.png")
+    save(seed_bag(ORANGE), "items/seed_carrot.png")
+    save(seed_bag(YELLOW), "items/seed_wheat.png")
+    coin = new(8, 8)
+    ellipse(coin, 1, 1, 6, 6, YELLOW)
+    px(coin, [(5, 5), (6, 4), (5, 6), (4, 6), (6, 3)], ORANGE)
+    px(coin, [(2, 2), (3, 2), (2, 3)], AMBER)
+    save(outline(coin), "ui/coin.png")
+    drop = new(8, 8)
+    px(drop, [(3, 1), (4, 1), (3, 2), (4, 2), (2, 3), (3, 3), (4, 3), (5, 3), (2, 4), (3, 4), (4, 4), (5, 4), (2, 5), (3, 5), (4, 5), (5, 5), (3, 6), (4, 6)], K[1])
+    px(drop, [(3, 3), (3, 4)], K[3])
+    save(outline(drop), "ui/water.png")
+
+
 def main():
     write_palette()
     ground_tiles()
@@ -496,6 +666,9 @@ def main():
     rootling()
     farmhouse()
     props()
+    npcs()
+    m1_buildings()
+    icons()
     print("placeholder art written to", os.path.relpath(ASSETS, ROOT))
 
 

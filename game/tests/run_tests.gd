@@ -35,6 +35,9 @@ func _initialize() -> void:
 	_test_sim(sim)
 	_test_rng()
 	_test_save(sim, state, save)
+	var gameplay: RefCounted = load("res://tests/test_gameplay.gd").new()
+	gameplay.run(self, root)
+	check(gameplay.completed, "the gameplay tests ran to the end (a script error stops them early)")
 	print("%s  engine tests: %d passed, %d failed" % ["PASS" if _failed == 0 else "FAIL", _passed, _failed])
 	quit(1 if _failed else 0)
 

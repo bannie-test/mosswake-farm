@@ -39,13 +39,27 @@ static func frame(png_path: String, index: int, size: Vector2i) -> AtlasTexture:
 
 ## A TileSet with one atlas source: every 16x16 cell of the strip becomes a tile at (x, 0).
 static func tileset(png_path: String, tile := Vector2i(16, 16)) -> TileSet:
-	var tex: Texture2D = load(png_path)
+	return tileset_multi([png_path], tile)
+
+
+## A TileSet with one atlas source per sheet; source IDs follow the order of the paths.
+static func tileset_multi(png_paths: Array, tile := Vector2i(16, 16)) -> TileSet:
 	var ts := TileSet.new()
 	ts.tile_size = tile
-	var src := TileSetAtlasSource.new()
-	src.texture = tex
-	src.texture_region_size = tile
-	ts.add_source(src, 0)
-	for x: int in range(tex.get_width() / tile.x):
-		src.create_tile(Vector2i(x, 0))
+	for i: int in range(png_paths.size()):
+		var tex: Texture2D = load(png_paths[i])
+		var src := TileSetAtlasSource.new()
+		src.texture = tex
+		src.texture_region_size = tile
+		ts.add_source(src, i)
+		for x: int in range(tex.get_width() / tile.x):
+			src.create_tile(Vector2i(x, 0))
 	return ts
+
+
+## The 16x16 icon of an item; a neutral placeholder when the art does not exist yet.
+static func item_icon(item_id: String) -> Texture2D:
+	var path := "res://assets/items/%s.png" % item_id
+	if ResourceLoader.exists(path):
+		return load(path)
+	return load("res://assets/ui/coin.png")

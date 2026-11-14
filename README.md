@@ -33,6 +33,9 @@ python3 tools/economy_sim.py --report qa/reports/economy_sim_m0.md
 godot --path game
 ```
 
+Controls: move with WASD or the arrow keys, act with E or Space, change seed with Q, backpack with Tab,
+close a screen with Esc.
+
 After editing anything in `data/`, run `python3 tools/sync_data.py`. After changing sprites,
 run `python3 tools/asset_lint.py`.
 
@@ -40,5 +43,5 @@ run `python3 tools/asset_lint.py`.
 
 | Milestone | State |
 | --- | --- |
-| M0 Foundations | Built; waiting for the Director's go or no-go |
-| M1 First playable | Not started |
+| M0 Foundations | Accepted 2026-11-14 |
+| M1 First playable | Built; waiting for the Director's playtest and go or no-go |

@@ -7,7 +7,7 @@ config_version=5
 
 config/name="Mosswake Farm"
 config/description="A cozy pixel-art farming game with merging, gene research and Tree Spirit automation."
-run/main_scene="res://scenes/style_sheet.tscn"
+run/main_scene="res://scenes/farm.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 
 [autoload]
@@ -16,6 +16,13 @@ GameData="*res://src/core/game_data.gd"
 Sim="*res://src/core/sim.gd"
 SaveGame="*res://src/core/save_game.gd"
 GameState="*res://src/core/game_state.gd"
+Inventory="*res://src/systems/inventory.gd"
+Farm="*res://src/systems/farm.gd"
+Merge="*res://src/systems/merge.gd"
+Orders="*res://src/systems/orders.gd"
+Session="*res://src/core/session.gd"
+Controls="*res://src/core/controls.gd"
+Sfx="*res://src/core/sfx.gd"
 
 [display]
 
@@ -26,6 +33,12 @@ window/size/window_height_override=720
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 window/stretch/scale_mode="integer"
+
+[gui]
+
+theme/default_font_antialiasing=1
+theme/default_font_hinting=1
+theme/default_font_subpixel_positioning=0
 
 [layer_names]
 

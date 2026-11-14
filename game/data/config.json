@@ -152,5 +152,9 @@
   "spirits": {
     "upkeepHour": 6,
     "awakenHours": 6
+  },
+  "player": {
+    "moveTilesPerSecond": 5.0,
+    "waterPromptBelow": 90
   }
 }
