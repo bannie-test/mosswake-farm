@@ -79,7 +79,7 @@ func refresh() -> void:
 				patch.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 				patch.pressed.connect(func() -> void:
 					if Spirits.scrub():
-						Sfx.play("water"))
+						Sfx.play("scrub"))
 				row.add_child(patch)
 				buttons.append(patch)
 			_body.add_child(row)

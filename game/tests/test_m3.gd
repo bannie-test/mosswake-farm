@@ -58,8 +58,8 @@ func _test_quests() -> void:
 	check(quests.reserved("crop_carrot") == 6 and quests.would_break("crop_carrot", 3) and not quests.would_break("crop_carrot", 2), "6 Carrots are reserved for the story")
 	var xp: int = state.player["xp"]
 	check(quests.deliver("quest_first_harvest") and inv.count("crop_carrot") == 2, "handing over takes 6 Carrots")
-	check(quests.is_completed("quest_first_harvest") and state.reputation("npc_mara") == 60 and state.player["xp"] == xp + 40 and inv.count("seed_tomato") == 5,
-		"First Harvest pays 60 reputation, 40 XP and 5 Tomato seeds")
+	check(quests.is_completed("quest_first_harvest") and state.reputation("npc_mara") == 60 and state.player["level"] == 2 and state.player["xp"] == xp + int(quests.def("quest_first_harvest")["rewards"]["xp"]) - state.xp_to_next(1) and inv.count("seed_tomato") == 5,
+		"First Harvest pays 60 reputation, 5 Tomato seeds and enough XP for level 2")
 	check(orders.board_open() and orders.orders.size() == 4, "and opens the order board")
 	check(active_ids().is_empty(), "A Table for Two waits for level 3")
 	# build and produce steps

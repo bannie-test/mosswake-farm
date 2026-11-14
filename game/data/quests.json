@@ -19,7 +19,7 @@
       "reputation": {
         "npc_mara": 60
       },
-      "xp": 40,
+      "xp": 80,
       "unlocks": [
         "feature_order_board"
       ],
@@ -58,7 +58,7 @@
       "reputation": {
         "npc_tobin": 60
       },
-      "xp": 100,
+      "xp": 200,
       "unlocks": [
         "merge_carrot_golden"
       ],
@@ -123,7 +123,7 @@
       "reputation": {
         "npc_ilse": 60
       },
-      "xp": 300,
+      "xp": 400,
       "unlocks": [
         "merge_carrot_crystal"
       ],
@@ -166,7 +166,7 @@
       "reputation": {
         "npc_ilse": 60
       },
-      "xp": 300,
+      "xp": 500,
       "unlocks": [
         "bld_spirit_bench",
         "site_mossy_hollow_mvp"
@@ -215,7 +215,7 @@
       "reputation": {
         "npc_ilse": 60
       },
-      "xp": 400,
+      "xp": 800,
       "unlocks": [
         "feature_zone_tool",
         "craft_sap"

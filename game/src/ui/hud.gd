@@ -84,6 +84,7 @@ func _ready() -> void:
 	Farm.plot_changed.connect(func(_id: String) -> void: refresh())
 	Orders.changed.connect(refresh)
 	Animals.changed.connect(refresh)
+	Controls.device_changed.connect(refresh)
 	Spirits.changed.connect(refresh)
 	Quests.changed.connect(refresh)
 	Research.changed.connect(refresh)
@@ -123,11 +124,11 @@ func refresh() -> void:
 	else:
 		_seed_icon.visible = true
 		_seed_icon.texture = SpriteSheet.item_icon(player.selected_seed)
-		var more := "  (Q: next)" if player.seeds_held().size() > 1 else ""
+		var more := "  (%s: next)" % Controls.label("seed_next") if player.seeds_held().size() > 1 else ""
 		_seed_label.text = "%s x%d%s" % [GameData.item(player.selected_seed)["name"], Inventory.count(player.selected_seed), more]
 	var words := player.prompt()
 	_prompt_panel.visible = words != "" and player.control_enabled
-	_prompt.text = "[E] " + words
+	_prompt.text = "[%s] %s" % [Controls.label("act"), words]
 	_prompt_panel.reset_size()
 	_prompt_panel.position.x = round((640.0 - _prompt_panel.size.x) / 2.0)
 
@@ -138,6 +139,9 @@ func guide_text() -> String:
 		if Quests.can_deliver(e["questId"]):       # e.g. Ilse's prompt for the Golden Carrot (M3 risk)
 			var step: Dictionary = Quests.current_step(e)
 			return "> %s is waiting for your %s: hand it over at the order board" % [GameData.def("npcs", Quests.def(e["questId"])["giver"])["name"].get_slice(" ", 0), GameData.item(step["itemId"])["name"]]
+	var late := late_hint()
+	if late != "":
+		return late
 	if GameState.player["level"] >= 4:
 		return ""
 	for order: Dictionary in Orders.orders:
@@ -178,6 +182,34 @@ func guide_text() -> String:
 	if GameState.coins() >= int(GameData.config["economy"]["deadlock"]["coinsBelow"]):
 		return "> Buy seeds at Tobin's cart by the gate"
 	return "> Out of seeds and coins: Mara will leave some at dawn"
+
+
+## Contextual prompts for the later systems. Each is read from the game state, so it shows
+## exactly while it applies and never needs a "seen" flag.
+func late_hint() -> String:
+	for a: Dictionary in Animals.animals:
+		if a["hunger"] <= 0.0:
+			return "> Your animals are hungry: make Feed from Wheat at the Coop"
+	if Research.can_unlock("bp_carrot_ancient"):
+		return "> You have enough Carrot genes: learn the blueprint at the Research Station"
+	if GameState.building_level("bld_research_station") > 0 and Research.state["researchedOnce"].is_empty() and Research.state["queue"].is_empty():
+		for stack: Dictionary in Inventory.state["backpack"]["stacks"]:
+			if Research.researchable(stack["itemId"]) and not Quests.would_break(stack["itemId"], 1):
+				return "> Study a %s at the Research Station to see what it holds" % GameData.item(stack["itemId"])["name"]
+	if Inventory.count("seed_carrot_ancient") > 0 and player != null and player.selected_seed != "seed_carrot_ancient":
+		return "> Ancient Carrot seeds are ready: press %s to select them" % Controls.label("seed_next")
+	if Spirits.site_open() and Inventory.count(Spirits.HUSK_ITEM) == 0 and Spirits.bench["stage"] == "empty" and Spirits.spirits.is_empty() and Spirits.digs_available() > 0:
+		return "> Something sleeps at the dig site, south-east of the gate"
+	if Spirits.bench_built() and Inventory.count(Spirits.HUSK_ITEM) > 0:
+		return "> Lay the husk on the Spirit Bench"
+	for s: Dictionary in Spirits.spirits:
+		if s["zone"] == null:
+			return "> %s is waiting for a zone: draw one at the Spirit Bench" % s["name"]
+		if Spirits.is_drowsy(s):
+			return "> %s is drowsy: press Sap at the Spirit Bench before dawn" % s["name"]
+	if not Spirits.spirits.is_empty() and Inventory.count("mat_sap") < Spirits.spirits.size():
+		return "> No Sap for tomorrow: press some at the Spirit Bench"
+	return ""
 
 
 func toast(text: String) -> void:

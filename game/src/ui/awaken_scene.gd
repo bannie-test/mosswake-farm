@@ -41,7 +41,7 @@ func show_for(instance_id: String) -> void:
 	parts[0].reset_size()
 	parts[0].position = ((Vector2(640, 360) - parts[0].size) / 2.0).round()
 	UiKit.focus(ok)
-	Sfx.play("level_up")
+	Sfx.play("awaken")
 
 signal closed
 

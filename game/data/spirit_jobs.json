@@ -3,7 +3,7 @@
     "id": "job_water_plots",
     "targetType": "plot",
     "targetFilter": {
-      "moistureBelow": 30,
+      "moistureBelow": 50,
       "hasCrop": true
     },
     "action": "water",

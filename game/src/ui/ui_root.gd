@@ -24,8 +24,13 @@ func _ready() -> void:
 	_screens["bench"] = BenchScreen.new()
 	_screens["dig"] = DigScreen.new()
 	_screens["awaken"] = AwakenScene.new()
+	_screens["menu"] = MenuScreen.new()
+	_screens["menu"].closed.connect(close)
+	_screens["menu"].restart_requested.connect(func() -> void: restart_requested.emit())
 	_screens["confirm"].closed.connect(close)
 	_screens["awaken"].closed.connect(close)
+	Settings.changed.connect(_apply_text_size)
+	_apply_text_size()
 	_screens["bench"].zone_requested.connect(func(instance_id: String) -> void:
 		close()
 		player.start_zone_mode(instance_id)
@@ -82,10 +87,6 @@ func open(kind: String, info: Dictionary = {}) -> void:
 					Sim.sleep_until_dawn()
 					SaveGame.save(Session.slot)
 					GameState.notice.emit("Good morning. Game saved."))
-		"menu":
-			_open = "confirm"
-			_screens["confirm"].ask("Mosswake Farm", ["The game saves itself at dawn, when you sleep and when you quit.", "Start over? Your saved farm will be replaced."],
-				"Start a new farm", func() -> void: restart_requested.emit())
 		_:
 			_screens[kind].open()
 	hud.refresh()
@@ -101,6 +102,13 @@ func close() -> void:
 	if focused != null:
 		focused.release_focus()
 	hud.refresh()
+
+
+## Large text (accessibility): every screen uses a bigger font.
+func _apply_text_size() -> void:
+	_root.theme = UiKit.theme(Settings.get_value("largeText"))
+	if hud != null:
+		hud.refresh()
 
 
 func is_open() -> bool:

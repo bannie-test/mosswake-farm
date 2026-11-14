@@ -32,6 +32,9 @@ func _ready() -> void:
 	ui.restart_requested.connect(_restart)
 	if loaded:
 		GameState.notice.emit("Welcome back")
+	if not dev:
+		Sfx.update_music()
+	GameState.leveled_up.connect(func(_level: int) -> void: Sfx.play("level_up"))
 	if _args.has("demo"):
 		_demo(_args["demo"])
 	if _args.has("shot"):
@@ -156,6 +159,11 @@ func _demo(what: String) -> void:
 					map.player.zone_corner = Vector2i(9, 13)
 		"gate":
 			map.player.position = Vector2(600, 350)
+		"night":
+			Sim.game_minute = 22 * 60.0
+			map._refresh_animals()
+		"menu":
+			ui.open("menu")
 
 
 func _shoot(path: String) -> void:

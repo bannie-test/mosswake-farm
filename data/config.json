@@ -7,7 +7,9 @@
     "nightStartHour": 20,
     "daysPerSeason": 7,
     "sleepStepMinutes": 10,
-    "newGameHour": 6
+    "newGameHour": 6,
+    "duskStartHour": 18,
+    "dawnEndHour": 6
   },
   "newGame": {
     "coins": 50,
@@ -174,7 +176,8 @@
   },
   "player": {
     "moveTilesPerSecond": 5.0,
-    "waterPromptBelow": 90
+    "waterPromptBelow": 90,
+    "holdRepeatSeconds": 0.2
   },
   "animals": {
     "startHappiness": 60,

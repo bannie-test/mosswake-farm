@@ -57,7 +57,7 @@ def px(img, pts, col):
 
 
 def rect(img, x0, y0, x1, y1, col):
-    ImageDraw.Draw(img).rectangle([x0, y0, x1, y1], fill=col)
+    ImageDraw.Draw(img).rectangle([min(x0, x1), min(y0, y1), max(x0, x1), max(y0, y1)], fill=col)
 
 
 def ellipse(img, x0, y0, x1, y1, col):
@@ -1009,6 +1009,155 @@ def m4_art():
     save(mud, "ui/mud.png")
 
 
+# ------------------------------------------------------------------ M5: UI panels (9-slice, 4 px corners)
+def m5_ui():
+    def panel(fill, edge, edge_hi, corner, name):
+        img = new(12, 12, fill)
+        rect(img, 0, 0, 11, 0, edge); rect(img, 0, 11, 11, 11, edge); rect(img, 0, 0, 0, 11, edge); rect(img, 11, 0, 11, 11, edge)
+        rect(img, 1, 1, 10, 1, edge_hi); rect(img, 1, 1, 1, 10, edge_hi)
+        rect(img, 1, 10, 10, 10, corner); rect(img, 10, 1, 10, 10, corner)
+        for cx, cy in ((0, 0), (11, 0), (0, 11), (11, 11)):
+            px(img, [(cx, cy)], CLEAR)
+        px(img, [(1, 1), (10, 1), (1, 10), (10, 10)], edge)
+        save(img, name)
+    panel(B[3], W[1], S[4], B[2], "ui/panel.png")                  # parchment with a wood rim
+    panel(B[2], W[1], B[3], S[2], "ui/button.png")
+    panel(AMBER, W[1], K[3], S[4], "ui/button_hover.png")
+    panel(W[3], W[0], W[2], W[1], "ui/button_pressed.png")
+    panel(B[3], S[3], B[3], B[2], "ui/button_disabled.png")
+    panel(B[3], B[2], B[3], B[2], "ui/inset.png")
+
+
+# ------------------------------------------------------------------ M5: the full animation sets
+def shifted(img, dy):
+    out = new(img.width, img.height)
+    out.paste(img, (0, dy))
+    return out
+
+
+def player_full():
+    """Every animation of Appendix A for the player: idle, walk, work, carry, celebrate, sleep."""
+    frames, anims, i = [], {}, 0
+
+    def add(name, fr, fps):
+        nonlocal i
+        anims[name] = {"from": i, "to": i + len(fr) - 1, "fps": fps}
+        frames.extend(fr)
+        i += len(fr)
+
+    for facing in ("s", "n", "e"):
+        add(f"idle_{facing}", [player_frame(facing, 0, b) for b in (0, 0, 1, 1)], 5)
+        add(f"walk_{facing}", [player_frame(facing, l, b) for l, b in ((-1, 0), (0, 1), (1, 0), (1, 0), (0, 1), (-1, 0))], 10)
+        work = []
+        for k, (bob, reach) in enumerate(((0, 0), (1, 1), (1, 2), (0, 1))):       # bending to the soil, hands forward
+            fr = player_frame(facing, 0, bob)
+            hx = 22 if facing != "n" else 9
+            hy = 21 + reach
+            px(fr, [(hx, hy), (hx + 1, hy), (hx, hy + 1), (hx + 1, hy + 1)], B[3])
+            px(fr, [(hx - 1, hy + 2), (hx, hy + 2), (hx + 1, hy + 2), (hx + 2, hy + 2), (hx + 1, hy + 3)], W[2])    # a hand tool
+            px(fr, [(hx + 2, hy + 3), (hx + 3, hy + 3)], T[2])
+            work.append(outline(fr))
+        add(f"work_{facing}", work, 10)
+        carry = []
+        for l, b in ((-1, 0), (0, 1), (1, 0), (1, 0), (0, 1), (-1, 0)):            # walking with a crate held high
+            fr = player_frame(facing, l, b)
+            rect(fr, 10, 0 + b, 21, 1 + b, W[3]); rect(fr, 10, 1 + b, 21, 1 + b, W[1])
+            px(fr, [(12, 0 + b), (15, 0 + b), (18, 0 + b)], ORANGE)
+            carry.append(outline(fr))
+        add(f"carry_{facing}", carry, 10)
+    cheer = []
+    for dy, arms in ((0, 0), (-1, 1), (-2, 2), (-2, 2), (-1, 1), (0, 0)):         # a small jump, arms up
+        fr = player_frame("s", 0, 0)
+        if arms:
+            for x in (8, 9, 22, 23):
+                rect(fr, x, 16, x, 22, CLEAR)
+            for x in (7, 24):
+                rect(fr, x, 12 - arms, x + (1 if x == 7 else -1), 17, K[1])
+                px(fr, [(x, 11 - arms), (x + (1 if x == 7 else -1), 11 - arms)], B[3])
+        cheer.append(outline(shifted(fr, dy)))
+    add("celebrate_s", cheer, 10)
+    sleep = []
+    for k in range(2):
+        fr = player_frame("s", 0, 1)
+        px(fr, [(13, 12), (13, 13), (18, 12), (18, 13)], B[3])
+        px(fr, [(12, 13), (13, 13), (14, 13), (17, 13), (18, 13), (19, 13)], W[1])
+        px(fr, [(24 + k, 3), (25 + k, 3), (26 + k, 3), (25 + k, 4), (24 + k, 5), (25 + k, 5), (26 + k, 5)], K[3])
+        sleep.append(outline(fr))
+    add("sleep_s", sleep, 2)
+    save(strip(frames), "characters/player.png", {"frameSize": [32, 32], "animations": anims})
+
+
+def animals_full():
+    """idle, walk, eat and sleep for the three MVP animals."""
+    def build(name, size, idle, leg_boxes, head_box, eye):
+        frames, anims, i = [], {}, 0
+
+        def add(tag, fr, fps):
+            nonlocal i
+            anims[tag] = {"from": i, "to": i + len(fr) - 1, "fps": fps}
+            frames.extend(fr)
+            i += len(fr)
+        add("idle_e", idle, 5)
+        walk = []
+        for k in range(4):                                  # legs lift in pairs
+            fr = idle[0].copy()
+            for j, (x0, y0, x1, y1) in enumerate(leg_boxes):
+                if (j + k) % 2 == 0:
+                    rect(fr, x0 - 1, y1 - 1, x1 + 1, y1 + 1, CLEAR)
+            walk.append(outline(shifted(fr, -(k % 2))))
+        add("walk_e", walk, 8)
+        eat = []
+        for k in range(4):                                  # head down to the ground and back
+            fr = idle[0].copy()
+            x0, y0, x1, y1 = head_box
+            head = fr.crop((x0, y0, x1 + 1, y1 + 1))
+            rect(fr, x0, y0, x1, y1, CLEAR)
+            dy = (2, 4, 4, 2)[k] if size == 32 else (1, 3, 3, 1)[k]
+            fr.alpha_composite(head, (x0, y0 + dy))
+            eat.append(outline(fr))
+        add("eat_e", eat, 8)
+        sleep = []
+        for k in range(2):
+            fr = idle[0].copy()
+            px(fr, [eye], B[3] if name != "sheep" else W[1])
+            zx = size - 6 - k
+            px(fr, [(zx, 1), (zx + 1, 1), (zx + 2, 1), (zx + 1, 2), (zx, 3), (zx + 1, 3), (zx + 2, 3)], K[3])
+            sleep.append(outline(shifted(fr, 1)))
+        add("sleep_e", sleep, 2)
+        save(strip(frames), f"animals/animal_{name}.png", {"frameSize": [size, size], "animations": anims})
+
+    hen = [chicken_frame(0), chicken_frame(0), chicken_frame(1), chicken_frame(0, 1)]
+    build("chicken", 16, hen, [(6, 13, 6, 14), (8, 13, 8, 14)], (10, 2, 14, 8), (11, 5))
+    build("cow", 32, animal_frames("cow"), [(6, 24, 8, 30), (11, 24, 13, 30), (18, 24, 20, 30), (22, 24, 24, 30)], (21, 3, 31, 17), (24, 9))
+    build("sheep", 32, animal_frames("sheep"), [(7, 24, 8, 30), (12, 24, 13, 30), (18, 24, 19, 30), (22, 24, 23, 30)], (21, 4, 31, 18), (24, 12))
+
+
+def trees():
+    """A broadleaf tree in two parts: trunk base (Y-sorted) and canopy (Overhead layer)."""
+    base = new(48, 64)
+    rect(base, 20, 40, 27, 62, W[2]); rect(base, 25, 40, 27, 62, W[1]); rect(base, 20, 40, 21, 62, W[3])
+    px(base, [(18, 62), (19, 61), (19, 62), (28, 61), (28, 62), (29, 62), (17, 63), (30, 63)], W[1])
+    px(base, [(22, 46), (23, 47), (22, 52), (24, 56)], W[0])
+    save(base, "props/tree_base.png")
+    top = new(48, 64)
+    rng = random.Random(12)
+    for cx, cy, r in ((24, 22, 19), (13, 28, 11), (35, 28, 11), (24, 12, 12), (17, 17, 10), (31, 17, 10)):
+        ellipse(top, cx - r, cy - r, cx + r, cy + r, G[1])
+    for cx, cy, r in ((20, 18, 12), (14, 25, 7), (26, 10, 8)):
+        ellipse(top, cx - r, cy - r, cx + r, cy + r, G[2])
+    for cx, cy, r in ((17, 13, 5), (11, 22, 3), (25, 7, 4)):
+        ellipse(top, cx - r, cy - r, cx + r, cy + r, G[3])
+    for _ in range(26):                                     # leaf clusters in the shade side
+        x, y = rng.randrange(24, 44), rng.randrange(18, 40)
+        if top.getpixel((x, y))[3]:
+            px(top, [(x, y), (x + 1, y), (x, y + 1)], G[0])
+    for y in range(64):
+        for x in range(48):
+            if top.getpixel((x, y))[3] and y > 34 and (x + y) % 9 == 0:
+                top.putpixel((x, y), G[0])
+    save(top, "props/tree_top.png")
+
+
 def main():
     write_palette()
     ground_tiles()
@@ -1027,6 +1176,10 @@ def main():
     m2_icons()
     m3_art()
     m4_art()
+    m5_ui()
+    player_full()
+    animals_full()
+    trees()
     print("placeholder art written to", os.path.relpath(ASSETS, ROOT))
 
 

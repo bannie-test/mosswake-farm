@@ -34,7 +34,7 @@ godot --path game
 ```
 
 Controls: move with WASD or the arrow keys, act with E or Space, change seed with Q, backpack with Tab,
-close a screen with Esc.
+close a screen or open the menu with Esc. Gamepad: stick or D-pad, A act, X seed, Y backpack, B or Start menu.
 
 After editing anything in `data/`, run `python3 tools/sync_data.py`. After changing sprites,
 run `python3 tools/asset_lint.py`.
@@ -47,4 +47,5 @@ run `python3 tools/asset_lint.py`.
 | M1 First playable | Accepted 2026-11-14 (human playtest items still open, see D-010) |
 | M2 Complete farm | Accepted 2026-11-14 |
 | M3 Research slice | Accepted 2026-11-14 |
-| M4 Spirit slice | Built on branch `m4-spirit-slice`; waiting for the Director's go or no-go |
+| M4 Spirit slice | Accepted 2026-11-14 |
+| M5 Content and UX | Built on branch `m5-content-ux`; waiting for the Director's go or no-go |

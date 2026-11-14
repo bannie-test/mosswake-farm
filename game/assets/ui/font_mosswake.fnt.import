@@ -1,0 +1,17 @@
+[remap]
+
+importer="font_data_bmfont"
+type="FontFile"
+uid="uid://i7lx0re51bi5"
+path="res://.godot/imported/font_mosswake.fnt-524d26c8c656304a8754866efa3d8bdb.fontdata"
+
+[deps]
+
+source_file="res://assets/ui/font_mosswake.fnt"
+dest_files=["res://.godot/imported/font_mosswake.fnt-524d26c8c656304a8754866efa3d8bdb.fontdata"]
+
+[params]
+
+fallbacks=[]
+compress=true
+scaling_mode=2

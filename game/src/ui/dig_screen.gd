@@ -64,7 +64,7 @@ func refresh() -> void:
 			b.pressed.connect(func() -> void:
 				var result: String = Spirits.dig_tile(cell)
 				if result != "":
-					Sfx.play("harvest" if result == "husk" or not MARK.has(result) else "till"))
+					Sfx.play("harvest" if result == "husk" or not MARK.has(result) else "dig"))
 			if not b.disabled and (pick == null or cell == keep):
 				pick = b
 		else:

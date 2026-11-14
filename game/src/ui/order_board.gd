@@ -86,7 +86,7 @@ func refresh() -> void:
 			var key := "%s/%d" % [npc_id, slot + 1]
 			var card := PanelContainer.new()
 			card.custom_minimum_size = Vector2(CARD_WIDTH, 124)
-			card.add_theme_stylebox_override("panel", UiKit.box(UiKit.PARCHMENT, UiKit.PARCHMENT_DARK, 1, 4))
+			card.add_theme_stylebox_override("panel", UiKit.slice("inset"))
 			var v := VBoxContainer.new()
 			card.add_child(v)
 			_grid.add_child(card)

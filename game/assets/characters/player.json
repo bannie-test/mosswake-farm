@@ -14,25 +14,65 @@
       "to": 9,
       "fps": 10
     },
-    "idle_n": {
+    "work_s": {
       "from": 10,
       "to": 13,
-      "fps": 5
+      "fps": 10
     },
-    "walk_n": {
+    "carry_s": {
       "from": 14,
       "to": 19,
       "fps": 10
     },
-    "idle_e": {
+    "idle_n": {
       "from": 20,
       "to": 23,
       "fps": 5
     },
-    "walk_e": {
+    "walk_n": {
       "from": 24,
       "to": 29,
       "fps": 10
+    },
+    "work_n": {
+      "from": 30,
+      "to": 33,
+      "fps": 10
+    },
+    "carry_n": {
+      "from": 34,
+      "to": 39,
+      "fps": 10
+    },
+    "idle_e": {
+      "from": 40,
+      "to": 43,
+      "fps": 5
+    },
+    "walk_e": {
+      "from": 44,
+      "to": 49,
+      "fps": 10
+    },
+    "work_e": {
+      "from": 50,
+      "to": 53,
+      "fps": 10
+    },
+    "carry_e": {
+      "from": 54,
+      "to": 59,
+      "fps": 10
+    },
+    "celebrate_s": {
+      "from": 60,
+      "to": 65,
+      "fps": 10
+    },
+    "sleep_s": {
+      "from": 66,
+      "to": 67,
+      "fps": 2
     }
   }
 }

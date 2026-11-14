@@ -28,6 +28,7 @@ Research="*res://src/systems/research.gd"
 Quests="*res://src/systems/quests.gd"
 Spirits="*res://src/systems/spirits.gd"
 Session="*res://src/core/session.gd"
+Settings="*res://src/core/settings.gd"
 Controls="*res://src/core/controls.gd"
 Sfx="*res://src/core/sfx.gd"
 

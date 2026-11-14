@@ -45,7 +45,7 @@ func _column(parent: HBoxContainer, title: String, width: int) -> VBoxContainer:
 	var panel := PanelContainer.new()
 	panel.custom_minimum_size = Vector2(width, 0)
 	panel.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	panel.add_theme_stylebox_override("panel", UiKit.box(UiKit.PARCHMENT, UiKit.PARCHMENT_DARK, 1, 4))
+	panel.add_theme_stylebox_override("panel", UiKit.slice("inset"))
 	parent.add_child(panel)
 	var v := VBoxContainer.new()
 	panel.add_child(v)

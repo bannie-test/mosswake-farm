@@ -100,12 +100,46 @@ until the Director confirms it.
 | P-46 | A spirit's position is not saved; after loading it starts from the bench | SpiritInstance (section 14) has no position field |
 | P-47 | Sap is pressed at the Spirit Bench, from the cheapest common crops first; crops a story step needs are left alone | Section 15: "Sap crafted by hand" |
 
+## M5 decisions by the Director (2026-11-14)
+
+| # | Decision | Reason |
+| --- | --- | --- |
+| D-015 | M5 art: code-drawn sprites are upgraded and completed; they remain "temporary" quality until an artist replaces them | No artist is on the project |
+| D-016 | M5 balance: tune by simulation now, and again with real players in M6 | No playtest data exists yet |
+
+## M5 balance pass (Economy Balancer; numbers only, each change with before and after)
+
+| Value | Before | After | Why | Measured effect |
+| --- | --- | --- | --- | --- |
+| Quest XP: First Harvest | 40 | 80 | Level pace (F-02). These XP values were set by the Balancer in M0 (P-08), not by the GDD | In-engine 60-minute session: level 4 -> level 5 (target 5-6), 16 -> 26 orders |
+| Quest XP: A Table for Two | 100 | 200 | Same | Same run |
+| Quest XP: What Carrots Remember | 300 | 400 | Same | Later in the story |
+| Quest XP: The Sleeper | 300 | 500 | Same | Later in the story |
+| Quest XP: First Vocation | 400 | 800 | Same | Later in the story |
+| Quest XP: A Strange Carrot | 200 | 200 | Unchanged: 200 is the GDD's own example | - |
+| `job_water_plots.moistureBelow` | 30 | 50 | Rootling could not keep 16 Tomato plots wet (F-04) | Lowest moisture over 2 days at skill 1: Tomato 0 -> 17, Carrot 6 -> 25, Wheat 13 -> 34 |
+| `time.dawnEndHour` (visual only) | 7 | 6 | A new game starts at 06:00 and should not open in half darkness | - |
+
+Not changed: every number the GDD states (crop values, order budget, XP rates, level curve, field prices, merge rates).
+
+## Provisional (made to finish M5; need the Director's confirmation)
+
+| # | Decision | Reason |
+| --- | --- | --- |
+| P-48 | Settings live in `user://settings.json`, apart from the save: music volume, sound volume, large text, hold-to-act, fullscreen. The Esc menu holds them, plus "Start a new farm" and "Save and quit" | The GDD lists settings and accessibility options but no screen for them |
+| P-49 | Gamepad: stick or D-pad to move, A act, X next seed, Y backpack, B or Start close/menu. Prompts show the buttons of the device last used | The GDD asks for gamepad support without a layout |
+| P-50 | "Large text" switches every screen to the engine's scalable font at 12 px; normal text uses the project's own 5x7 pixel font (`tools/gen_font.py`) | A bitmap font only looks right at whole multiples, and 2x is too large for a 640x360 screen |
+| P-51 | Contextual prompts are computed from the game state each time (hungry animals, a learnable blueprint, a husk in the backpack, a spirit without a zone or Sap), so they need no "seen" flags | Section 15 asks that players understand research "without a text tutorial" |
+| P-52 | Day and night: a cool violet tint from 18:00, full at 20:00, lifting between 05:00 and 06:00; animals sleep at night; day and night each have a looping tune | Section 12; Appendix A (shadows shift toward violet, never black) |
+| P-53 | Not done in M5 and carried forward: the 47-tile terrain blob sets, atlas extrusion, the shader outline for the interaction highlight (a tile cursor and prompts are used instead), spirit carry and celebrate animations, crop sway | Polish items of Appendix A that do not change play; they need an artist's pass anyway |
+
 ## Findings
 
 | # | Finding | Status |
 | --- | --- | --- |
 | F-01 | Economy simulator, Phase 1: income is inside the 300-600 target on days 1-3 (mean about 430) but reaches 1,500-2,000 on days 4-5 while the player is still level 4-5, because all four buyable fields (300 / 450 / 675 / 1,012 coins) are affordable by day 4. Section 10 plans only "fields 1-2" for Phase 1. Median time to level 5 is 96 minutes against a 60-90 target. Report: `qa/reports/economy_sim_m0.md` | Deferred to after the M1 playtests (D-009) |
-| F-02 | M2 acceptance "a 60-minute session reaches level 5-6": the scripted hand-play session reaches level 4 after 60 real minutes of game time (about 29 orders, 24 plots, 4 animals). Same cause as F-01's "96 minutes to level 5": XP comes mostly from orders (0.4 x goods value) and the early order budgets are small | Deferred with F-01 to the balance pass after playtests (D-009). Levers inside the Economy Balancer's remit: `xpRate.delivery`, `orders.budget`, quest XP (quests add 40 to 400 XP each from M3 and are not in this run) |
+| F-02 | M2 acceptance "a 60-minute session reaches level 5-6": the scripted hand-play session reaches level 4 after 60 real minutes of game time (about 29 orders, 24 plots, 4 animals). Same cause as F-01's "96 minutes to level 5": XP comes mostly from orders (0.4 x goods value) and the early order budgets are small | Addressed in the M5 balance pass by raising quest XP: the in-engine session now reaches level 5. The Python simulator, which plays a simpler farm without the story after A Strange Carrot, still says 96 minutes to level 5. Re-check with real players in M6 |
 | F-03 | M3 acceptance "4 of 5 playtesters reach an Ancient Carrot harvest without help" needs people and is open. What the machine shows: a scripted path from a new save reaches the harvest using only real actions (about 2.5 game days of production time, levels set at the gates), needing at most four Golden Carrots and one Crystal Carrot | Open until human playtests |
-| F-04 | A skill-1 Rootling cannot keep 16 Tomato plots wet when all 16 were watered at the same moment: Tomato dries in 6 hours, so all 16 fall under the watering threshold together and one round (16 x 6 minutes plus walking and a refill) takes longer than the 1.8 hours before the first plot is dry. Carrot and Wheat (8 and 12 hours) are fine, and the M4 acceptance test (16 tiles, 3 days) passes with Carrots | For the balance pass. Options: raise `job_water_plots.moistureBelow` from 30, shorten the level-1 action time, or accept it as a reason to raise the spirit's skill |
+| F-04 | A skill-1 Rootling cannot keep 16 Tomato plots wet when all 16 were watered at the same moment: Tomato dries in 6 hours, so all 16 fall under the watering threshold together and one round (16 x 6 minutes plus walking and a refill) takes longer than the 1.8 hours before the first plot is dry. Carrot and Wheat (8 and 12 hours) are fine, and the M4 acceptance test (16 tiles, 3 days) passes with Carrots | Fixed in the M5 balance pass: `moistureBelow` 30 -> 50 |
 | F-05 | Dig site: a careful player always finds the husk within 6 digs using Root-sense (a Dig Kit holds 10). A player who stops when the husk appears may still be short of Spirit Essence; the site now says how much is still buried | Informational |
+| F-06 | M5 acceptance, as it stands: (1) asset lint passes on all 87 sprites and now also checks that every definition has its art and every sheet its standard animations; (2) "no placeholder remains" is NOT met: all art is code-drawn and awaits an artist (D-015); (3) "simulator and playtest income agree within 20%" cannot be judged without playtests. Phase 1 income in the Python simulator: mean 706 against a 300-600 target, down from 962; days 1-3 are inside the target and the overshoot is the single day on which the player owns 30 plots but is still level 5 | Open until M6 playtests |

@@ -27,6 +27,7 @@ const STALLS := {
 	"npc_ilse": {"feet": Vector2(664, 432), "sprite": "res://assets/buildings/npc_stall_ilse.png", "kind": "order_board"},
 }
 const SITE_FEET := Vector2(712, 480)        # the dig site entrance, south-east of the gate
+const NIGHT_TINT := Color(0.47, 0.5, 0.78)      # cool violet: shadows shift toward violet, never to black
 const PLAYER_START := Vector2(88, 180)
 const PLOT_SOURCE := 0      # farm_plots.png: 0 dry, 1 wet
 const FIELD_SOURCE := 1     # farm_field.png: 0 untended, 1 untilled
@@ -49,6 +50,7 @@ var _nav_dirty := true
 var _spirit_views: Dictionary = {}
 var _site_drawn := false
 var _zone_overlay: ZoneOverlay
+var _tint: CanvasModulate
 
 
 func build() -> void:
@@ -77,6 +79,7 @@ func build() -> void:
 	GameState.building_changed.connect(_refresh_building)
 	GameState.leveled_up.connect(func(_level: int) -> void: _refresh_stalls())
 	Animals.changed.connect(_refresh_animals)
+	Sim.hour_changed.connect(func(_h: int) -> void: _refresh_animals())
 	_nav.region = Rect2i(Vector2i.ZERO, SIZE)
 	_nav.cell_size = Vector2(WorldLayers.TILE, WorldLayers.TILE)
 	_nav.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_NEVER
@@ -90,11 +93,34 @@ func build() -> void:
 	add_child(_zone_overlay)
 	_refresh_site()
 	_refresh_spirits()
+	_tint = CanvasModulate.new()
+	add_child(_tint)
 	Quests.quest_completed.connect(func(_q: String) -> void:
 		for building_id: String in PADS:
 			if GameState.building_level(building_id) == 0:
 				_refresh_building(building_id))
 	_refresh_animals()
+
+
+## Day and night (section 12): a cool violet tint from dusk to dawn, never black.
+func _process(_delta: float) -> void:
+	if _tint == null:
+		return
+	# roofs and canopies fade to 40% when they hide the player (Appendix A, Overhead layer)
+	for cover: Node in world.overhead.get_children():
+		if cover.has_meta("cover"):
+			var hidden: bool = (cover.get_meta("cover") as Rect2).has_point(player.position + Vector2(0, -10))
+			cover.modulate.a = move_toward(cover.modulate.a, 0.4 if hidden else 1.0, 0.08)
+	var time: Dictionary = GameData.config["time"]
+	var h := Sim.game_minute / 60.0 - floorf(Sim.game_minute / 1440.0) * 24.0
+	var night := 0.0
+	if h >= float(time["nightStartHour"]) or h < float(time["dayStartHour"]) - 1.0:
+		night = 1.0
+	elif h >= float(time["duskStartHour"]):
+		night = (h - float(time["duskStartHour"])) / (float(time["nightStartHour"]) - float(time["duskStartHour"]))
+	elif h < float(time["dawnEndHour"]):
+		night = 1.0 - (h - (float(time["dayStartHour"]) - 1.0)) / (float(time["dawnEndHour"]) - float(time["dayStartHour"]) + 1.0)
+	_tint.color = Color.WHITE.lerp(NIGHT_TINT, clampf(night, 0.0, 1.0))
 
 
 func map_rect() -> Rect2i:
@@ -142,6 +168,14 @@ func _ground() -> void:
 			world.ground_detail.set_cell(cell, 0, Vector2i(rng.randi_range(0, 3), 0))
 	for pos: Vector2 in [Vector2(176, 150), Vector2(30, 172), Vector2(480, 300), Vector2(560, 180), Vector2(250, 420), Vector2(500, 470), Vector2(120, 500)]:
 		world.add_object(WorldLayers.upright(load("res://assets/props/bush.png")), pos)
+	# trees: the trunk is Y-sorted, the canopy sits on the Overhead layer and fades over the player
+	for pos: Vector2 in [Vector2(40, 300), Vector2(200, 480), Vector2(420, 430), Vector2(590, 130), Vector2(730, 170), Vector2(330, 540), Vector2(60, 470), Vector2(600, 520), Vector2(740, 300)]:
+		world.add_object(WorldLayers.upright(load("res://assets/props/tree_base.png")), pos)
+		var top := WorldLayers.upright(load("res://assets/props/tree_top.png"))
+		top.position = pos
+		top.set_meta("cover", Rect2(pos.x - 22, pos.y - 62, 44, 44))
+		world.overhead.add_child(top)
+		_solid(Rect2(pos.x - 5, pos.y - 6, 10, 6))
 
 
 func _farmhouse() -> void:
@@ -149,6 +183,7 @@ func _farmhouse() -> void:
 	world.add_object(WorldLayers.upright(load("res://assets/buildings/farmhouse_base.png")), house_feet)
 	var roof := WorldLayers.upright(load("res://assets/buildings/farmhouse_roof.png"))
 	roof.position = house_feet
+	roof.set_meta("cover", Rect2(house_feet.x - 48, house_feet.y - 92, 96, 50))
 	world.overhead.add_child(roof)
 	_solid(Rect2(54, 100, 84, 58))
 	for tile: Vector2i in [Vector2i(5, 9), Vector2i(6, 9)]:      # the door: sleep and save
@@ -272,9 +307,9 @@ func _refresh_animals() -> void:
 		var housed: Array = Animals.housed_in(building_id)
 		for i: int in range(housed.size()):
 			var a: Dictionary = housed[i]
-			var sprite := WorldLayers.animated("res://assets/animals/%s.png" % a["animalId"], "idle_e")
+			var anim := "sleep_e" if Sim.is_night() else ("eat_e" if (i + Sim.hour()) % 3 == 0 else "idle_e")
+			var sprite := WorldLayers.animated("res://assets/animals/%s.png" % a["animalId"], anim)
 			sprite.flip_h = i % 2 == 1
-			sprite.frame = i % 4
 			var cols := maxi(1, ceili(housed.size() / 2.0))
 			var pos := yard.position + Vector2((i / 2 + 0.5) * yard.size.x / cols, 6 + (i % 2) * (yard.size.y - 8))
 			_animal_nodes.append(world.add_object(sprite, pos.round(), true))

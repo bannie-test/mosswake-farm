@@ -8,7 +8,6 @@ const FRAME_HARVESTED := 5
 const FRAME_WITHERED := 6
 const RING_FULL := Color("6d9fd1")
 const RING_LOW := Color("f2a33a")
-const LOW_MOISTURE := 30.0          # the level at which a Rootling would water (job_water_plots)
 
 var plot_id: String
 var _crop: Sprite2D
@@ -56,7 +55,8 @@ func _draw() -> void:
 	# an ellipse under the plant; the lit part is the share of moisture left
 	var steps := 16
 	var lit := int(round(_moisture / 100.0 * steps))
-	var col := RING_FULL if _moisture >= LOW_MOISTURE else RING_LOW
+	var low := float(GameData.def("spirit_jobs", "job_water_plots")["targetFilter"]["moistureBelow"])      # where a Rootling would step in
+	var col := RING_FULL if _moisture >= low else RING_LOW
 	for i: int in range(steps):
 		if i < lit:
 			var a := TAU * i / steps - PI / 2

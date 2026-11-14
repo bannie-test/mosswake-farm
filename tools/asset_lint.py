@@ -23,6 +23,7 @@ ASSETS = os.path.join(ROOT, "game", "assets")
 
 FRAME = {"tiles": (16, 16), "crops": (16, 32), "characters": (32, 32), "spirits": (24, 24), "items": (16, 16),
          "props": (16, 8), "fx": (16, 16), "buildings": (16, 16), "ui": (4, 4)}
+# 9-slice UI panels are 12x12 with 4 px corners
 ANIMAL_FRAME = {"animal_chicken": (16, 16)}            # other animals are 32x32
 ID_FOLDERS = {"crops": "plant", "animals": "animal", "spirits": "spirit", "items": None}
 ID_NAMED_BUILDINGS = ("bld_", "site_")
@@ -53,7 +54,7 @@ def lint():
     count = 0
     for dirpath, _, files in os.walk(ASSETS):
         for fn in sorted(files):
-            if not fn.endswith(".png"):
+            if not fn.endswith(".png") or fn.startswith("font_"):      # the font atlas is white-on-clear, tinted by the theme
                 continue
             count += 1
             path = os.path.join(dirpath, fn)
@@ -101,6 +102,33 @@ def lint():
                         errors.append(f"{rel}: '{tag}' has {n} frames, standard is {want}")
                     if (a["to"] + 1) * fw > img.width:
                         errors.append(f"{rel}: '{tag}' runs past the end of the sheet")
+    # completeness: every definition that needs art has it (M5: "no placeholder remains" starts here)
+    data = os.path.join(ROOT, "data")
+    def rows(name):
+        with open(os.path.join(data, name)) as f:
+            return json.load(f)
+    needed = [f"items/{i['id']}.png" for i in rows("items.json")]
+    needed += [f"crops/{p['id']}.png" for p in rows("plants.json")]
+    needed += [f"animals/{a['id']}.png" for a in rows("animals.json")]
+    needed += [f"spirits/{sp['id']}.png" for sp in rows("spirits.json")]
+    needed += [f"characters/{n['id']}.png" for n in rows("npcs.json")]
+    needed += [f"buildings/{d['id']}.png" for d in rows("dig_sites.json")]
+    in_props = {"bld_chest": "props/chest.png", "bld_shipping_bin": "props/shipping_bin.png"}
+    needed += [in_props.get(b["id"], f"buildings/{b['id']}.png") for b in rows("buildings.json")]
+    for rel in needed:
+        if not os.path.exists(os.path.join(ASSETS, rel)):
+            errors.append(f"{rel}: missing (a definition in /data needs this sprite)")
+    # the standard animations each kind of sheet must carry (Appendix A)
+    must = {"characters/player.png": ["idle_s", "idle_n", "idle_e", "walk_s", "walk_n", "walk_e", "work_s", "work_n", "work_e", "carry_s", "celebrate_s", "sleep_s"],
+            "spirits/spirit_rootling.png": ["idle_s", "walk_s", "work_s", "sleep_s"]}
+    for a in rows("animals.json"):
+        must[f"animals/{a['id']}.png"] = ["idle_e", "walk_e", "eat_e", "sleep_e"]
+    for rel, tags in must.items():
+        side = os.path.join(ASSETS, os.path.splitext(rel)[0] + ".json")
+        have = json.load(open(side)).get("animations", {}) if os.path.exists(side) else {}
+        for tag in tags:
+            if tag not in have:
+                errors.append(f"{rel}: animation '{tag}' is missing")
     return count, errors
 
 

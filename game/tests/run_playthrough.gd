@@ -128,6 +128,81 @@ func _run() -> void:
 	Input.action_release("move_left")
 	check(player.position.x >= 2.0 and player.facing == "w", "the map edge stops the player")
 
+	# ---- M5: pause menu, settings, gamepad bindings, hold-to-act, day and night
+	var settings: Node = root.get_node("Settings")
+	var controls: Node = root.get_node("Controls")
+	ui.open("menu")
+	await frames(2)
+	var menu: Node = ui._screens["menu"]
+	check(menu.visible and not player.control_enabled, "the pause menu opens and holds the player")
+	var toggles: Array = []
+	var sliders: Array = []
+	var stack: Array = [menu]
+	while not stack.is_empty():
+		var n: Node = stack.pop_back()
+		if n is CheckButton:
+			toggles.append(n)
+		elif n is HSlider:
+			sliders.append(n)
+		stack.append_array(n.get_children())
+	check(sliders.size() == 2 and toggles.size() == 3, "it has music and sound sliders and the large text, hold-to-act and fullscreen switches")
+	for slider: HSlider in sliders:
+		if slider.get_meta("key") == "music":
+			slider.value = 0.2
+	check(is_equal_approx(settings.get_value("music"), 0.2) and absf(db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Music"))) - 0.2) < 0.01, "the music slider sets the Music bus volume")
+	settings.set_value("largeText", true, false)
+	check(ui._root.theme.default_font_size == 12, "Large text switches every screen to the bigger font")
+	settings.set_value("largeText", false, false)
+	check(ui._root.theme.default_font_size == 9 and ui._root.theme.default_font != null, "normal text uses the pixel font")
+	settings.set_value("music", 0.6, false)
+	check(await press(menu, "Back to the farm") and not ui.is_open(), "Back to the farm closes the menu")
+	var pad_ok := true
+	for action: String in ["move_left", "move_right", "move_up", "move_down", "act", "seed_next", "backpack", "close"]:
+		pad_ok = pad_ok and InputMap.action_get_events(action).any(func(e: InputEvent) -> bool: return e is InputEventJoypadButton or e is InputEventJoypadMotion)
+	check(pad_ok, "every action has a gamepad binding")
+	var pad_event := InputEventJoypadButton.new()
+	pad_event.button_index = JOY_BUTTON_A
+	pad_event.pressed = true
+	controls._input(pad_event)
+	check(controls.label("act") == "A" and hud._prompt.text.begins_with("[A]"), "prompts show gamepad buttons once a gamepad is used")
+	var key_event := InputEventKey.new()
+	key_event.physical_keycode = KEY_E
+	controls._input(key_event)
+	check(controls.label("act") == "E", "and keys again after a key press")
+	# hold-to-act: hold the act key and walk along a row of plots
+	settings.set_value("holdToAct", true, false)
+	await stand(farm_scene.map.plot_tile("field_02/0") + Vector2i(-1, -1), "e")
+	player.position.y += 16
+	Input.action_press("act")
+	Input.action_press("move_right")
+	await frames(70)
+	Input.action_release("move_right")
+	Input.action_release("act")
+	var tilled := 0
+	for n: int in range(3):
+		if farm.plot("field_02/%d" % n)["state"] != "empty":
+			tilled += 1
+	check(tilled >= 2, "holding the act key while walking tills the row (%d of 3 plots)" % tilled)
+	settings.set_value("holdToAct", false, false)
+	await stand(farm_scene.map.plot_tile("field_02/3") + Vector2i(-1, 0), "e")
+	Input.action_press("act")
+	Input.action_press("move_right")
+	await frames(70)
+	Input.action_release("move_right")
+	Input.action_release("act")
+	check(farm.plot("field_02/4")["state"] == "empty" and farm.plot("field_02/5")["state"] == "empty", "with the option off, holding does nothing extra")
+	settings.set_value("holdToAct", true, false)
+	inv.add("seed_carrot", 6 - inv.count("seed_carrot"))       # the rows above used some seeds; start the next part with six
+	var noon: float = sim.game_minute
+	sim.game_minute = 12 * 60.0
+	await frames(2)
+	var day_color: Color = farm_scene.map._tint.color
+	sim.game_minute = 23 * 60.0
+	await frames(2)
+	check(day_color == Color.WHITE and farm_scene.map._tint.color.b > farm_scene.map._tint.color.r and farm_scene.map._tint.color.r > 0.3, "noon is untinted; night is a cool tint, never black")
+	sim.game_minute = noon
+	await frames(2)
+
 	# ---- plant the first field with the act key only
 	for plot_id: String in farm.plots:
 		if not plot_id.begins_with("field_01"):

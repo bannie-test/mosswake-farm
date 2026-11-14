@@ -18,6 +18,9 @@ var zone_spirit := ""                 ## the spirit whose zone is being drawn; "
 var zone_corner: Variant = null       ## first corner tile, once marked
 var _sprite: AnimatedSprite2D
 var _speed := 0.0
+var _hold := 0.0
+var _busy := 0.0                     ## seconds left of a one-shot animation (work, celebrate)
+var _busy_anim := ""
 
 
 func _ready() -> void:
@@ -42,6 +45,7 @@ func _ready() -> void:
 	shape.position = Vector2(0, -3)
 	add_child(shape)
 	Inventory.changed.connect(_check_seed)
+	GameState.leveled_up.connect(func(_level: int) -> void: play_once("celebrate", 0.9))
 	_check_seed()
 
 
@@ -58,14 +62,34 @@ func _physics_process(_delta: float) -> void:
 	move_and_slide()
 	_animate(dir != Vector2.ZERO)
 	_update_target()
+	# hold-to-act (accessibility): keep working the plots you walk past
+	if control_enabled and Settings.get_value("holdToAct") and Input.is_action_pressed("act") and zone_spirit == "":
+		_hold += _delta
+		if _hold >= float(GameData.config["player"]["holdRepeatSeconds"]) and target.get("kind", "") == "plot" and prompt() != "":
+			_hold = 0.0
+			act()
+	else:
+		_hold = 0.0
 	if zone_spirit != "" and dir != Vector2.ZERO:
 		target_changed.emit()
+
+
+## Play a short one-shot animation: "work" when acting on a plot, "celebrate" on a level-up.
+func play_once(action: String, seconds: float) -> void:
+	_busy = seconds
+	_busy_anim = action
 
 
 func _animate(moving: bool) -> void:
 	var side := "e" if facing == "w" else facing      # west is east mirrored in engine
 	_sprite.flip_h = facing == "w"
 	var anim := ("walk_" if moving else "idle_") + side
+	if _busy > 0.0:
+		_busy -= get_physics_process_delta_time()
+		var once := _busy_anim + "_" + side
+		anim = once if _sprite.sprite_frames.has_animation(once) else _busy_anim + "_s"
+		if anim.ends_with("_s") and side != "s":
+			_sprite.flip_h = false
 	if _sprite.animation != anim:
 		_sprite.play(anim)
 
@@ -202,6 +226,8 @@ func act() -> void:
 	match target.get("kind", ""):
 		"plot":
 			var id: String = target["id"]
+			if Farm.action_for(id, selected_seed) != "":
+				play_once("work", 0.35)
 			match Farm.action_for(id, selected_seed):
 				"till":
 					Farm.till(id)
