@@ -104,6 +104,8 @@ func source_hint(recipe_id: String) -> String:
 		return "Research a " + GameData.item(u["firstResearchOf"])["name"]
 	if u.has("quest") and not Unlocks.is_met({"quest": u["quest"]}):
 		return GameData.def("npcs", GameData.def("quests", u["quest"])["giver"])["name"].get_slice(" ", 0) + "'s story"
+	if u.has("building") and GameState.building_level(u["building"]) > 0 and u.has("playerLevel"):
+		return "Level %d" % int(u["playerLevel"])
 	return Unlocks.missing_text(u)
 
 
@@ -135,8 +137,18 @@ func blocked_reason(recipe_id: String) -> String:
 	return ""
 
 
+## Section 10: merging away the last unit an active story step needs warns first.
+func story_warning(recipe_id: String) -> String:
+	for input: Dictionary in recipe(recipe_id)["inputs"]:
+		if Quests.would_break(input["itemId"], int(input["qty"])):
+			return "%s is waiting for your %s" % [Quests.reserved_for(input["itemId"]), GameData.item(input["itemId"])["name"]]
+	return ""
+
+
 ## True when section 6 asks for a confirmation dialog before the attempt.
 func needs_confirmation(recipe_id: String, charm_item_id: String = "") -> bool:
+	if story_warning(recipe_id) != "":
+		return true
 	if chance(recipe_id, charm_item_id)["total"] >= 100.0:
 		return false
 	if charm_item_id != "":

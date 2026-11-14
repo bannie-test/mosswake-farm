@@ -5,6 +5,7 @@ extends Node
 signal changed
 signal leveled_up(level: int)
 signal building_changed(id: String)
+signal produced(item_id: String, qty: int)
 signal notice(text: String)          ## short messages for the HUD toasts
 
 const RNG_STREAMS := ["merge", "harvest", "orders", "breeding", "excavation"]
@@ -159,8 +160,9 @@ func build(id: String) -> bool:
 
 
 func count_produced(item_id: String, qty: int) -> void:
-	var produced: Dictionary = player["stats"]["timesProduced"]
-	produced[item_id] = produced.get(item_id, 0) + qty
+	var made: Dictionary = player["stats"]["timesProduced"]
+	made[item_id] = made.get(item_id, 0) + qty
+	produced.emit(item_id, qty)
 
 
 # ---- save section "player"

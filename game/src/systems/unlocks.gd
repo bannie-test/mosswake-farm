@@ -2,9 +2,6 @@ extends Node
 ## Evaluates the `unlock` block every definition carries (GDD section 11: "the same table exists
 ## as data"). Autoload: Unlocks. All keys of a block must hold.
 
-var assumed_quests: Array = []        # scaffolding until quests exist (M3)
-var assumed_researched: Array = []    # scaffolding until research exists (M3)
-
 
 func is_met(unlock: Dictionary) -> bool:
 	for key: String in unlock:
@@ -15,15 +12,18 @@ func is_met(unlock: Dictionary) -> bool:
 			"playerLevel":
 				if GameState.player["level"] < int(v): return false
 			"quest":
-				if not (assumed_quests.has(v) or GameState.is_unlocked(v)): return false
+				var ok: bool = Quests.is_started(v) if unlock.get("questState", "completed") == "started" else Quests.is_completed(v)
+				if not ok: return false
 			"questState":
 				pass
 			"building":
 				if GameState.building_level(v) < 1: return false
 			"firstResearchOf":
-				if not assumed_researched.has(v): return false
-			"blueprint", "researchLevel":
-				return false                       # research arrives in M3
+				if not Research.state["researchedOnce"].has(v): return false
+			"blueprint":
+				if not Research.has_blueprint(v): return false
+			"researchLevel":
+				if int(Research.state["level"]) < int(v): return false
 			"npcReputation":
 				if GameState.reputation_level(v["npcId"]) < int(v["level"]): return false
 			"npcMet":
@@ -42,8 +42,10 @@ func missing_text(unlock: Dictionary) -> String:
 	if unlock.has("npcReputation") and not is_met({"npcReputation": unlock["npcReputation"]}):
 		var rep: Dictionary = unlock["npcReputation"]
 		parts.append("%s reputation %d" % [GameData.def("npcs", rep["npcId"])["name"].get_slice(" ", 0), int(rep["level"])])
+	if unlock.has("quest") and not is_met({"quest": unlock["quest"], "questState": unlock.get("questState", "completed")}):
+		parts.append("the story '%s'" % Quests.title(unlock["quest"]))
 	if parts.is_empty() and not is_met(unlock):
-		parts.append("a later story step")
+		parts.append("research")
 	return ", ".join(parts)
 
 

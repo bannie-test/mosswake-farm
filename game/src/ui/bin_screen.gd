@@ -51,7 +51,10 @@ func refresh() -> void:
 		var worth := UiKit.label("%d coins for all" % Shipping.value_of(item_id, int(bin_count(item_id)) + int(totals[item_id])) if false else "%d each" % Shipping.value_of(item_id, 1), UiKit.WOOD_LIGHT)
 		worth.custom_minimum_size = Vector2(50, 0)
 		row.add_child(worth)
-		for qty: int in [1, int(totals[item_id])]:
+		var spare: int = maxi(0, int(totals[item_id]) - Quests.reserved(item_id))      # goods a story needs stay out of the bin
+		if Quests.reserved(item_id) > 0:
+			row.add_child(UiKit.label("keeps %d for %s" % [mini(Quests.reserved(item_id), int(totals[item_id])), Quests.reserved_for(item_id)], UiKit.RED))
+		for qty: int in ([1, spare] if spare > 0 else []):
 			var b := Button.new()
 			b.set_meta("key", "%s/%d" % [item_id, 1 if qty == 1 else 0])
 			b.text = "Ship 1" if qty == 1 else "Ship all"

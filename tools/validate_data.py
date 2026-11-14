@@ -146,6 +146,12 @@ def check_references(data, known, errors):
     for ref, path in walk_refs(data.config):
         if ref not in known:
             errors.append(f"reference: config{path} -> unknown ID {ref}")
+    strings = load(os.path.join(data.root, "strings_en.json"))
+    for q in data.quests.values():
+        name_key = "quest.%s.name" % q["id"][len("quest_"):]
+        for key in [name_key] + [st["text"] for st in q["steps"]]:
+            if key not in strings:
+                errors.append(f"reference: {q['id']} uses text key {key}, which is not in strings_en.json")
     for p in data.plants.values():
         if data.items[p["productItemId"]]["rarity"] != p["rarity"]:
             errors.append(f"reference: {p['id']} rarity differs from its product item")

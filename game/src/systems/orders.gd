@@ -16,7 +16,6 @@ func _ready() -> void:
 	Sim.dawn.connect(_on_dawn)
 	GameState.leveled_up.connect(func(_level: int) -> void: fill_slots())
 	SaveGame.register_section("orders", self)
-	SaveGame.register_section("quests", QuestSection.new(self))
 
 
 func cfg() -> Dictionary:
@@ -41,7 +40,13 @@ func advance(delta_minutes: float) -> void:
 		fill_slots()
 
 
+func board_open() -> bool:
+	return GameState.is_unlocked("feature_order_board")
+
+
 func fill_slots() -> void:
+	if not board_open():
+		return
 	var added := false
 	for npc_id: String in GameData.ids("npcs"):
 		if not Unlocks.npc_met(npc_id):
@@ -363,15 +368,3 @@ func load_state(data: Array) -> void:
 	for o: Dictionary in orders:
 		_serial = maxi(_serial, int(o["orderId"].trim_prefix("ord_")))
 	changed.emit()
-
-
-## The QuestProgress section. Until quests arrive (M3) it carries only the order board's part.
-class QuestSection:
-	var _orders: Node
-	func _init(owner_: Node) -> void:
-		_orders = owner_
-	func save_state() -> Dictionary:
-		return {"active": [], "completed": [], "orders": _orders.orders.map(func(o: Dictionary) -> String: return o["orderId"]),
-			"slotRefillAt": _orders.slot_refill_at.duplicate()}
-	func load_state(data: Dictionary) -> void:
-		_orders.slot_refill_at = data.get("slotRefillAt", {}).duplicate()

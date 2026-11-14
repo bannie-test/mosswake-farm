@@ -48,6 +48,12 @@ func check(cond: bool, what: String) -> void:
 func fresh(seed_value: int = 1) -> void:
 	session.new_game(seed_value)
 	state.buildings["bld_merge_table"] = 1
+	# these tests are about the systems, not the story: the first two quests count as done
+	var quests: Node = t.root.get_node("Quests")
+	quests.active.clear()
+	quests.completed = ["quest_first_harvest", "quest_table_for_two"]
+	state.unlock("feature_order_board")
+	orders.fill_slots()
 
 
 ## Put a hand-written order in one of Mara's slots (the generator has its own tests in test_m2.gd).

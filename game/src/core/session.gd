@@ -1,15 +1,14 @@
 extends Node
 ## Starts or resumes a game: resets every system in order. Autoload: Session.
-## Until M3 it also applies the M2 scaffolding (dev/m2_scenario.json).
+## Until M4 it also applies the M3 scaffolding (dev/m3_scenario.json).
 
-const SCENARIO := "res://dev/m2_scenario.json"
+const SCENARIO := "res://dev/m3_scenario.json"
 var slot := 1            ## the save slot in use; tests point it elsewhere
 
 
 func _ready() -> void:
 	var scenario: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(SCENARIO))
-	Unlocks.assumed_quests = scenario["assumeQuests"]
-	Unlocks.assumed_researched = scenario["assumeResearched"]
+	Quests.disabled = scenario["disabledQuests"]
 	Sim.dawn.connect(func(_day: int) -> void: autosave())
 
 
@@ -19,7 +18,9 @@ func new_game(seed_value: int) -> void:
 	Farm.new_game()
 	Animals.new_game()
 	Shipping.new_game()
+	Research.new_game()
 	Orders.new_game()
+	Quests.new_game()
 
 
 ## Load the slot if it holds a save; otherwise start a new game. Returns true when a save was loaded.

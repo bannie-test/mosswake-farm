@@ -138,6 +138,10 @@ func prompt() -> String:
 			return GameData.def("buildings", target["buildingId"])["name"]
 		"bin":
 			return "Shipping bin"
+		"research":
+			return "Research Station"
+		"chest":
+			return "Storage Chest"
 		"bed":
 			return "Sleep until morning"
 		"build_pad":

@@ -134,6 +134,39 @@ func lowest_quality_used(item_id: String, qty: int) -> int:
 	return 1
 
 
+# ---- Storage Chest (section 13: 36 slots each; stations read from the backpack and every chest)
+func ensure_chest(chest_id: String, slots: int) -> void:
+	if not state["chests"].has(chest_id):
+		state["chests"][chest_id] = {"slots": slots, "stacks": []}
+		changed.emit()
+
+
+## Move a whole stack between the backpack and a chest. Returns the units moved.
+func move_stack(chest_id: String, index: int, to_chest: bool) -> int:
+	var from: Dictionary = state["backpack"] if to_chest else state["chests"][chest_id]
+	var to: Dictionary = state["chests"][chest_id] if to_chest else state["backpack"]
+	if index < 0 or index >= from["stacks"].size():
+		return 0
+	var stack: Dictionary = from["stacks"][index]
+	var limit := int(GameData.item(stack["itemId"])["stackSize"])
+	var moved := 0
+	for other: Dictionary in to["stacks"]:
+		if other["itemId"] == stack["itemId"] and other["quality"] == stack["quality"] and other["qty"] < limit and stack["qty"] > 0:
+			var n := mini(int(stack["qty"]), limit - int(other["qty"]))
+			other["qty"] += n
+			stack["qty"] -= n
+			moved += n
+	if stack["qty"] > 0 and to["stacks"].size() < int(to["slots"]):
+		to["stacks"].append(stack.duplicate())
+		moved += int(stack["qty"])
+		stack["qty"] = 0
+	if stack["qty"] == 0:
+		from["stacks"].remove_at(index)
+	if moved > 0:
+		changed.emit()
+	return moved
+
+
 func total_units() -> int:
 	var total := 0
 	for container: Dictionary in _containers():

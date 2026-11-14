@@ -156,6 +156,8 @@ func _fill_result() -> void:
 	fail.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	fail.custom_minimum_size = Vector2(186, 0)
 	_result.add_child(fail)
+	if Merge.story_warning(_selected) != "":
+		_result.add_child(UiKit.label(Merge.story_warning(_selected), UiKit.RED))
 	var reason := Merge.blocked_reason(_selected)
 	var buttons := HBoxContainer.new()
 	var go := Button.new()
@@ -211,6 +213,8 @@ func _ask_confirmation(times: int) -> void:
 	_confirm.add_child(v)
 	var chance := Merge.chance(_selected, _charm)
 	v.add_child(UiKit.label("Merge at %d%%?" % int(chance["total"])))
+	if Merge.story_warning(_selected) != "":
+		v.add_child(UiKit.label(Merge.story_warning(_selected), UiKit.RED))
 	v.add_child(UiKit.label(failure_text(_selected, chance), UiKit.WOOD_LIGHT))
 	var row := HBoxContainer.new()
 	var yes := Button.new()

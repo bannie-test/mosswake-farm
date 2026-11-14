@@ -41,6 +41,18 @@ func check(cond: bool, what: String) -> void:
 	t.check(cond, what)
 
 
+## Mark the story as far along as a farm of this level would be, without playing it.
+func story(level: int) -> void:
+	var quests: Node = t.root.get_node("Quests")
+	quests.active.clear()
+	quests.completed.clear()
+	for quest_id: String in (["quest_first_harvest", "quest_table_for_two"] if level >= 3 else ["quest_first_harvest"]):
+		quests.completed.append(quest_id)
+		for id: String in quests.def(quest_id)["rewards"]["unlocks"]:
+			state.unlock(id)
+	orders.fill_slots()
+
+
 func hen() -> Dictionary:
 	return animals.animals[0]
 
@@ -122,6 +134,7 @@ func _test_shop_and_crafting() -> void:
 	check(inv.count("mat_feed") == feed + 3 and inv.count("crop_wheat") == 1, "crafting consumes and produces exactly what the data says")
 	# Clover in a merge: +5, consumed on every attempt
 	state.buildings["bld_merge_table"] = 1
+	story(3)
 	state.player["coins"] = 500
 	inv.add("merged_carrot_premium", 3)
 	check(merge.chance("merge_carrot_golden", "lucky_clover")["total"] == 90.0, "Clover adds 5 points (85 -> 90)")
@@ -177,7 +190,11 @@ func _test_unlocks() -> void:
 	check(not known.has("merge_sun_bouquet"), "Sun Bouquet waits for Tobin reputation 3")
 	state.player["level"] = 6
 	state.add_reputation("npc_tobin", 120)
-	check(merge.known_recipes().size() == 10, "all 10 MVP recipes can be known by level 6")
+	check(merge.known_recipes().size() == 6, "level, building and reputation open 6 recipes; the other 4 wait for the story and research")
+	check(merge.source_hint("merge_carrot_golden") == "Tobin's story" and merge.source_hint("merge_egg_golden") == "Research a Speckled Egg", "unknown recipes say where to look")
+	story(3)
+	t.root.get_node("Research").state["researchedOnce"] = ["merged_carrot_golden", "merged_tomato_premium", "merged_egg_speckled"]
+	check(merge.known_recipes().size() == 10, "with A Table for Two done and three goods researched, all 10 are known")
 	check(unlocks.npc_met("npc_ilse"), "Ilse arrives at level 4")
 	check(unlocks.item_unlock_level("merged_cream") == 4 and unlocks.item_unlock_level("crop_tomato") == 2 and unlocks.item_unlock_level("merged_carrot_premium") == 3, "goods know the level they unlock at")
 
@@ -185,9 +202,12 @@ func _test_unlocks() -> void:
 # ------------------------------------------------------------------ section 8
 func _test_generator() -> void:
 	session.new_game(4)
-	check(orders.orders.size() == 4, "a new board has 2 orders each from Mara and Tobin")
+	check(orders.orders.is_empty(), "the board is empty until Mara's first quest is done")
+	story(1)
+	check(orders.orders.size() == 4, "then it has 2 orders each from Mara and Tobin")
 	var again: Array = orders.orders.map(func(o: Dictionary) -> String: return JSON.stringify(o["lines"]))
 	session.new_game(4)
+	story(1)
 	check(again == orders.orders.map(func(o: Dictionary) -> String: return JSON.stringify(o["lines"])), "the same seed generates the same board")
 	var seen := {}
 	for o: Dictionary in orders.orders_for("npc_mara"):
@@ -234,6 +254,7 @@ func profile(level: int, seed_value: int) -> void:
 	if level >= 6:
 		state.add_reputation("npc_tobin", 120)
 	state.player["coins"] = 200
+	story(level)
 
 
 func _test_order_fuzz() -> void:
@@ -322,6 +343,7 @@ func _test_full_save() -> void:
 func _test_session_bot() -> void:
 	session.new_game(2026)
 	var water_below := 35.0
+	inv.add("seed_carrot", 0)
 	for hour: int in range(60):
 		# chores
 		for plot_id: String in farm.plots:
@@ -349,7 +371,10 @@ func _test_session_bot() -> void:
 		var feed_wanted: int = animals.animals.size() * 6
 		if inv.count("mat_feed") < feed_wanted:
 			shop.craft("craft_feed", feed_wanted - inv.count("mat_feed"))
-		# orders
+		# story hand-overs, then orders
+		var quests: Node = t.root.get_node("Quests")
+		for e: Dictionary in quests.active.duplicate():
+			quests.deliver(e["questId"])
 		for o: Dictionary in orders.orders.duplicate():
 			for line: Dictionary in o["lines"]:
 				for recipe_id: String in merge.known_recipes():

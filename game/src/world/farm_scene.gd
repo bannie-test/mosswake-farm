@@ -57,8 +57,17 @@ func _demo(what: String) -> void:
 	GameState.player["coins"] = 1500
 	GameState.add_reputation("npc_tobin", 120)
 	GameState.add_reputation("npc_mara", 64)
-	for id: String in ["bld_merge_table", "bld_barn"]:
+	Quests.active.clear()
+	for quest_id: String in ["quest_first_harvest", "quest_table_for_two", "quest_strange_carrot"]:
+		Quests.completed.append(quest_id)
+		for id: String in Quests.def(quest_id)["rewards"]["unlocks"]:
+			GameState.unlock(id)
+	for id: String in ["bld_merge_table", "bld_barn", "bld_research_station", "bld_chest"]:
 		GameState.buildings[id] = 1
+	Research.state["researchedOnce"] = ["merged_carrot_golden"]
+	Inventory.add("gene_carrot", 7)
+	Inventory.add("merged_carrot_golden", 2)
+	Inventory.add("merged_tomato_premium", 1)
 	Farm.buy_field()
 	GameState.leveled_up.emit(6)
 	Animals._spawn("animal_chicken", "adult")
@@ -85,6 +94,7 @@ func _demo(what: String) -> void:
 		Inventory.add(id, 9)
 	Inventory.add("lucky_clover", 2)
 	Inventory.add("crop_sunflower", 4)
+	Quests.refresh()
 	Orders.orders.clear()
 	Orders.fill_slots()
 	map.refresh_all()
@@ -107,6 +117,9 @@ func _demo(what: String) -> void:
 			ui.open("housing", {"buildingId": "bld_barn"})
 		"bin":
 			ui.open("bin")
+		"research":
+			Research.start("merged_carrot_premium")
+			ui.open("research")
 		"gate":
 			map.player.position = Vector2(600, 350)
 

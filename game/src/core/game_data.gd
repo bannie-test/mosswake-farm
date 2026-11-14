@@ -25,6 +25,7 @@ var config: Dictionary = {}
 var merge_config: Dictionary = {}
 var retired_ids: Array = []
 var data_version: String = ""
+var strings: Dictionary = {}
 
 
 func _ready() -> void:
@@ -43,6 +44,7 @@ func load_all() -> void:
 	merge_config = _read("merge_config.json")["mergeConfig"]
 	retired_ids = _read("retired_ids.json")["retired"]
 	data_version = config["dataVersion"]
+	strings = _read("strings_en.json")
 
 
 func _read(file: String) -> Variant:
@@ -81,3 +83,8 @@ func plant(id: String) -> Dictionary:
 
 func ids(table: String) -> Array:
 	return tables.get(table, {}).keys()
+
+
+## Display text for a string-table key (the UI/UX string table of section 18).
+func text(key: String) -> String:
+	return strings.get(key, key)

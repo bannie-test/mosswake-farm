@@ -20,7 +20,7 @@ func _ready() -> void:
 	hud = Hud.new()
 	_root.add_child(hud)
 	_screens = {"backpack": BackpackPanel.new(), "merge_table": MergeScreen.new(), "order_board": OrderBoard.new(),
-		"shop": ShopScreen.new(), "housing": HousingScreen.new(), "bin": BinScreen.new(), "confirm": ConfirmDialog.new()}
+		"shop": ShopScreen.new(), "research": ResearchScreen.new(), "chest": ChestScreen.new(), "housing": HousingScreen.new(), "bin": BinScreen.new(), "confirm": ConfirmDialog.new()}
 	_screens["confirm"].closed.connect(close)
 	for key: String in _screens:
 		var screen: Control = _screens[key]

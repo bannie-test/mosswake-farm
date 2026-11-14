@@ -91,12 +91,16 @@ func _run() -> void:
 	var shipping: Node = root.get_node("Shipping")
 	var save: Node = root.get_node("SaveGame")
 	var session: Node = root.get_node("Session")
+	var quests: Node = root.get_node("Quests")
+	var research: Node = root.get_node("Research")
+	var merge: Node = root.get_node("Merge")
 	await process_frame
 	session.slot = TEST_SLOT
 	await load_scene()
 	var start_minute: float = sim.game_minute
 	check(farm.plots.size() == 12 and animals.animals.size() == 2, "a new game owns 2 fields and 2 chickens")
 	check(hud.guide_text().contains("Till the soil"), "guide starts with: till and plant")
+	check(hud._guide.text.contains("Mara: Bring Mara 6 Carrots (0/6)"), "the HUD tracks Mara's quest")
 
 	# ---- movement
 	var y0 := player.position.y
@@ -162,15 +166,17 @@ func _run() -> void:
 	var feed: int = inv.count("mat_feed")
 	check(await press(coop, "Make") and inv.count("mat_feed") == feed + 2, "4 Wheat become 2 Feed")
 
-	# ---- the order board: all met NPCs, deliver, skip
+	# ---- the order board: the story hand-over opens it; then all met NPCs, deliver, skip
 	var board: Node = await use(Vector2i(38, 20), "n", "Order board", "order_board")
-	check(orders.orders.size() == 4, "the board shows Mara's and Tobin's orders")
+	check(orders.orders.is_empty() and hud.guide_text().contains("Mara is waiting for your Carrot"), "before the first quest the board has no orders and the guide points to Mara")
+	check(await press(board, "Hand over") and quests.is_completed("quest_first_harvest") and inv.count("seed_tomato") == 5, "Hand over completes First Harvest: 5 Tomato seeds")
+	check(orders.orders.size() == 4, "the board now shows Mara's and Tobin's orders")
 	var target: Dictionary = orders.orders_for("npc_mara")[0]
 	for line: Dictionary in target["lines"]:
 		inv.add(line["itemId"], maxi(0, int(line["qty"]) - inv.count(line["itemId"])))
 	await frames(2)
 	coins = state.coins()
-	check(await press(board, "Deliver") and state.coins() == coins + int(target["rewards"]["coins"]) and state.reputation("npc_mara") == 8, "Deliver pays the order's coins and reputation")
+	check(await press(board, "Deliver") and state.coins() == coins + int(target["rewards"]["coins"]) and state.reputation("npc_mara") == 68, "Deliver pays the order's coins and reputation")
 	var before: int = orders.orders.size()
 	check(await press(board, "Skip") and orders.orders.size() == before - 1, "Skip dismisses an order")
 
@@ -191,6 +197,8 @@ func _run() -> void:
 	var pad: Node = await use(farm_scene.map.approach_tile("bld_merge_table"), "n", "Build: Merge Table", "confirm")
 	check(buttons(pad, "Build").is_empty(), "at level 1 the Merge Table cannot be built yet")
 	state.player["level"] = 3
+	state.leveled_up.emit(3)
+	check(hud._guide.text.contains("Tobin: Build the Merge Table (0/1)"), "at level 3 Tobin's quest appears in the tracker")
 	state.add_coins(400)
 	pad = await use(farm_scene.map.approach_tile("bld_merge_table"), "n", "Build: Merge Table", "confirm")
 	check(await press(pad, "Build") and state.building_level("bld_merge_table") == 1, "at level 3 with 250 coins it is built")
@@ -198,6 +206,45 @@ func _run() -> void:
 	var table: Node = await use(farm_scene.map.approach_tile("bld_merge_table"), "n", "Merge Table", "merge_table")
 	var premium: int = inv.count("merged_carrot_premium")
 	check(await press(table, "Merge") and inv.count("merged_carrot_premium") > premium, "3 Carrots become a Premium Carrot")
+	check(quests.is_completed("quest_table_for_two") and inv.count("lucky_clover") == 2, "which completes A Table for Two: 2 Clovers")
+
+	# ---- the story-item warning, Ilse's quest, the Research Station
+	await stand(farm_scene.map.approach_tile("bld_research_station"), "n")
+	check(player.prompt() == "", "the Research Station pad is hidden until the story reveals it")
+	state.player["level"] = 4
+	state.leveled_up.emit(4)
+	inv.add("merged_carrot_golden", 1)
+	await frames(2)
+	check(hud.guide_text().contains("Ilse is waiting for your Golden Carrot"), "Ilse's prompt appears when a Golden Carrot is in the backpack")
+	inv.add("crop_carrot", 6)
+	bin = await use(farm_scene.map.approach_tile("bld_shipping_bin"), "n", "Shipping bin", "bin")
+	var ship_keys: Array = buttons(bin, "Ship").map(func(b: Button) -> String: return b.get_meta("key", ""))
+	check(ship_keys.has("crop_carrot/0") and not ship_keys.any(func(k: String) -> bool: return k.begins_with("merged_carrot_golden")),
+		"the bin offers the Carrots but keeps the Golden Carrot Ilse is waiting for")
+	board = await use(Vector2i(38, 20), "n", "Order board", "order_board")
+	check(await press(board, "Hand over") and quests.is_completed("quest_strange_carrot"), "the Golden Carrot is handed to Ilse")
+	state.add_coins(2100)
+	pad = await use(farm_scene.map.approach_tile("bld_research_station"), "n", "Build: Research Station", "confirm")
+	check(await press(pad, "Build") and state.building_level("bld_research_station") == 1, "the Research Station is built for 2,000 coins")
+	inv.add("merged_carrot_golden", 1)
+	var lab: Node = await use(farm_scene.map.approach_tile("bld_research_station"), "n", "Research Station", "research")
+	check(await press(lab, "Research") and research.state["queue"].size() == 1, "Research queues a good")
+	sim.time_scale = 600.0
+	waited = 0
+	while waited < 2000 and not research.state["queue"].is_empty():
+		await frames(1)
+		waited += 1
+	sim.time_scale = 1.0
+	check(inv.count("gene_carrot") > 0 or research.state["researchedOnce"].size() == 1, "the study finishes and is recorded")
+
+	# ---- the Storage Chest
+	var chest_pad: Node = await use(farm_scene.map.approach_tile("bld_chest"), "n", "Build: Storage Chest", "confirm")
+	check(await press(chest_pad, "Build"), "a Storage Chest is built")
+	var chest: Node = await use(farm_scene.map.approach_tile("bld_chest"), "n", "Storage Chest", "chest")
+	var stacks: int = inv.state["backpack"]["stacks"].size()
+	chest._pack.get_child(0).pressed.emit()
+	await frames(2)
+	check(inv.state["backpack"]["stacks"].size() == stacks - 1 and inv.state["chests"]["chest_01"]["stacks"].size() == 1, "pressing a stack stores it in the chest")
 
 	# ---- buying a field
 	var sale: Node = await use(Vector2i(18, 12), "s", "Buy this field", "confirm")
@@ -214,7 +261,8 @@ func _run() -> void:
 	var saved := JSON.stringify(save.build_envelope())
 	await load_scene_continue(session)
 	check(JSON.stringify(save.build_envelope()) == saved, "continuing restores the saved farm exactly")
-	check(farm.plots.size() == 18 and state.building_level("bld_merge_table") == 1, "the field and the Merge Table are still there")
+	check(farm.plots.size() == 18 and state.building_level("bld_merge_table") == 1 and state.building_level("bld_research_station") == 1, "the field, the Merge Table and the Research Station are still there")
+	check(quests.completed.size() == 3 and inv.state["chests"].has("chest_01"), "so are the story and the chest")
 	await stand(farm_scene.map.approach_tile("bld_merge_table"), "n")
 	check(player.prompt() == "Merge Table", "and the rebuilt map knows about them")
 	check(loop_minutes < 10.0, "plant to harvest took %.1f real minutes of game time" % loop_minutes)

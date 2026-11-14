@@ -22,6 +22,8 @@ until the Director confirms it.
 | D-010 | 2026-11-14 | M1 accepted; go for M2. The Director approved without a playtest report, so the human parts of M1's acceptance stay open: the under-10-minute first loop with real players, five internal playtests, and the 18 / 24 / 30 minute day test | Milestone gate | Carried into the M6 outside playtest at the latest |
 | D-011 | 2026-11-14 | Repository: github.com/bannie-test/mosswake-farm. `main` holds accepted milestones; each milestone is built on its own branch | Director's choice | Process |
 
+| D-012 | 2026-11-14 | M2 accepted and merged into `main`; go for M3. Finding F-02 (level 4 instead of 5-6 after 60 minutes) stays with the balance pass after playtests | Milestone gate | - |
+
 ## Made during M0, approved by the Director on 2026-11-14 ("approve all")
 
 | # | Decision | Reason |
@@ -51,7 +53,7 @@ until the Director confirms it.
 | P-18 | New numbers in `data/config.json`: the player walks 5 tiles per second; Water is offered once moisture is under 90 | The GDD gives no player speed; without the second number the Water prompt returns the instant after watering |
 | P-19 | UI text uses the engine's default font, anti-aliased, at 8 px. A proper pixel font is part of the M5 UI pass | No licensed pixel font is in the project yet |
 
-## Provisional (made to finish M2; need the Director's confirmation)
+## Made during M2, approved by the Director on 2026-11-14
 
 | # | Decision | Reason |
 | --- | --- | --- |
@@ -66,9 +68,23 @@ until the Director confirms it.
 | P-28 | The Storage Chest is deferred to M3 | It is not in M2's feature list; the Research Station, which reads from chests, arrives in M3 |
 | P-29 | Shipping bin screen: Ship 1 / Ship all per good | No design in the GDD |
 
+## Provisional (made to finish M3; need the Director's confirmation)
+
+| # | Decision | Reason |
+| --- | --- | --- |
+| P-30 | A story quest starts by itself when its giver is there and its requirements are met (one active quest per NPC). The HUD tracks the current step; deliver steps are handed over at the order board ("Hand over") | The GDD defines quests and steps but not how they are offered or turned in; the MVP has no NPC dialogue |
+| P-31 | The order board opens as the reward of First Harvest, not at level 2 | Section 8 (quest reward) and section 11 (level list) both name it; the quest is the earlier and clearer gate |
+| P-32 | A blueprint is learned by pressing "Learn the blueprint" once the fragments are held. Seed creation takes one research queue slot for its 2 hours | Section 7 gives the costs and times but not the interaction |
+| P-33 | Story-item protection (section 10): the shipping bin keeps the units a story step needs; a merge that would use them up asks first; research needs a second press | The GDD asks for "a warning" without saying how |
+| P-34 | M3 scaffolding (`game/dev/m3_scenario.json`, removed in M4): The Sleeper and First Vocation do not start, because the dig site and the Spirit Bench arrive in M4 | Milestone order |
+| P-35 | A building pad whose building is unlocked by a story stays hidden until that story is done (Research Station, later the Spirit Bench) | Keeps the farm from showing signs the player cannot act on |
+| P-36 | Display text for quests lives in `data/strings_en.json`, checked by the validator | Section 14's quest example uses text keys; section 18 names a string table |
+| P-37 | One Storage Chest on a fixed pad next to the shipping bin; pressing a stack moves it between backpack and chest | Section 13 says chests are "placed anywhere"; free placement is left for a later release |
+
 ## Findings
 
 | # | Finding | Status |
 | --- | --- | --- |
 | F-01 | Economy simulator, Phase 1: income is inside the 300-600 target on days 1-3 (mean about 430) but reaches 1,500-2,000 on days 4-5 while the player is still level 4-5, because all four buyable fields (300 / 450 / 675 / 1,012 coins) are affordable by day 4. Section 10 plans only "fields 1-2" for Phase 1. Median time to level 5 is 96 minutes against a 60-90 target. Report: `qa/reports/economy_sim_m0.md` | Deferred to after the M1 playtests (D-009) |
 | F-02 | M2 acceptance "a 60-minute session reaches level 5-6": the scripted hand-play session reaches level 4 after 60 real minutes of game time (about 29 orders, 24 plots, 4 animals). Same cause as F-01's "96 minutes to level 5": XP comes mostly from orders (0.4 x goods value) and the early order budgets are small | Deferred with F-01 to the balance pass after playtests (D-009). Levers inside the Economy Balancer's remit: `xpRate.delivery`, `orders.budget`, quest XP (quests add 40 to 400 XP each from M3 and are not in this run) |
+| F-03 | M3 acceptance "4 of 5 playtesters reach an Ancient Carrot harvest without help" needs people and is open. What the machine shows: a scripted path from a new save reaches the harvest using only real actions (about 2.5 game days of production time, levels set at the gates), needing at most four Golden Carrots and one Crystal Carrot | Open until human playtests |

@@ -1,0 +1,21 @@
+{
+  "quest.first_harvest.name": "First Harvest",
+  "quest.first_harvest.s1": "Bring Mara 6 Carrots",
+  "quest.table_for_two.name": "A Table for Two",
+  "quest.table_for_two.s1": "Build the Merge Table",
+  "quest.table_for_two.s2": "Make 1 Premium Carrot",
+  "quest.strange_carrot.name": "A Strange Carrot",
+  "quest.strange_carrot.s1": "Bring Ilse 1 Golden Carrot",
+  "quest.what_carrots_remember.name": "What Carrots Remember",
+  "quest.what_carrots_remember.s1": "Research 3 different goods",
+  "quest.sleeper.name": "The Sleeper",
+  "quest.sleeper.s1": "Bring Ilse 1 Ancient Carrot",
+  "quest.sleeper.s2": "Find what sleeps at the dig site",
+  "quest.first_vocation.name": "First Vocation",
+  "quest.first_vocation.s1": "Clean the husk",
+  "quest.first_vocation.s2": "Brew 1 Revival Potion",
+  "quest.first_vocation.s3": "Revive the husk",
+  "quest.first_vocation.s4": "Wake the Rootling",
+  "feature.feature_order_board": "The order board is open",
+  "feature.feature_zone_tool": "Zone tool"
+}

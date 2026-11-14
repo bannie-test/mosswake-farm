@@ -16,6 +16,8 @@ const PADS := {
 	"bld_barn": {"tiles": Rect2i(21, 6, 4, 4), "sprite": "res://assets/buildings/bld_barn.png", "kind": "housing", "yard": Rect2(330, 166, 76, 24)},
 	"bld_merge_table": {"tiles": Rect2i(26, 12, 2, 2), "sprite": "res://assets/buildings/bld_merge_table.png", "kind": "merge_table"},
 	"bld_well": {"tiles": Rect2i(29, 16, 2, 2), "sprite": "res://assets/buildings/bld_well.png", "kind": ""},
+	"bld_research_station": {"tiles": Rect2i(27, 6, 4, 4), "sprite": "res://assets/buildings/bld_research_station.png", "kind": "research"},
+	"bld_chest": {"tiles": Rect2i(11, 10, 1, 1), "sprite": "res://assets/props/chest.png", "kind": "chest"},
 	"bld_shipping_bin": {"tiles": Rect2i(9, 10, 1, 1), "sprite": "res://assets/props/shipping_bin.png", "kind": "bin"},
 }
 const STALLS := {
@@ -68,6 +70,10 @@ func build() -> void:
 	GameState.building_changed.connect(_refresh_building)
 	GameState.leveled_up.connect(func(_level: int) -> void: _refresh_stalls())
 	Animals.changed.connect(_refresh_animals)
+	Quests.quest_completed.connect(func(_q: String) -> void:
+		for building_id: String in PADS:
+			if GameState.building_level(building_id) == 0:
+				_refresh_building(building_id))
 	_refresh_animals()
 
 
@@ -159,6 +165,14 @@ func _refresh_building(building_id: String) -> void:
 		else:
 			world.plots.set_cell(tile, PAD_SOURCE, Vector2i(0, 0))
 			_targets[tile] = {"kind": "build_pad", "buildingId": building_id}
+	if built and building_id == "bld_chest":
+		Inventory.ensure_chest(ChestScreen.CHEST, int(GameData.def("buildings", building_id)["levels"][0]["effects"]["slots"]))
+	if not built and not Unlocks.is_met(GameData.def("buildings", building_id)["unlock"]) and GameData.def("buildings", building_id)["unlock"].has("quest"):
+		for tile: Vector2i in _pad_tiles(rect):       # a story reveals this pad; until then it is plain grass
+			world.plots.erase_cell(tile)
+			_targets.erase(tile)
+		_building_nodes[building_id] = nodes
+		return
 	if built:
 		var tex: Texture2D = load(pad["sprite"])
 		nodes.append(world.add_object(WorldLayers.upright(tex), feet))

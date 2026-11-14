@@ -73,8 +73,8 @@ func _ready() -> void:
 	_prompt_panel.add_child(_prompt)
 	# toasts
 	_toasts = VBoxContainer.new()
-	_toasts.position = Vector2(500, 232)
-	_toasts.custom_minimum_size = Vector2(136, 96)
+	_toasts.position = Vector2(336, 232)          # right-aligned: long messages grow to the left
+	_toasts.custom_minimum_size = Vector2(300, 96)
 	_toasts.alignment = BoxContainer.ALIGNMENT_END
 	_toasts.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_toasts)
@@ -84,6 +84,8 @@ func _ready() -> void:
 	Farm.plot_changed.connect(func(_id: String) -> void: refresh())
 	Orders.changed.connect(refresh)
 	Animals.changed.connect(refresh)
+	Quests.changed.connect(refresh)
+	Research.changed.connect(refresh)
 
 
 func bind(p: Player) -> void:
@@ -104,7 +106,13 @@ func refresh() -> void:
 	_xp_bar.max_value = GameState.xp_to_next(level)
 	_xp_bar.value = GameState.player["xp"]
 	_xp_bar.tooltip_text = "%d / %d XP" % [GameState.player["xp"], GameState.xp_to_next(level)]
-	_guide.text = guide_text()
+	var lines: Array = []
+	var hint := guide_text()
+	if hint != "":
+		lines.append(hint)
+	for e: Dictionary in Quests.active:
+		lines.append("%s: %s" % [GameData.def("npcs", Quests.def(e["questId"])["giver"])["name"].get_slice(" ", 0), Quests.step_text(e)])
+	_guide.text = "\n".join(lines)
 	_guide.get_parent().visible = _guide.text != ""
 	if player == null:
 		return
@@ -125,6 +133,10 @@ func refresh() -> void:
 
 ## The next step for a new player, worked out from the game state; no text tutorial.
 func guide_text() -> String:
+	for e: Dictionary in Quests.active:
+		if Quests.can_deliver(e["questId"]):       # e.g. Ilse's prompt for the Golden Carrot (M3 risk)
+			var step: Dictionary = Quests.current_step(e)
+			return "> %s is waiting for your %s: hand it over at the order board" % [GameData.def("npcs", Quests.def(e["questId"])["giver"])["name"].get_slice(" ", 0), GameData.item(step["itemId"])["name"]]
 	if GameState.player["level"] >= 4:
 		return ""
 	for order: Dictionary in Orders.orders:

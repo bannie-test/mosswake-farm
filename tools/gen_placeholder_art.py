@@ -886,6 +886,61 @@ def m2_icons():
     save(outline(heart), "ui/heart.png")
 
 
+# ------------------------------------------------------------------ M3 additions
+def m3_art():
+    f = crop_frames("carrot")                              # Ancient Carrot: the carrot shape in old violet tones
+    remap = {G[0]: K[0], G[1]: PURPLE, G[2]: PURPLE, G[3]: PINK, ORANGE: PURPLE, RED: K[0], YELLOW: PINK}
+    out = []
+    for fr in f:
+        img = fr.copy()
+        for y in range(img.height):
+            for x in range(img.width):
+                c = img.getpixel((x, y))
+                if c in remap:
+                    img.putpixel((x, y), remap[c])
+        out.append(img)
+    px(out[4], [(3, 12), (2, 13), (3, 13), (4, 13), (3, 14)], AMBER)
+    save(strip(out), "crops/plant_carrot_ancient.png", {"frameSize": [16, 32], "frames": [f"stage_{i}" for i in range(7)]})
+
+    st = new(64, 64)                                       # Research Station: a small stone study with a lens on the roof
+    rect(st, 4, 26, 59, 63, T[2]); rect(st, 46, 26, 59, 63, T[1])
+    rng = random.Random(4)
+    clusters(st, rng, [T[3]], 30, 6, 28, 50, 32)
+    for x in range(4, 60, 8):
+        rect(st, x, 26, x, 63, T[1])
+    rect(st, 4, 44, 59, 44, T[1])
+    rect(st, 4, 60, 59, 63, T[0])
+    rect(st, 25, 40, 38, 63, W[0]); rect(st, 27, 42, 36, 63, W[2]); rect(st, 27, 42, 29, 63, W[3]); px(st, [(34, 53), (35, 53)], AMBER)
+    for wx in (9, 44):
+        rect(st, wx, 34, wx + 10, 46, W[1]); rect(st, wx + 1, 35, wx + 9, 45, K[0]); rect(st, wx + 1, 35, wx + 4, 39, TEAL)
+    for row in range(5):
+        y0 = 4 + row * 5
+        inset = 8 - row * 2
+        rect(st, inset, y0, 63 - inset, y0 + 4, K[0]); rect(st, inset, y0 + 4, 63 - inset, y0 + 4, OUT)
+        for x in range(inset + (3 if row % 2 else 0), 64 - inset, 6):
+            rect(st, x, y0, x, y0 + 3, OUT)
+    ellipse(st, 26, 0, 37, 10, T[3]); ellipse(st, 28, 2, 35, 8, TEAL); px(st, [(30, 3), (31, 3), (30, 4)], K[3])
+    save(st, "buildings/bld_research_station.png")
+
+    chest = new(16, 16)
+    rect(chest, 1, 6, 14, 14, W[2]); rect(chest, 11, 7, 14, 14, W[1]); rect(chest, 1, 4, 14, 7, W[3]); rect(chest, 1, 7, 14, 7, W[0]); rect(chest, 1, 14, 14, 15, W[0])
+    rect(chest, 7, 6, 8, 9, AMBER); px(chest, [(2, 5), (3, 5)], S[4])
+    for x in (1, 14):
+        rect(chest, x, 4, x, 14, W[0])
+    save(chest, "props/chest.png")
+
+    gene = new(16, 16)                                     # Gene Fragment: a small twisted strand
+    for i, y in enumerate(range(3, 14)):
+        a = [(6, 9), (5, 10), (5, 10), (6, 9), (7, 8), (8, 7), (9, 6), (10, 5), (10, 5), (9, 6), (8, 7)][i]
+        px(gene, [(a[0], y)], ORANGE); px(gene, [(a[1], y)], TEAL)
+        if i % 3 == 1 and max(a) - min(a) >= 2:
+            rect(gene, min(a) + 1, y, max(a) - 1, y, K[3])
+    save(outline(gene), "items/gene_carrot.png")
+    scroll = new(8, 8)
+    rect(scroll, 1, 2, 6, 5, B[3]); rect(scroll, 1, 1, 6, 1, S[3]); rect(scroll, 1, 6, 6, 6, S[3]); px(scroll, [(2, 3), (3, 3), (4, 3), (2, 4), (3, 4)], W[1])
+    save(outline(scroll), "ui/quest.png")
+
+
 def main():
     write_palette()
     ground_tiles()
@@ -903,6 +958,7 @@ def main():
     m2_npcs()
     m2_buildings()
     m2_icons()
+    m3_art()
     print("placeholder art written to", os.path.relpath(ASSETS, ROOT))
 
 

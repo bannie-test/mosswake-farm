@@ -6,17 +6,21 @@ extends Control
 const CARD_WIDTH := 196
 
 var _grid: GridContainer
+var _story: VBoxContainer
 
 
 func _ready() -> void:
 	var parts := UiKit.window("Order board", Vector2(616, 300))
 	add_child(parts[0])
+	_story = VBoxContainer.new()
+	parts[1].add_child(_story)
 	_grid = GridContainer.new()
 	_grid.columns = 3
 	_grid.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	parts[1].add_child(_grid)
 	Orders.changed.connect(_on_changed)
 	Inventory.changed.connect(_on_changed)
+	Quests.changed.connect(_on_changed)
 
 
 func open(_npc: String = "") -> void:
@@ -39,8 +43,37 @@ func refresh() -> void:
 	var keep := ""
 	if focused != null and _grid.is_ancestor_of(focused):
 		keep = focused.get_meta("key", "")
+	if focused != null and _story.is_ancestor_of(focused):
+		keep = focused.get_meta("key", "")
 	UiKit.clear(_grid)
+	UiKit.clear(_story)
 	var pick: Button = null
+	# story quests: what each NPC is asking for, and the hand-over for deliver steps
+	for e: Dictionary in Quests.active:
+		var q: Dictionary = Quests.def(e["questId"])
+		var row := HBoxContainer.new()
+		row.add_child(UiKit.icon(load("res://assets/ui/quest.png")))
+		var text := UiKit.label("%s - %s: %s" % [GameData.def("npcs", q["giver"])["name"].get_slice(" ", 0), Quests.title(e["questId"]), Quests.step_text(e)], UiKit.WOOD_DARK)
+		text.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		row.add_child(text)
+		if Quests.current_step(e)["type"] == "deliver":
+			var give := Button.new()
+			give.set_meta("key", "story/" + e["questId"])
+			give.text = "Hand over"
+			give.disabled = not Quests.can_deliver(e["questId"])
+			var quest_id: String = e["questId"]
+			give.pressed.connect(func() -> void:
+				if Quests.deliver(quest_id):
+					Sfx.play("level_up"))
+			row.add_child(give)
+			if not give.disabled and (pick == null or give.get_meta("key") == keep):
+				pick = give
+		_story.add_child(row)
+	if not Orders.board_open():
+		_grid.add_child(UiKit.label("No orders yet. Mara will post them here once you have helped her.", UiKit.WOOD_LIGHT))
+		if pick != null:
+			UiKit.focus(pick)
+		return
 	var slots := 0
 	for npc_id: String in GameData.ids("npcs"):
 		if Unlocks.npc_met(npc_id):

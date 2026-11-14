@@ -45,4 +45,5 @@ run `python3 tools/asset_lint.py`.
 | --- | --- |
 | M0 Foundations | Accepted 2026-11-14 |
 | M1 First playable | Accepted 2026-11-14 (human playtest items still open, see D-010) |
-| M2 Complete farm | Built on branch `m2-complete-farm`; waiting for the Director's go or no-go |
+| M2 Complete farm | Accepted 2026-11-14 |
+| M3 Research slice | Built on branch `m3-research-slice`; waiting for the Director's go or no-go |

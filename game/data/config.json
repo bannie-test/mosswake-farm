@@ -149,7 +149,13 @@
           "queueSlots": 2
         }
       }
-    ]
+    ],
+    "qualityYield": {
+      "1": 1.0,
+      "2": 1.0,
+      "3": 1.5,
+      "4": 2.0
+    }
   },
   "spirits": {
     "upkeepHour": 6,
