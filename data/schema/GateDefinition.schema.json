@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "mosswake/GateDefinition.schema.json",
+  "title": "GateDefinition",
+  "x-kind": "static",
+  "x-file": "gates.json",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^(gate)_[a-z0-9]+(_[a-z0-9]+)*$"
+    },
+    "name": {
+      "type": "string"
+    },
+    "leadsTo": {
+      "type": "string"
+    },
+    "opensIn": {
+      "type": "string"
+    },
+    "textKey": {
+      "type": "string"
+    },
+    "keeperSprite": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "leadsTo",
+    "opensIn",
+    "textKey",
+    "keeperSprite"
+  ],
+  "additionalProperties": false
+}

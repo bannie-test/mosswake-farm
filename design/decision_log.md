@@ -143,6 +143,27 @@ Not changed: every number the GDD states (crop values, order budget, XP rates, l
 | P-55 | "Crash reporting" is file logging to `user://logs/` plus a menu button that opens the folder; the facilitator collects the files. There is no online crash service | A premium offline game with no backend; an online service would be a new scope and a privacy decision |
 | P-56 | Version label 0.9.0 for the playtest candidate; "MVP 1.0 demo" is reserved for the build that passes section 20 | Section 17 names the M6 deliverable "MVP 1.0 demo" after acceptance |
 
+## Revision 2 (2026-11-15)
+
+| # | Decision | Reason | Changes |
+| --- | --- | --- | --- |
+| D-018 | After playing demo 0.9.0 the Director asked for Revision 2: hand tools and energy, bulky objects carried in the hands, gatherable resources, free tilling, foraging, fishing, effects for harvests, orders and coins, a farmhouse interior with a 5-second sleep scene, a new-order notification, gates with a keeper, and a trade window with a basket | The demo was far from the Director's expectations | GDD section 21 (`design/gdd/21_revision_2.md`), which overrides sections 1-20 where they differ |
+| D-019 | Two published games were named as references for mechanics and feel. Only mechanics are taken; no name, character, item, map, art, sound, text or number | Risks 8 and 9 of section 19 | Section 21, "How the reference games are used" |
+| D-020 | Q1: the player chooses the tool on a hotbar; a resource reacts only to a fitting tool | Director | 21.1 |
+| D-021 | Q2: any tile inside an owned lot can be tilled, 12 tilled tiles per lot, 6 lots. A lot is opened by paying the Kingdom Land Tax once | Director | 21.3; economy re-derived for 72 tiles |
+| D-022 | Q3: crops are watered each day and grow one day at each dawn (Wheat 1, Carrot 1, Sunflower 2, Tomato 2 then 1, Ancient Carrot 3). Weather and Compost, which can speed a harvest, are pulled forward from R1 | Director | 21.3; section 4's hourly growth is replaced |
+| D-023 | Q4: at 0 energy the player is Tired: twice as slow, with a dizzy effect | Director | 21.1 |
+| D-024 | Q5: tools wear. Repair is free at Tobin's cart until the Tool Bench is built; then it costs Wood, Stone or Ore at the bench. A worn tool is Dull (slow), never lost: this last rule is the designer's reading of pillar 4 | Director; the Dull rule is provisional | 21.1; new building Tool Bench |
+| D-025 | Q6: goods are sold at Tobin's cart (paid at once) and through the shipping bin (paid at dawn), at the same rate | Director | 21.7 |
+| D-026 | Q7: the sleep scene always lasts 5 seconds. Q8: English text now, Vietnamese later. Q9: buildings cost materials as well as coins | Director | 21.5, 21.6, 21.2 |
+| D-027 | The outside playtest of M6 waits for demo 0.10. The M6 tooling branch (`m6-polish-playtest`) is not merged into `main`; Revision 2 is built on top of it, step by step (R2-A to R2-F), with a gate after each | The game the testers would see is about to change | Process |
+
+## Revision 2, step R2-A: how the change is staged
+
+- R2-A adds every new definition (tools, resource nodes, fishing, gates, weather, 23 items, 6 buildings and placed objects, 4 crafts), their schemas and validator rules, and sprites. Nothing in the game uses them yet.
+- Numbers of existing definitions do not change in R2-A, because the running game still grows crops by the hour. `growthDays` sits beside `growthHours` until R2-B switches the code; the new values are computed in `qa/reports/r2_economy_derivation.md` and applied in R2-B. Building material costs are applied in R2-C, when trees and stone exist to pay them.
+- New numbers proposed by the Balancer in R2-A: tool tiers (energy, 100 and 200 durability, tier 2 at 4 Wood, 4 Stone, 8 Ore), node rings and yields, fish values 10 / 18 / 40 / 120, Wild Flower 6, the Tool Bench (level 5, 400 coins, 10 Wood, 6 Stone), all seven tools owned from the start.
+
 ## Findings
 
 | # | Finding | Status |

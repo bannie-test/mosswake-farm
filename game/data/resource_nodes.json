@@ -1,0 +1,204 @@
+[
+  {
+    "id": "node_tree",
+    "name": "Tree",
+    "action": "chop",
+    "rings": 5,
+    "yields": [
+      {
+        "itemId": "mat_log",
+        "min": 2,
+        "max": 2,
+        "chance": 1.0
+      },
+      {
+        "itemId": "mat_wood",
+        "min": 1,
+        "max": 2,
+        "chance": 1.0
+      }
+    ],
+    "insectChance": 0,
+    "insects": [],
+    "becomes": "node_stump",
+    "regrowDays": null,
+    "solid": true,
+    "spawn": null,
+    "sprite": "props/tree"
+  },
+  {
+    "id": "node_stump",
+    "name": "Stump",
+    "action": "chop",
+    "rings": 3,
+    "yields": [
+      {
+        "itemId": "mat_wood",
+        "min": 1,
+        "max": 1,
+        "chance": 1.0
+      }
+    ],
+    "insectChance": 0,
+    "insects": [],
+    "becomes": null,
+    "regrowDays": 3,
+    "growsInto": "node_tree",
+    "solid": true,
+    "spawn": null,
+    "sprite": "props/node_stump.png"
+  },
+  {
+    "id": "node_wild_flower",
+    "name": "Wild Flower",
+    "action": "cut",
+    "rings": 1,
+    "yields": [
+      {
+        "itemId": "crop_wild_flower",
+        "min": 1,
+        "max": 1,
+        "chance": 1.0
+      },
+      {
+        "itemId": "seed_wild",
+        "min": 1,
+        "max": 1,
+        "chance": 0.3
+      }
+    ],
+    "insectChance": 0.2,
+    "insects": [
+      {
+        "itemId": "bug_meadow_hopper",
+        "when": "day"
+      },
+      {
+        "itemId": "bug_glow_beetle",
+        "when": "night"
+      }
+    ],
+    "becomes": null,
+    "regrowDays": null,
+    "solid": false,
+    "spawn": {
+      "on": "grass",
+      "cap": 8
+    },
+    "sprite": "props/node_wild_flower.png"
+  },
+  {
+    "id": "node_wild_plant",
+    "name": "Wild Plant",
+    "action": "cut",
+    "rings": 1,
+    "yields": [
+      {
+        "itemId": "mat_fibre",
+        "min": 1,
+        "max": 1,
+        "chance": 1.0
+      },
+      {
+        "itemId": "seed_wild",
+        "min": 1,
+        "max": 1,
+        "chance": 0.4
+      },
+      {
+        "itemId": "lucky_clover",
+        "min": 1,
+        "max": 1,
+        "chance": 0.05
+      }
+    ],
+    "insectChance": 0.25,
+    "insects": [
+      {
+        "itemId": "bug_meadow_hopper",
+        "when": "day"
+      },
+      {
+        "itemId": "bug_glow_beetle",
+        "when": "night"
+      }
+    ],
+    "becomes": null,
+    "regrowDays": null,
+    "solid": false,
+    "spawn": {
+      "on": "grass",
+      "cap": 10
+    },
+    "sprite": "props/node_wild_plant.png"
+  },
+  {
+    "id": "node_stone",
+    "name": "Stone Outcrop",
+    "action": "mine",
+    "rings": 5,
+    "yields": [
+      {
+        "itemId": "mat_stone",
+        "min": 3,
+        "max": 3,
+        "chance": 1.0
+      }
+    ],
+    "insectChance": 0,
+    "insects": [],
+    "becomes": null,
+    "regrowDays": 5,
+    "solid": true,
+    "spawn": null,
+    "sprite": "props/node_stone.png"
+  },
+  {
+    "id": "node_stone_large",
+    "name": "Large Stone Outcrop",
+    "action": "mine",
+    "rings": 8,
+    "yields": [
+      {
+        "itemId": "mat_stone_block",
+        "min": 1,
+        "max": 1,
+        "chance": 1.0
+      },
+      {
+        "itemId": "mat_stone",
+        "min": 2,
+        "max": 2,
+        "chance": 1.0
+      }
+    ],
+    "insectChance": 0,
+    "insects": [],
+    "becomes": null,
+    "regrowDays": 7,
+    "solid": true,
+    "spawn": null,
+    "sprite": "props/node_stone_large.png"
+  },
+  {
+    "id": "node_ore",
+    "name": "Ore Vein",
+    "action": "mine",
+    "rings": 6,
+    "yields": [
+      {
+        "itemId": "mat_ore",
+        "min": 2,
+        "max": 2,
+        "chance": 1.0
+      }
+    ],
+    "insectChance": 0,
+    "insects": [],
+    "becomes": null,
+    "regrowDays": 7,
+    "solid": true,
+    "spawn": null,
+    "sprite": "props/node_ore.png"
+  }
+]

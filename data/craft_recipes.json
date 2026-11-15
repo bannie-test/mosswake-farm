@@ -63,5 +63,90 @@
     "unlock": {
       "building": "bld_spirit_bench"
     }
+  },
+  {
+    "id": "craft_saw_log",
+    "name": "Saw a Log",
+    "inputs": [
+      {
+        "itemId": "mat_log",
+        "qty": 1
+      }
+    ],
+    "coins": 0,
+    "hours": 0,
+    "output": {
+      "itemId": "mat_wood",
+      "qty": 4
+    },
+    "station": "bld_sawhorse",
+    "unlock": {
+      "playerLevel": 1
+    }
+  },
+  {
+    "id": "craft_split_block",
+    "name": "Split a Stone Block",
+    "inputs": [
+      {
+        "itemId": "mat_stone_block",
+        "qty": 1
+      }
+    ],
+    "coins": 0,
+    "hours": 0,
+    "output": {
+      "itemId": "mat_stone",
+      "qty": 4
+    },
+    "station": "bld_splitting_block",
+    "unlock": {
+      "playerLevel": 1
+    }
+  },
+  {
+    "id": "craft_compost",
+    "name": "Compost",
+    "inputs": [
+      {
+        "tag": "plant_matter",
+        "qty": 4
+      },
+      {
+        "tag": "insect",
+        "qty": 1
+      }
+    ],
+    "coins": 0,
+    "hours": 0,
+    "readyAtDawn": true,
+    "output": {
+      "itemId": "mat_compost",
+      "qty": 2
+    },
+    "station": "bld_compost_bin",
+    "unlock": {
+      "playerLevel": 1
+    }
+  },
+  {
+    "id": "craft_feed_fibre",
+    "name": "Feed from Fibre",
+    "inputs": [
+      {
+        "itemId": "mat_fibre",
+        "qty": 4
+      }
+    ],
+    "coins": 0,
+    "hours": 0,
+    "output": {
+      "itemId": "mat_feed",
+      "qty": 1
+    },
+    "station": null,
+    "unlock": {
+      "playerLevel": 1
+    }
   }
 ]

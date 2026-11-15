@@ -1,0 +1,162 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "mosswake/ResourceNodeDefinition.schema.json",
+  "title": "ResourceNodeDefinition",
+  "x-kind": "static",
+  "x-file": "resource_nodes.json",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^(node)_[a-z0-9]+(_[a-z0-9]+)*$"
+    },
+    "name": {
+      "type": "string"
+    },
+    "action": {
+      "enum": [
+        "cut",
+        "chop",
+        "mine"
+      ]
+    },
+    "rings": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "yields": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "itemId": {
+            "type": "string",
+            "pattern": "^(seed|crop|prod|merged|food|gene|lucky|mat|spirit|embryo|quest|tool|special|bug|fish)_[a-z0-9]+(_[a-z0-9]+)*$"
+          },
+          "min": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "max": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "chance": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "maximum": 1
+          }
+        },
+        "required": [
+          "itemId",
+          "min",
+          "max",
+          "chance"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "insectChance": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "insects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "itemId": {
+            "type": "string",
+            "pattern": "^(bug)_[a-z0-9]+(_[a-z0-9]+)*$"
+          },
+          "when": {
+            "enum": [
+              "day",
+              "night"
+            ]
+          }
+        },
+        "required": [
+          "itemId",
+          "when"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "becomes": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^(node)_[a-z0-9]+(_[a-z0-9]+)*$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "regrowDays": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "solid": {
+      "type": "boolean"
+    },
+    "spawn": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "on": {
+              "enum": [
+                "grass"
+              ]
+            },
+            "cap": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          "required": [
+            "on",
+            "cap"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "sprite": {
+      "type": "string"
+    },
+    "growsInto": {
+      "type": "string",
+      "pattern": "^(node)_[a-z0-9]+(_[a-z0-9]+)*$"
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "action",
+    "rings",
+    "yields",
+    "insectChance",
+    "insects",
+    "becomes",
+    "regrowDays",
+    "solid",
+    "spawn",
+    "sprite"
+  ],
+  "additionalProperties": false
+}

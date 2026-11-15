@@ -113,6 +113,8 @@ def lint():
     needed += [f"spirits/{sp['id']}.png" for sp in rows("spirits.json")]
     needed += [f"characters/{n['id']}.png" for n in rows("npcs.json")]
     needed += [f"buildings/{d['id']}.png" for d in rows("dig_sites.json")]
+    needed += [n["sprite"] if n["sprite"].endswith(".png") else n["sprite"] + "_base.png" for n in rows("resource_nodes.json")]
+    needed += [g["keeperSprite"] for g in rows("gates.json")]
     in_props = {"bld_chest": "props/chest.png", "bld_shipping_bin": "props/shipping_bin.png"}
     needed += [in_props.get(b["id"], f"buildings/{b['id']}.png") for b in rows("buildings.json")]
     for rel in needed:

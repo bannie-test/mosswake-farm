@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "mosswake/WeatherDefinition.schema.json",
+  "title": "WeatherDefinition",
+  "x-kind": "static",
+  "x-file": "weather.json",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^(weather)_[a-z0-9]+(_[a-z0-9]+)*$"
+    },
+    "name": {
+      "type": "string"
+    },
+    "chance": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "maximum": 1
+    },
+    "effects": {
+      "type": "object",
+      "properties": {
+        "rain": {
+          "type": "boolean"
+        },
+        "growthDays": {
+          "type": "integer",
+          "minimum": 2
+        },
+        "wildFactor": {
+          "type": "number",
+          "minimum": 1
+        },
+        "rootSenseBonus": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "spiritSpeed": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 1
+        },
+        "bonusYieldChance": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
+    "notAfter": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^(weather)_[a-z0-9]+(_[a-z0-9]+)*$"
+      }
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "chance",
+    "effects",
+    "notAfter"
+  ],
+  "additionalProperties": false
+}

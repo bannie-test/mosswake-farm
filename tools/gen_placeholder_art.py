@@ -1158,6 +1158,170 @@ def trees():
     save(top, "props/tree_top.png")
 
 
+# ------------------------------------------------------------------ Revision 2 (GDD section 21): tools, materials, nodes, fish
+def r2_art():
+    def handle(img, pts=((4, 12), (5, 11), (6, 10), (7, 9), (8, 8), (9, 7))):
+        px(img, list(pts), W[2])
+        px(img, [(x + 1, y) for x, y in pts], W[1])
+        return img
+
+    def tool(head_pts, head_col, head_sh=None, extra=None):
+        img = handle(new(16, 16))
+        px(img, head_pts, head_col)
+        if head_sh:
+            px(img, head_sh, T[1])
+        if extra:
+            extra(img)
+        return outline(img)
+    save(tool([(9, 5), (10, 4), (11, 3), (12, 3), (13, 4), (12, 5), (11, 5), (10, 6)], T[2], [(13, 4), (12, 5)]), "items/tool_hoe.png")
+    save(tool([(8, 4), (9, 3), (10, 3), (11, 4), (12, 5), (12, 6), (11, 7), (10, 6), (9, 5), (11, 5), (10, 4)], T[3], [(12, 6), (11, 7)]), "items/tool_axe.png")
+    save(tool([(6, 4), (7, 3), (8, 3), (9, 3), (10, 4), (11, 4), (12, 5), (13, 6), (13, 7), (5, 5)], T[2], [(13, 6), (13, 7), (5, 5)]), "items/tool_pickaxe.png")
+    save(tool([(9, 6), (10, 5), (11, 4), (12, 4), (13, 5), (13, 6), (13, 7), (12, 8), (11, 9)], T[3], [(13, 7), (12, 8), (11, 9)]), "items/tool_sickle.png")
+    rod = new(16, 16)
+    px(rod, [(2, 13), (3, 12), (4, 11), (5, 10), (6, 9), (7, 8), (8, 7), (9, 6), (10, 5), (11, 4), (12, 3)], W[2])
+    px(rod, [(13, 3), (13, 4), (13, 5), (13, 6), (13, 7), (13, 8), (13, 9)], T[3])
+    px(rod, [(12, 10), (13, 10), (12, 11), (13, 11)], RED)
+    px(rod, [(4, 12), (5, 11)], T[1])
+    save(outline(rod), "items/tool_rod.png")
+    net = handle(new(16, 16))
+    ellipse(net, 8, 2, 14, 8, K[3])
+    px(net, [(9, 4), (11, 3), (12, 5), (10, 6), (13, 4), (11, 7)], T[2])
+    save(outline(net), "items/tool_net.png")
+    can = new(16, 16)
+    rect(can, 4, 6, 10, 13, K[1]); rect(can, 9, 7, 10, 13, K[0]); rect(can, 4, 6, 10, 6, K[2])
+    px(can, [(11, 8), (12, 7), (13, 6), (14, 5), (14, 6)], K[1]); px(can, [(3, 8), (2, 9), (2, 10), (3, 11)], K[0])
+    px(can, [(5, 8), (5, 9)], K[3])
+    save(outline(can), "items/tool_watering_can.png")
+
+    def lump(c, sh, hi, n=1):
+        img = new(16, 16)
+        for i in range(n):
+            ox, oy = (0, 0) if n == 1 else ((-3, 2), (3, 2), (0, -2))[i]
+            ellipse(img, 4 + ox, 6 + oy, 11 + ox, 12 + oy, c)
+            px(img, [(10 + ox, 11 + oy), (9 + ox, 12 + oy), (11 + ox, 10 + oy)], sh)
+            px(img, [(5 + ox, 7 + oy), (6 + ox, 7 + oy)], hi)
+        return outline(img)
+    wood = new(16, 16)
+    for y0 in (4, 8, 12):
+        rect(wood, 3, y0 - 1, 12, y0 + 1, W[2]); rect(wood, 3, y0 + 1, 12, y0 + 1, W[1]); px(wood, [(3, y0), (12, y0)], S[4])
+    save(outline(wood), "items/mat_wood.png")
+    log = new(16, 16)
+    rect(log, 1, 5, 14, 11, W[2]); rect(log, 1, 10, 14, 11, W[1]); ellipse(log, 11, 4, 15, 12, S[4]); px(log, [(13, 7), (13, 8), (12, 8)], W[2]); px(log, [(3, 7), (6, 8), (8, 6)], W[1])
+    save(outline(log), "items/mat_log.png")
+    save(lump(T[2], T[1], T[3], 3), "items/mat_stone.png")
+    block = new(16, 16)
+    rect(block, 2, 4, 13, 13, T[2]); rect(block, 11, 5, 13, 13, T[1]); rect(block, 2, 4, 13, 5, T[3]); px(block, [(5, 8), (6, 9), (8, 11)], T[1])
+    save(outline(block), "items/mat_stone_block.png")
+    ore = lump(T[1], T[0], T[2], 3)
+    px(ore, [(5, 9), (9, 5), (10, 10), (6, 10)], ORANGE); px(ore, [(4, 10), (9, 6)], AMBER)
+    save(outline(ore), "items/mat_ore.png")
+    fibre = new(16, 16)
+    for x, top in ((5, 4), (7, 3), (9, 4), (11, 5)):
+        rect(fibre, x, top, x, 12, G[2]); px(fibre, [(x - 1, top + 1)], G[3])
+    rect(fibre, 4, 9, 12, 10, S[4])
+    save(outline(fibre), "items/mat_fibre.png")
+    scraps = new(16, 16)
+    px(scraps, [(4, 10), (5, 9), (6, 10), (7, 11), (8, 9), (9, 10), (10, 11), (11, 9), (6, 12), (9, 12), (5, 11), (10, 9)], S[2])
+    px(scraps, [(7, 9), (8, 11), (11, 11)], G[1])
+    save(outline(scraps), "items/mat_plant_scraps.png")
+    compost = new(16, 16)
+    rect(compost, 4, 6, 11, 13, S[1]); rect(compost, 10, 7, 11, 13, S[0]); rect(compost, 5, 4, 10, 5, S[1]); rect(compost, 6, 5, 9, 5, W[1])
+    px(compost, [(6, 8), (8, 10), (7, 12)], G[3]); px(compost, [(9, 8), (6, 11)], S[3])
+    save(outline(compost), "items/mat_compost.png")
+    wf = new(16, 16)
+    rect(wf, 8, 7, 8, 13, G[1]); px(wf, [(7, 11), (6, 10), (9, 10), (10, 9)], G[2])
+    for dx, dy in ((0, -2), (2, 0), (0, 2), (-2, 0), (1, -1), (1, 1), (-1, 1), (-1, -1)):
+        px(wf, [(8 + dx, 5 + dy)], PURPLE if (dx + dy) % 2 == 0 else PINK)
+    px(wf, [(8, 5)], YELLOW)
+    save(outline(wf), "items/crop_wild_flower.png")
+    save(seed_bag(G[3]), "items/seed_wild.png")
+    for name, body, glow in (("bug_meadow_hopper", G[3], None), ("bug_glow_beetle", W[1], TEAL)):
+        bug = new(16, 16)
+        ellipse(bug, 5, 6, 11, 11, body); px(bug, [(11, 8), (12, 7)], G[1] if glow is None else W[0])
+        px(bug, [(5, 12), (4, 13), (8, 12), (8, 13), (10, 12), (11, 13), (6, 5), (5, 4), (9, 5), (10, 4)], OUT)
+        px(bug, [(10, 8)], K[3])
+        if glow:
+            px(bug, [(6, 9), (7, 9), (6, 10), (7, 10)], glow)
+        save(outline(bug), f"items/{name}.png")
+    for name, body, belly, fin in (("fish_pond_minnow", T[2], T[3], T[1]), ("fish_mosscarp", G[1], G[3], G[0]), ("fish_reedfin", K[1], K[3], ORANGE), ("fish_moonscale", K[3], AMBER, PURPLE)):
+        fish = new(16, 16)
+        ellipse(fish, 3, 5, 11, 11, body); ellipse(fish, 4, 8, 10, 11, belly)
+        px(fish, [(12, 8), (13, 6), (13, 7), (13, 9), (13, 10), (14, 5), (14, 11)], fin); px(fish, [(7, 4), (8, 4), (8, 3)], fin)
+        px(fish, [(5, 7)], OUT)
+        save(outline(fish), f"items/{name}.png")
+
+    # resource nodes
+    stump = new(16, 16)
+    rect(stump, 4, 8, 11, 14, W[2]); rect(stump, 10, 9, 11, 14, W[1]); ellipse(stump, 4, 6, 11, 10, S[4]); px(stump, [(7, 8), (8, 8), (6, 7)], W[2]); px(stump, [(3, 14), (12, 14)], W[1])
+    save(stump, "props/node_stump.png")
+    nf = new(16, 16)
+    for cx, cy, c in ((5, 7, PURPLE), (10, 6, PINK), (8, 10, PURPLE)):
+        rect(nf, cx, cy + 1, cx, 14, G[1])
+        px(nf, [(cx - 1, cy), (cx + 1, cy), (cx, cy - 1), (cx, cy + 1)], c); px(nf, [(cx, cy)], YELLOW)
+    save(nf, "props/node_wild_flower.png")
+    npl = new(16, 16)
+    for x, top, lean in ((4, 7, -1), (6, 5, 0), (8, 4, 0), (10, 6, 1), (12, 8, 1)):
+        for k, y in enumerate(range(14, top, -1)):
+            px(npl, [(x + (lean if k > 3 else 0), y)], G[1] if k % 2 else G[0])
+        px(npl, [(x + lean, top)], G[3])
+    save(npl, "props/node_wild_plant.png")
+    rock = new(16, 16)
+    ellipse(rock, 1, 5, 14, 15, T[2]); ellipse(rock, 2, 5, 9, 10, T[3]); px(rock, [(11, 12), (12, 11), (12, 13), (10, 14), (9, 14)], T[1]); px(rock, [(6, 11), (7, 12), (5, 9)], T[1])
+    save(rock, "props/node_stone.png")
+    big = new(32, 32)
+    ellipse(big, 2, 10, 29, 31, T[2]); ellipse(big, 6, 4, 22, 22, T[2]); ellipse(big, 7, 5, 16, 14, T[3]); ellipse(big, 4, 14, 12, 22, T[3])
+    for x, y in ((22, 24), (24, 22), (25, 26), (20, 28), (18, 18), (19, 20), (12, 26), (13, 27), (9, 24)):
+        px(big, [(x, y), (x + 1, y), (x, y + 1)], T[1])
+    save(big, "props/node_stone_large.png")
+    orev = rock.copy()
+    px(orev, [(4, 8), (5, 8), (4, 9), (9, 7), (10, 7), (10, 8), (7, 12), (8, 12), (11, 10)], ORANGE); px(orev, [(5, 9), (9, 8), (8, 13)], AMBER)
+    save(orev, "props/node_ore.png")
+
+    # placed objects and the Tool Bench
+    pile = new(32, 16)
+    for i, (x, y) in enumerate(((2, 9), (11, 9), (20, 9), (6, 4), (15, 4))):
+        rect(pile, x, y, x + 9, y + 5, W[2]); rect(pile, x, y + 4, x + 9, y + 5, W[1]); ellipse(pile, x + 7, y, x + 10, y + 5, S[4])
+    save(pile, "buildings/bld_log_pile.png")
+    spile = new(32, 16)
+    for x, y in ((2, 8), (12, 8), (22, 8), (7, 2), (17, 2)):
+        rect(spile, x, y, x + 8, y + 7, T[2]); rect(spile, x + 6, y + 1, x + 8, y + 7, T[1]); rect(spile, x, y, x + 8, y, T[3])
+    save(spile, "buildings/bld_stone_pile.png")
+    saw = new(32, 16)
+    rect(saw, 3, 5, 28, 7, W[3]); rect(saw, 3, 7, 28, 7, W[1])
+    for x in (6, 24):
+        px(saw, [(x - 2, 15), (x - 1, 13), (x, 11), (x, 9), (x + 1, 11), (x + 2, 13), (x + 3, 15), (x - 1, 14), (x + 2, 14), (x, 10), (x + 1, 9), (x, 8), (x + 1, 8)], W[1])
+    rect(saw, 12, 2, 20, 4, T[3]); px(saw, [(12, 5), (14, 5), (16, 5), (18, 5), (20, 5)], T[2]); rect(saw, 9, 1, 11, 4, W[2])
+    save(saw, "buildings/bld_sawhorse.png")
+    split = new(16, 16)
+    rect(split, 3, 7, 12, 14, T[2]); rect(split, 10, 8, 12, 14, T[1]); rect(split, 3, 7, 12, 8, T[3])
+    px(split, [(7, 3), (8, 3), (7, 4), (8, 4), (7, 5), (8, 5), (7, 6), (8, 6)], W[2]); px(split, [(6, 2), (7, 2), (8, 2), (9, 2)], T[1])
+    save(split, "buildings/bld_splitting_block.png")
+    bin_ = new(16, 16)
+    rect(bin_, 2, 5, 13, 14, W[2]); rect(bin_, 11, 6, 13, 14, W[1])
+    for x in (2, 6, 10, 13):
+        rect(bin_, x, 4, x, 14, W[1])
+    rect(bin_, 3, 5, 12, 7, S[1]); px(bin_, [(4, 5), (7, 6), (10, 5)], G[2]); px(bin_, [(5, 6), (9, 6)], S[3])
+    save(bin_, "buildings/bld_compost_bin.png")
+    tb = new(32, 32)
+    rect(tb, 2, 13, 29, 21, W[2]); rect(tb, 2, 13, 29, 14, W[3]); rect(tb, 2, 20, 29, 22, W[1])
+    rect(tb, 4, 23, 7, 30, W[1]); rect(tb, 24, 23, 27, 30, W[1]); rect(tb, 7, 26, 24, 27, W[0])
+    rect(tb, 5, 8, 12, 12, T[1]); rect(tb, 5, 8, 12, 9, T[2]); rect(tb, 7, 12, 10, 13, T[0])                       # an anvil
+    px(tb, [(17, 11), (18, 10), (19, 9), (20, 8), (21, 7)], W[3]); rect(tb, 20, 5, 24, 8, T[2]); rect(tb, 23, 6, 24, 8, T[1])   # a hammer
+    px(tb, [(26, 12), (27, 12), (26, 11)], ORANGE)
+    save(tb, "buildings/bld_tool_bench.png")
+    gate = new(48, 32)
+    for x in (2, 43):
+        rect(gate, x, 4, x + 2, 31, W[1]); rect(gate, x, 4, x, 31, W[2]); rect(gate, x - 1, 2, x + 3, 4, W[3])
+    for y in (10, 17, 24):
+        rect(gate, 5, y, 42, y + 2, W[2]); rect(gate, 5, y + 2, 42, y + 2, W[1])
+    for x in range(8, 42, 7):
+        rect(gate, x, 8, x + 1, 28, W[3])
+    px(gate, [(23, 16), (24, 16), (23, 17), (24, 17)], AMBER)
+    save(gate, "props/gate_closed.png")
+    keeper = [npc_frame(S[2], S[1], T[1], T[0], hat=(G[0], OUT), bob=b) for b in (0, 0, 1, 1)]
+    save(strip(keeper), "characters/npc_gatekeeper.png", {"frameSize": [32, 32], "animations": {"idle_s": {"from": 0, "to": 3, "fps": 5}}})
+
+
 def main():
     write_palette()
     ground_tiles()
@@ -1180,6 +1344,7 @@ def main():
     player_full()
     animals_full()
     trees()
+    r2_art()
     print("placeholder art written to", os.path.relpath(ASSETS, ROOT))
 
 

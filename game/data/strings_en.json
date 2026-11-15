@@ -20,5 +20,7 @@
   "feature.feature_zone_tool": "Zone tool",
   "spirit.awaken.line1": "The sprout stirs. Two small lights open in the bark.",
   "spirit.awaken.line2": "%s looks at you, then at the dry soil, and picks up its gourd.",
-  "spirit.clean.done": "Under the mud, a small face looks back at you."
+  "spirit.clean.done": "Under the mud, a small face looks back at you.",
+  "gate.closed": "This area is not open yet!",
+  "tool.needed": "Needs %s"
 }

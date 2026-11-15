@@ -1,0 +1,428 @@
+[
+  {
+    "id": "tool_hoe",
+    "name": "Hoe",
+    "action": "till",
+    "tiers": [
+      {
+        "tier": 1,
+        "name": "Wooden",
+        "energyPerRing": 2,
+        "durability": 100,
+        "ringsSaved": 0,
+        "craft": null,
+        "repair": {
+          "materials": [
+            {
+              "itemId": "mat_wood",
+              "qty": 2
+            }
+          ]
+        }
+      },
+      {
+        "tier": 2,
+        "name": "Iron",
+        "energyPerRing": 1.5,
+        "durability": 200,
+        "ringsSaved": 1,
+        "craft": {
+          "station": "bld_tool_bench",
+          "materials": [
+            {
+              "itemId": "mat_wood",
+              "qty": 4
+            },
+            {
+              "itemId": "mat_stone",
+              "qty": 4
+            },
+            {
+              "itemId": "mat_ore",
+              "qty": 8
+            }
+          ],
+          "coins": 0
+        },
+        "repair": {
+          "materials": [
+            {
+              "itemId": "mat_wood",
+              "qty": 2
+            },
+            {
+              "itemId": "mat_ore",
+              "qty": 1
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "tool_watering_can",
+    "name": "Watering Can",
+    "action": "water",
+    "refillAt": [
+      "well",
+      "pond"
+    ],
+    "tiers": [
+      {
+        "tier": 1,
+        "name": "Wooden",
+        "energyPerRing": 1,
+        "durability": 100,
+        "ringsSaved": 0,
+        "craft": null,
+        "repair": {
+          "materials": [
+            {
+              "itemId": "mat_wood",
+              "qty": 2
+            }
+          ]
+        },
+        "capacity": 10
+      },
+      {
+        "tier": 2,
+        "name": "Iron",
+        "energyPerRing": 0.75,
+        "durability": 200,
+        "ringsSaved": 1,
+        "craft": {
+          "station": "bld_tool_bench",
+          "materials": [
+            {
+              "itemId": "mat_wood",
+              "qty": 4
+            },
+            {
+              "itemId": "mat_stone",
+              "qty": 4
+            },
+            {
+              "itemId": "mat_ore",
+              "qty": 8
+            }
+          ],
+          "coins": 0
+        },
+        "repair": {
+          "materials": [
+            {
+              "itemId": "mat_wood",
+              "qty": 2
+            },
+            {
+              "itemId": "mat_ore",
+              "qty": 1
+            }
+          ]
+        },
+        "capacity": 20
+      }
+    ]
+  },
+  {
+    "id": "tool_sickle",
+    "name": "Sickle",
+    "action": "cut",
+    "tiers": [
+      {
+        "tier": 1,
+        "name": "Wooden",
+        "energyPerRing": 1,
+        "durability": 100,
+        "ringsSaved": 0,
+        "craft": null,
+        "repair": {
+          "materials": [
+            {
+              "itemId": "mat_wood",
+              "qty": 2
+            }
+          ]
+        }
+      },
+      {
+        "tier": 2,
+        "name": "Iron",
+        "energyPerRing": 0.75,
+        "durability": 200,
+        "ringsSaved": 1,
+        "craft": {
+          "station": "bld_tool_bench",
+          "materials": [
+            {
+              "itemId": "mat_wood",
+              "qty": 4
+            },
+            {
+              "itemId": "mat_stone",
+              "qty": 4
+            },
+            {
+              "itemId": "mat_ore",
+              "qty": 8
+            }
+          ],
+          "coins": 0
+        },
+        "repair": {
+          "materials": [
+            {
+              "itemId": "mat_wood",
+              "qty": 2
+            },
+            {
+              "itemId": "mat_ore",
+              "qty": 1
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "tool_axe",
+    "name": "Axe",
+    "action": "chop",
+    "tiers": [
+      {
+        "tier": 1,
+        "name": "Wooden",
+        "energyPerRing": 4,
+        "durability": 100,
+        "ringsSaved": 0,
+        "craft": null,
+        "repair": {
+          "materials": [
+            {
+              "itemId": "mat_wood",
+              "qty": 2
+            }
+          ]
+        }
+      },
+      {
+        "tier": 2,
+        "name": "Iron",
+        "energyPerRing": 3.0,
+        "durability": 200,
+        "ringsSaved": 1,
+        "craft": {
+          "station": "bld_tool_bench",
+          "materials": [
+            {
+              "itemId": "mat_wood",
+              "qty": 4
+            },
+            {
+              "itemId": "mat_stone",
+              "qty": 4
+            },
+            {
+              "itemId": "mat_ore",
+              "qty": 8
+            }
+          ],
+          "coins": 0
+        },
+        "repair": {
+          "materials": [
+            {
+              "itemId": "mat_wood",
+              "qty": 2
+            },
+            {
+              "itemId": "mat_ore",
+              "qty": 1
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "tool_pickaxe",
+    "name": "Pickaxe",
+    "action": "mine",
+    "tiers": [
+      {
+        "tier": 1,
+        "name": "Wooden",
+        "energyPerRing": 4,
+        "durability": 100,
+        "ringsSaved": 0,
+        "craft": null,
+        "repair": {
+          "materials": [
+            {
+              "itemId": "mat_wood",
+              "qty": 2
+            }
+          ]
+        }
+      },
+      {
+        "tier": 2,
+        "name": "Iron",
+        "energyPerRing": 3.0,
+        "durability": 200,
+        "ringsSaved": 1,
+        "craft": {
+          "station": "bld_tool_bench",
+          "materials": [
+            {
+              "itemId": "mat_wood",
+              "qty": 4
+            },
+            {
+              "itemId": "mat_stone",
+              "qty": 4
+            },
+            {
+              "itemId": "mat_ore",
+              "qty": 8
+            }
+          ],
+          "coins": 0
+        },
+        "repair": {
+          "materials": [
+            {
+              "itemId": "mat_wood",
+              "qty": 2
+            },
+            {
+              "itemId": "mat_ore",
+              "qty": 1
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "tool_rod",
+    "name": "Fishing Rod",
+    "action": "fish",
+    "tiers": [
+      {
+        "tier": 1,
+        "name": "Wooden",
+        "energyPerRing": 3,
+        "durability": 100,
+        "ringsSaved": 0,
+        "craft": null,
+        "repair": {
+          "materials": [
+            {
+              "itemId": "mat_wood",
+              "qty": 2
+            }
+          ]
+        }
+      },
+      {
+        "tier": 2,
+        "name": "Iron",
+        "energyPerRing": 2.25,
+        "durability": 200,
+        "ringsSaved": 1,
+        "craft": {
+          "station": "bld_tool_bench",
+          "materials": [
+            {
+              "itemId": "mat_wood",
+              "qty": 4
+            },
+            {
+              "itemId": "mat_stone",
+              "qty": 4
+            },
+            {
+              "itemId": "mat_ore",
+              "qty": 8
+            }
+          ],
+          "coins": 0
+        },
+        "repair": {
+          "materials": [
+            {
+              "itemId": "mat_wood",
+              "qty": 2
+            },
+            {
+              "itemId": "mat_ore",
+              "qty": 1
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "tool_net",
+    "name": "Bug Net",
+    "action": "net",
+    "tiers": [
+      {
+        "tier": 1,
+        "name": "Wooden",
+        "energyPerRing": 1,
+        "durability": 100,
+        "ringsSaved": 0,
+        "craft": null,
+        "repair": {
+          "materials": [
+            {
+              "itemId": "mat_wood",
+              "qty": 2
+            }
+          ]
+        }
+      },
+      {
+        "tier": 2,
+        "name": "Iron",
+        "energyPerRing": 0.75,
+        "durability": 200,
+        "ringsSaved": 1,
+        "craft": {
+          "station": "bld_tool_bench",
+          "materials": [
+            {
+              "itemId": "mat_wood",
+              "qty": 4
+            },
+            {
+              "itemId": "mat_stone",
+              "qty": 4
+            },
+            {
+              "itemId": "mat_ore",
+              "qty": 8
+            }
+          ],
+          "coins": 0
+        },
+        "repair": {
+          "materials": [
+            {
+              "itemId": "mat_wood",
+              "qty": 2
+            },
+            {
+              "itemId": "mat_ore",
+              "qty": 1
+            }
+          ]
+        }
+      }
+    ]
+  }
+]

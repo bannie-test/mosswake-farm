@@ -22,7 +22,7 @@
             "properties": {
               "itemId": {
                 "type": "string",
-                "pattern": "^(seed|crop|prod|merged|food|gene|lucky|mat|spirit|embryo|quest|tool|special)_[a-z0-9]+(_[a-z0-9]+)*$"
+                "pattern": "^(seed|crop|prod|merged|food|gene|lucky|mat|spirit|embryo|quest|tool|special|bug|fish)_[a-z0-9]+(_[a-z0-9]+)*$"
               },
               "qty": {
                 "type": "integer",
@@ -79,7 +79,7 @@
       "properties": {
         "itemId": {
           "type": "string",
-          "pattern": "^(seed|crop|prod|merged|food|gene|lucky|mat|spirit|embryo|quest|tool|special)_[a-z0-9]+(_[a-z0-9]+)*$"
+          "pattern": "^(seed|crop|prod|merged|food|gene|lucky|mat|spirit|embryo|quest|tool|special|bug|fish)_[a-z0-9]+(_[a-z0-9]+)*$"
         },
         "qty": {
           "type": "integer",
@@ -129,7 +129,7 @@
         },
         "firstResearchOf": {
           "type": "string",
-          "pattern": "^(seed|crop|prod|merged|food|gene|lucky|mat|spirit|embryo|quest|tool|special)_[a-z0-9]+(_[a-z0-9]+)*$"
+          "pattern": "^(seed|crop|prod|merged|food|gene|lucky|mat|spirit|embryo|quest|tool|special|bug|fish)_[a-z0-9]+(_[a-z0-9]+)*$"
         },
         "blueprint": {
           "type": "string",
@@ -161,6 +161,9 @@
       },
       "required": [],
       "additionalProperties": false
+    },
+    "readyAtDawn": {
+      "type": "boolean"
     }
   },
   "required": [

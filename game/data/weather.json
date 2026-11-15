@@ -1,0 +1,51 @@
+[
+  {
+    "id": "weather_sunny",
+    "name": "Sunny",
+    "chance": 0.55,
+    "effects": {},
+    "notAfter": []
+  },
+  {
+    "id": "weather_rain",
+    "name": "Rain",
+    "chance": 0.2,
+    "effects": {
+      "rain": true
+    },
+    "notAfter": []
+  },
+  {
+    "id": "weather_warm_rain",
+    "name": "Warm Rain",
+    "chance": 0.1,
+    "effects": {
+      "rain": true,
+      "growthDays": 2
+    },
+    "notAfter": []
+  },
+  {
+    "id": "weather_mist",
+    "name": "Mist",
+    "chance": 0.1,
+    "effects": {
+      "wildFactor": 2,
+      "rootSenseBonus": 1
+    },
+    "notAfter": []
+  },
+  {
+    "id": "weather_storm",
+    "name": "Storm",
+    "chance": 0.05,
+    "effects": {
+      "rain": true,
+      "spiritSpeed": 0.75,
+      "bonusYieldChance": 0.1
+    },
+    "notAfter": [
+      "weather_storm"
+    ]
+  }
+]

@@ -517,6 +517,294 @@
       "type": "perk",
       "owner": "Systems Designer",
       "status": "active"
+    },
+    {
+      "id": "tool_hoe",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "tool_watering_can",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "tool_sickle",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "tool_axe",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "tool_pickaxe",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "tool_rod",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "tool_net",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "mat_wood",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "mat_log",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "mat_stone",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "mat_stone_block",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "mat_ore",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "mat_fibre",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "mat_plant_scraps",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "mat_compost",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "crop_wild_flower",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "seed_wild",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "bug_meadow_hopper",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "bug_glow_beetle",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "fish_pond_minnow",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "fish_mosscarp",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "fish_reedfin",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "fish_moonscale",
+      "type": "item",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "node_tree",
+      "type": "resource_node",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "node_stump",
+      "type": "resource_node",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "node_wild_flower",
+      "type": "resource_node",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "node_wild_plant",
+      "type": "resource_node",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "node_stone",
+      "type": "resource_node",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "node_stone_large",
+      "type": "resource_node",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "node_ore",
+      "type": "resource_node",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "gate_east",
+      "type": "gate",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "gate_north",
+      "type": "gate",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "gate_south",
+      "type": "gate",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "weather_sunny",
+      "type": "weather",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "weather_rain",
+      "type": "weather",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "weather_warm_rain",
+      "type": "weather",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "weather_mist",
+      "type": "weather",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "weather_storm",
+      "type": "weather",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "bld_tool_bench",
+      "type": "building",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "bld_log_pile",
+      "type": "building",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "bld_stone_pile",
+      "type": "building",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "bld_sawhorse",
+      "type": "building",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "bld_splitting_block",
+      "type": "building",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "bld_compost_bin",
+      "type": "building",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "craft_saw_log",
+      "type": "craft_recipe",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "craft_split_block",
+      "type": "craft_recipe",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "craft_compost",
+      "type": "craft_recipe",
+      "owner": "Systems Designer",
+      "status": "active"
+    },
+    {
+      "id": "craft_feed_fibre",
+      "type": "craft_recipe",
+      "owner": "Systems Designer",
+      "status": "active"
     }
   ]
 }

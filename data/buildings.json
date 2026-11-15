@@ -231,5 +231,184 @@
       "start": true
     },
     "scene": "buildings/well.tscn"
+  },
+  {
+    "id": "bld_tool_bench",
+    "name": "Tool Bench",
+    "footprint": {
+      "w": 2,
+      "h": 2
+    },
+    "placement": "pad",
+    "levels": [
+      {
+        "level": 1,
+        "coins": 400,
+        "materials": [
+          {
+            "itemId": "mat_wood",
+            "qty": 10
+          },
+          {
+            "itemId": "mat_stone",
+            "qty": 6
+          }
+        ],
+        "effects": {
+          "repairs": true,
+          "toolTier": 2
+        }
+      }
+    ],
+    "farmPoints": 0,
+    "unlock": {
+      "playerLevel": 5
+    },
+    "scene": "buildings/tool_bench.tscn"
+  },
+  {
+    "id": "bld_log_pile",
+    "name": "Log Pile",
+    "footprint": {
+      "w": 2,
+      "h": 1
+    },
+    "placement": "free",
+    "levels": [
+      {
+        "level": 1,
+        "coins": 0,
+        "materials": [
+          {
+            "itemId": "mat_wood",
+            "qty": 2
+          }
+        ],
+        "effects": {
+          "holds": "mat_log",
+          "capacity": 12
+        }
+      }
+    ],
+    "farmPoints": 0,
+    "unlock": {
+      "playerLevel": 1
+    },
+    "scene": "buildings/log_pile.tscn"
+  },
+  {
+    "id": "bld_stone_pile",
+    "name": "Stone Pile",
+    "footprint": {
+      "w": 2,
+      "h": 1
+    },
+    "placement": "free",
+    "levels": [
+      {
+        "level": 1,
+        "coins": 0,
+        "materials": [
+          {
+            "itemId": "mat_wood",
+            "qty": 2
+          }
+        ],
+        "effects": {
+          "holds": "mat_stone_block",
+          "capacity": 12
+        }
+      }
+    ],
+    "farmPoints": 0,
+    "unlock": {
+      "playerLevel": 1
+    },
+    "scene": "buildings/stone_pile.tscn"
+  },
+  {
+    "id": "bld_sawhorse",
+    "name": "Sawhorse",
+    "footprint": {
+      "w": 2,
+      "h": 1
+    },
+    "placement": "free",
+    "levels": [
+      {
+        "level": 1,
+        "coins": 0,
+        "materials": [
+          {
+            "itemId": "mat_wood",
+            "qty": 4
+          }
+        ],
+        "effects": {
+          "rings": 3
+        }
+      }
+    ],
+    "farmPoints": 0,
+    "unlock": {
+      "playerLevel": 1
+    },
+    "scene": "buildings/sawhorse.tscn"
+  },
+  {
+    "id": "bld_splitting_block",
+    "name": "Splitting Block",
+    "footprint": {
+      "w": 1,
+      "h": 1
+    },
+    "placement": "free",
+    "levels": [
+      {
+        "level": 1,
+        "coins": 0,
+        "materials": [
+          {
+            "itemId": "mat_stone",
+            "qty": 4
+          }
+        ],
+        "effects": {
+          "rings": 3
+        }
+      }
+    ],
+    "farmPoints": 0,
+    "unlock": {
+      "playerLevel": 1
+    },
+    "scene": "buildings/splitting_block.tscn"
+  },
+  {
+    "id": "bld_compost_bin",
+    "name": "Compost Bin",
+    "footprint": {
+      "w": 1,
+      "h": 1
+    },
+    "placement": "free",
+    "levels": [
+      {
+        "level": 1,
+        "coins": 0,
+        "materials": [
+          {
+            "itemId": "mat_wood",
+            "qty": 6
+          }
+        ],
+        "effects": {}
+      }
+    ],
+    "farmPoints": 0,
+    "unlock": {
+      "playerLevel": 1
+    },
+    "scene": "buildings/compost_bin.tscn"
   }
 ]

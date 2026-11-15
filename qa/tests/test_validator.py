@@ -47,14 +47,17 @@ class ValidatorTests(unittest.TestCase):
 
     def test_mvp_counts(self):
         d = validate_data.Data(os.path.join(ROOT, "data"))
-        self.assertEqual(len(d.items), 32)       # section 20: all 32 definitions load
+        self.assertEqual(len(d.items), 55)       # 32 of the first MVP + 23 of Revision 2 (section 21.8)
         self.assertEqual(len(d.plants), 5)
         self.assertEqual(len(d.animals), 3)
         self.assertEqual(len(d.merges), 10)
         self.assertEqual(len(d.npcs), 3)
         self.assertEqual(len(d.quests), 6)
         goods = [i for i in d.items.values() if i["sellable"]]
-        self.assertEqual(len(goods), 18)         # section 15: 18 tradeable goods
+        self.assertEqual(len(goods), 23)         # section 21.8: 18 + Wild Flower + 4 fish
+        self.assertEqual(len(d.tools), 7)
+        self.assertEqual(len(d.nodes), 7)
+        self.assertEqual(len(d.weather), 5)
 
     def test_schema_catches_bad_field(self):
         r = run_with(edit("plants.json", lambda d: d[0].update(growthHours=-1)))
@@ -91,6 +94,18 @@ class ValidatorTests(unittest.TestCase):
         joined = " ".join(r["reachability"])
         self.assertIn("plant_sunflower", joined)
         self.assertIn("quest_first_vocation", joined)   # no Sun Bouquet, no Revival Potion, no spirit
+
+    def test_node_without_a_tool(self):
+        r = run_with(edit("tools.json", lambda d: d.remove(by_id(d, "tool_pickaxe"))))
+        self.assertTrue(r["references"] or r["registry"])
+
+    def test_weather_chances_must_sum_to_one(self):
+        r = run_with(edit("weather.json", lambda d: by_id(d, "weather_rain").update(chance=0.5)))
+        self.assertTrue(any("weather" in e for e in r["formulas"]))
+
+    def test_item_only_a_missing_tool_could_yield(self):
+        r = run_with(edit("config.json", lambda d: d["newGame"]["tools"].remove("tool_rod")))
+        self.assertTrue(any("fish_moonscale" in e for e in r["reachability"]))
 
     def test_forward_pointing_quest(self):
         r = run_with(edit("quests.json", lambda d: by_id(d, "quest_strange_carrot")["requires"].update(quest="quest_sleeper")))

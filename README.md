@@ -70,4 +70,5 @@ status of every acceptance row.
 | M3 Research slice | Accepted 2026-11-14 |
 | M4 Spirit slice | Accepted 2026-11-14 |
 | M5 Content and UX | Accepted 2026-11-14 with open items (art, balance with real players) |
-| M6 Polish and outside playtest | Tooling, demo build and playtest kit built on branch `m6-polish-playtest`; the playtest itself is not done |
+| M6 Polish and outside playtest | Tooling, demo build and playtest kit built on branch `m6-polish-playtest`; the playtest waits for demo 0.10 |
+| Revision 2 (GDD section 21) | Step R2-A (data, schemas, sprites, economy derivation) built on branch `r2a-data`; steps R2-B to R2-F not started |

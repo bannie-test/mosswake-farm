@@ -7,7 +7,8 @@
       "crop",
       "vegetable",
       "root",
-      "carrot"
+      "carrot",
+      "plant_matter"
     ],
     "rarity": "common",
     "tier": 1,
@@ -29,7 +30,8 @@
       "crop",
       "vegetable",
       "grain",
-      "wheat"
+      "wheat",
+      "plant_matter"
     ],
     "rarity": "common",
     "tier": 1,
@@ -50,7 +52,8 @@
     "tags": [
       "crop",
       "vegetable",
-      "tomato"
+      "tomato",
+      "plant_matter"
     ],
     "rarity": "common",
     "tier": 1,
@@ -71,7 +74,8 @@
     "tags": [
       "crop",
       "flower",
-      "sunflower"
+      "sunflower",
+      "plant_matter"
     ],
     "rarity": "common",
     "tier": 1,
@@ -726,5 +730,466 @@
     "research": null,
     "lucky": null,
     "icon": "items/tool_dig_kit.png"
+  },
+  {
+    "id": "tool_hoe",
+    "name": "Hoe",
+    "category": "tool",
+    "tags": [
+      "tool"
+    ],
+    "rarity": "common",
+    "tier": 1,
+    "species": null,
+    "baseValue": 0,
+    "stackSize": 1,
+    "storage": "inventory",
+    "hasQuality": false,
+    "sellable": false,
+    "research": null,
+    "lucky": null,
+    "icon": "items/tool_hoe.png"
+  },
+  {
+    "id": "tool_watering_can",
+    "name": "Watering Can",
+    "category": "tool",
+    "tags": [
+      "tool"
+    ],
+    "rarity": "common",
+    "tier": 1,
+    "species": null,
+    "baseValue": 0,
+    "stackSize": 1,
+    "storage": "inventory",
+    "hasQuality": false,
+    "sellable": false,
+    "research": null,
+    "lucky": null,
+    "icon": "items/tool_watering_can.png"
+  },
+  {
+    "id": "tool_sickle",
+    "name": "Sickle",
+    "category": "tool",
+    "tags": [
+      "tool"
+    ],
+    "rarity": "common",
+    "tier": 1,
+    "species": null,
+    "baseValue": 0,
+    "stackSize": 1,
+    "storage": "inventory",
+    "hasQuality": false,
+    "sellable": false,
+    "research": null,
+    "lucky": null,
+    "icon": "items/tool_sickle.png"
+  },
+  {
+    "id": "tool_axe",
+    "name": "Axe",
+    "category": "tool",
+    "tags": [
+      "tool"
+    ],
+    "rarity": "common",
+    "tier": 1,
+    "species": null,
+    "baseValue": 0,
+    "stackSize": 1,
+    "storage": "inventory",
+    "hasQuality": false,
+    "sellable": false,
+    "research": null,
+    "lucky": null,
+    "icon": "items/tool_axe.png"
+  },
+  {
+    "id": "tool_pickaxe",
+    "name": "Pickaxe",
+    "category": "tool",
+    "tags": [
+      "tool"
+    ],
+    "rarity": "common",
+    "tier": 1,
+    "species": null,
+    "baseValue": 0,
+    "stackSize": 1,
+    "storage": "inventory",
+    "hasQuality": false,
+    "sellable": false,
+    "research": null,
+    "lucky": null,
+    "icon": "items/tool_pickaxe.png"
+  },
+  {
+    "id": "tool_rod",
+    "name": "Fishing Rod",
+    "category": "tool",
+    "tags": [
+      "tool"
+    ],
+    "rarity": "common",
+    "tier": 1,
+    "species": null,
+    "baseValue": 0,
+    "stackSize": 1,
+    "storage": "inventory",
+    "hasQuality": false,
+    "sellable": false,
+    "research": null,
+    "lucky": null,
+    "icon": "items/tool_rod.png"
+  },
+  {
+    "id": "tool_net",
+    "name": "Bug Net",
+    "category": "tool",
+    "tags": [
+      "tool"
+    ],
+    "rarity": "common",
+    "tier": 1,
+    "species": null,
+    "baseValue": 0,
+    "stackSize": 1,
+    "storage": "inventory",
+    "hasQuality": false,
+    "sellable": false,
+    "research": null,
+    "lucky": null,
+    "icon": "items/tool_net.png"
+  },
+  {
+    "id": "mat_wood",
+    "name": "Wood",
+    "category": "material",
+    "tags": [
+      "material",
+      "wood"
+    ],
+    "rarity": "common",
+    "tier": 1,
+    "species": null,
+    "baseValue": 4,
+    "stackSize": 99,
+    "storage": "inventory",
+    "hasQuality": false,
+    "sellable": false,
+    "research": null,
+    "lucky": null,
+    "icon": "items/mat_wood.png"
+  },
+  {
+    "id": "mat_log",
+    "name": "Log",
+    "category": "material",
+    "tags": [
+      "material",
+      "wood"
+    ],
+    "rarity": "common",
+    "tier": 1,
+    "species": null,
+    "baseValue": 16,
+    "stackSize": 1,
+    "storage": "inventory",
+    "hasQuality": false,
+    "sellable": false,
+    "research": null,
+    "lucky": null,
+    "icon": "items/mat_log.png",
+    "bulky": true
+  },
+  {
+    "id": "mat_stone",
+    "name": "Stone",
+    "category": "material",
+    "tags": [
+      "material",
+      "stone"
+    ],
+    "rarity": "common",
+    "tier": 1,
+    "species": null,
+    "baseValue": 4,
+    "stackSize": 99,
+    "storage": "inventory",
+    "hasQuality": false,
+    "sellable": false,
+    "research": null,
+    "lucky": null,
+    "icon": "items/mat_stone.png"
+  },
+  {
+    "id": "mat_stone_block",
+    "name": "Stone Block",
+    "category": "material",
+    "tags": [
+      "material",
+      "stone"
+    ],
+    "rarity": "common",
+    "tier": 1,
+    "species": null,
+    "baseValue": 16,
+    "stackSize": 1,
+    "storage": "inventory",
+    "hasQuality": false,
+    "sellable": false,
+    "research": null,
+    "lucky": null,
+    "icon": "items/mat_stone_block.png",
+    "bulky": true
+  },
+  {
+    "id": "mat_ore",
+    "name": "Ore",
+    "category": "material",
+    "tags": [
+      "material",
+      "ore"
+    ],
+    "rarity": "common",
+    "tier": 1,
+    "species": null,
+    "baseValue": 12,
+    "stackSize": 99,
+    "storage": "inventory",
+    "hasQuality": false,
+    "sellable": false,
+    "research": null,
+    "lucky": null,
+    "icon": "items/mat_ore.png"
+  },
+  {
+    "id": "mat_fibre",
+    "name": "Fibre",
+    "category": "material",
+    "tags": [
+      "material",
+      "plant_matter"
+    ],
+    "rarity": "common",
+    "tier": 1,
+    "species": null,
+    "baseValue": 2,
+    "stackSize": 99,
+    "storage": "inventory",
+    "hasQuality": false,
+    "sellable": false,
+    "research": null,
+    "lucky": null,
+    "icon": "items/mat_fibre.png"
+  },
+  {
+    "id": "mat_plant_scraps",
+    "name": "Plant Scraps",
+    "category": "material",
+    "tags": [
+      "material",
+      "plant_matter"
+    ],
+    "rarity": "common",
+    "tier": 1,
+    "species": null,
+    "baseValue": 1,
+    "stackSize": 99,
+    "storage": "inventory",
+    "hasQuality": false,
+    "sellable": false,
+    "research": null,
+    "lucky": null,
+    "icon": "items/mat_plant_scraps.png"
+  },
+  {
+    "id": "mat_compost",
+    "name": "Compost",
+    "category": "material",
+    "tags": [
+      "material",
+      "fertilizer"
+    ],
+    "rarity": "common",
+    "tier": 1,
+    "species": null,
+    "baseValue": 8,
+    "stackSize": 99,
+    "storage": "inventory",
+    "hasQuality": false,
+    "sellable": false,
+    "research": null,
+    "lucky": null,
+    "icon": "items/mat_compost.png"
+  },
+  {
+    "id": "crop_wild_flower",
+    "name": "Wild Flower",
+    "category": "forage",
+    "tags": [
+      "flower",
+      "wild",
+      "plant_matter"
+    ],
+    "rarity": "common",
+    "tier": 1,
+    "species": null,
+    "baseValue": 6,
+    "stackSize": 99,
+    "storage": "inventory",
+    "hasQuality": false,
+    "sellable": true,
+    "research": null,
+    "lucky": null,
+    "icon": "items/crop_wild_flower.png"
+  },
+  {
+    "id": "seed_wild",
+    "name": "Wild Seeds",
+    "category": "seed",
+    "tags": [
+      "seed",
+      "wild"
+    ],
+    "rarity": "common",
+    "tier": 1,
+    "species": null,
+    "baseValue": 0,
+    "stackSize": 99,
+    "storage": "inventory",
+    "hasQuality": false,
+    "sellable": false,
+    "research": null,
+    "lucky": null,
+    "icon": "items/seed_wild.png"
+  },
+  {
+    "id": "bug_meadow_hopper",
+    "name": "Meadow Hopper",
+    "category": "insect",
+    "tags": [
+      "insect",
+      "bait"
+    ],
+    "rarity": "common",
+    "tier": 1,
+    "species": null,
+    "baseValue": 0,
+    "stackSize": 99,
+    "storage": "inventory",
+    "hasQuality": false,
+    "sellable": false,
+    "research": null,
+    "lucky": null,
+    "icon": "items/bug_meadow_hopper.png"
+  },
+  {
+    "id": "bug_glow_beetle",
+    "name": "Glow Beetle",
+    "category": "insect",
+    "tags": [
+      "insect",
+      "bait"
+    ],
+    "rarity": "uncommon",
+    "tier": 1,
+    "species": null,
+    "baseValue": 0,
+    "stackSize": 99,
+    "storage": "inventory",
+    "hasQuality": false,
+    "sellable": false,
+    "research": null,
+    "lucky": null,
+    "icon": "items/bug_glow_beetle.png"
+  },
+  {
+    "id": "fish_pond_minnow",
+    "name": "Pond Minnow",
+    "category": "fish",
+    "tags": [
+      "fish"
+    ],
+    "rarity": "common",
+    "tier": 1,
+    "species": null,
+    "baseValue": 10,
+    "stackSize": 99,
+    "storage": "inventory",
+    "hasQuality": false,
+    "sellable": true,
+    "research": null,
+    "lucky": null,
+    "icon": "items/fish_pond_minnow.png",
+    "energy": 10
+  },
+  {
+    "id": "fish_mosscarp",
+    "name": "Mosscarp",
+    "category": "fish",
+    "tags": [
+      "fish"
+    ],
+    "rarity": "common",
+    "tier": 1,
+    "species": null,
+    "baseValue": 18,
+    "stackSize": 99,
+    "storage": "inventory",
+    "hasQuality": false,
+    "sellable": true,
+    "research": null,
+    "lucky": null,
+    "icon": "items/fish_mosscarp.png",
+    "energy": 15
+  },
+  {
+    "id": "fish_reedfin",
+    "name": "Reedfin",
+    "category": "fish",
+    "tags": [
+      "fish"
+    ],
+    "rarity": "uncommon",
+    "tier": 1,
+    "species": null,
+    "baseValue": 40,
+    "stackSize": 99,
+    "storage": "inventory",
+    "hasQuality": false,
+    "sellable": true,
+    "research": null,
+    "lucky": null,
+    "icon": "items/fish_reedfin.png",
+    "energy": 25
+  },
+  {
+    "id": "fish_moonscale",
+    "name": "Moonscale",
+    "category": "fish",
+    "tags": [
+      "fish"
+    ],
+    "rarity": "rare",
+    "tier": 1,
+    "species": null,
+    "baseValue": 120,
+    "stackSize": 99,
+    "storage": "inventory",
+    "hasQuality": false,
+    "sellable": true,
+    "research": {
+      "geneId": null,
+      "fragments": 0,
+      "stardust": 1,
+      "hours": 3,
+      "coins": 40
+    },
+    "lucky": null,
+    "icon": "items/fish_moonscale.png"
   }
 ]

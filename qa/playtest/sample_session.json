@@ -14,21 +14,21 @@
   "endLevel": 8,
   "events": [
     {
-      "gameMinute": 739,
+      "gameMinute": 735,
       "kind": "level_up",
       "level": 2,
-      "t": 16.3
+      "t": 16.2
     },
     {
-      "gameMinute": 739,
+      "gameMinute": 735,
       "kind": "quest_completed",
       "level": 2,
       "quest": "quest_first_harvest",
-      "t": 16.3
+      "t": 16.2
     },
     {
       "coins": 121,
-      "gameMinute": 739,
+      "gameMinute": 735,
       "kind": "order_delivered",
       "level": 2,
       "npc": "npc_mara",
@@ -38,7 +38,7 @@
       "gameMinute": 1800,
       "kind": "level_up",
       "level": 3,
-      "t": 16.7
+      "t": 16.6
     },
     {
       "gameMinute": 1800,
@@ -68,30 +68,30 @@
       "kind": "quest_completed",
       "level": 4,
       "quest": "quest_strange_carrot",
-      "t": 17.1
+      "t": 17.0
     },
     {
-      "gameMinute": 1860,
+      "gameMinute": 1867,
       "kind": "level_up",
       "level": 8,
       "t": 17.6
     },
     {
-      "gameMinute": 1861,
+      "gameMinute": 1867,
       "kind": "quest_completed",
       "level": 8,
       "quest": "quest_sleeper",
       "t": 17.9
     },
     {
-      "gameMinute": 2408,
+      "gameMinute": 2419,
       "kind": "quest_completed",
       "level": 8,
       "quest": "quest_first_vocation",
       "t": 19.7
     },
     {
-      "gameMinute": 2408,
+      "gameMinute": 2419,
       "kind": "spirit_awake",
       "level": 8,
       "t": 19.7

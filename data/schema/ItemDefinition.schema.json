@@ -8,7 +8,7 @@
   "properties": {
     "id": {
       "type": "string",
-      "pattern": "^(seed|crop|prod|merged|food|gene|lucky|mat|spirit|embryo|quest|tool|special)_[a-z0-9]+(_[a-z0-9]+)*$"
+      "pattern": "^(seed|crop|prod|merged|food|gene|lucky|mat|spirit|embryo|quest|tool|special|bug|fish)_[a-z0-9]+(_[a-z0-9]+)*$"
     },
     "name": {
       "type": "string"
@@ -27,7 +27,10 @@
         "embryo",
         "quest",
         "tool",
-        "special"
+        "special",
+        "insect",
+        "fish",
+        "forage"
       ]
     },
     "tags": {
@@ -164,6 +167,13 @@
     },
     "icon": {
       "type": "string"
+    },
+    "bulky": {
+      "type": "boolean"
+    },
+    "energy": {
+      "type": "integer",
+      "minimum": 1
     }
   },
   "required": [

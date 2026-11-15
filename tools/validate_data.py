@@ -22,13 +22,14 @@ from referencing import Registry, Resource
 
 ID_PREFIXES = ("seed", "crop", "prod", "merged", "food", "gene", "lucky", "mat", "spirit", "embryo",
                "quest", "tool", "special", "plant", "animal", "trait", "merge", "bp", "breed", "npc",
-               "job", "bld", "craft", "site", "shop", "feature", "perk")
+               "job", "bld", "craft", "site", "shop", "feature", "perk", "bug", "fish", "node", "gate", "weather")
 ID_RE = re.compile(r"^(%s)_[a-z0-9]+(_[a-z0-9]+)*$" % "|".join(ID_PREFIXES))
 # string fields that are not ID references
 NON_REF_KEYS = {"name", "icon", "sprite", "scene", "dialogue", "portrait", "text", "role", "species",
                 "action", "priority", "resource", "refillAt", "stat", "target", "event", "category",
                 "storage", "rarity", "placement", "kind", "favouredSeason", "targetType", "state",
-                "questState", "tag", "slot", "type", "perk"}
+                "questState", "tag", "slot", "type", "perk", "leadsTo", "opensIn", "textKey", "keeperSprite", "when", "on",
+                "taxName", "baitTag"}
 NON_REF_PARENTS = {"tags", "likes", "appliesTo", "huskCondition"}
 
 
@@ -50,6 +51,7 @@ class Data:
                 self.tables[name] = load(os.path.join(root, sch["x-file"]))
         self.config = load(os.path.join(root, "config.json"))
         self.merge_config = load(os.path.join(root, "merge_config.json"))["mergeConfig"]
+        self.fishing = load(os.path.join(root, "fishing.json"))["fishing"]
         self.registry = load(os.path.join(root, "id_registry.json"))
         t = self.tables
         self.items = {d["id"]: d for d in t["ItemDefinition"]}
@@ -64,6 +66,10 @@ class Data:
         self.buildings = {d["id"]: d for d in t["BuildingDefinition"]}
         self.sites = {d["id"]: d for d in t["DigSiteDefinition"]}
         self.shop = {e["id"]: dict(e, npcId=n["id"]) for n in t["NPCDefinition"] for e in n.get("shop", [])}
+        self.tools = {d["id"]: d for d in t["ToolDefinition"]}
+        self.nodes = {d["id"]: d for d in t["ResourceNodeDefinition"]}
+        self.gates = {d["id"]: d for d in t["GateDefinition"]}
+        self.weather = {d["id"]: d for d in t["WeatherDefinition"]}
 
     def defined_ids(self):
         ids = {}
@@ -104,7 +110,8 @@ def check_registry(data, errors):
     defined = data.defined_ids()
     for i, names in defined.items():
         # a Gene Fragment item and its GeneDefinition share one ID by design (section 14)
-        if len(names) > 1 and sorted(names) != ["GeneDefinition", "ItemDefinition"]:
+        # a Gene Fragment and its GeneDefinition share one ID by design (section 14); so do a tool and its item
+        if len(names) > 1 and sorted(names) not in (["GeneDefinition", "ItemDefinition"], ["ItemDefinition", "ToolDefinition"]):
             errors.append(f"registry: duplicate ID {i} in {names}")
         if not ID_RE.match(i):
             errors.append(f"registry: malformed ID {i}")
@@ -143,9 +150,23 @@ def check_references(data, known, errors):
             for ref, path in walk_refs(d):
                 if ref not in known:
                     errors.append(f"reference: {name} {d['id']}{path} -> unknown ID {ref}")
-    for ref, path in walk_refs(data.config):
-        if ref not in known:
-            errors.append(f"reference: config{path} -> unknown ID {ref}")
+    for label, blob in (("config", data.config), ("fishing", data.fishing)):
+        for ref, path in walk_refs(blob):
+            if ref not in known:
+                errors.append(f"reference: {label}{path} -> unknown ID {ref}")
+    for g in data.gates.values():
+        if g["textKey"] not in load(os.path.join(data.root, "strings_en.json")):
+            errors.append(f"reference: {g['id']} uses text key {g['textKey']}, which is not in strings_en.json")
+    for tool_id in data.tools:
+        if tool_id not in data.items or data.items[tool_id]["category"] != "tool":
+            errors.append(f"reference: {tool_id} has no tool item of the same ID")
+    actions = {t["action"] for t in data.tools.values()}
+    for n in data.nodes.values():
+        if n["action"] not in actions:
+            errors.append(f"reference: {n['id']} needs action '{n['action']}', which no tool provides")
+        for y in n["yields"]:
+            if y["min"] > y["max"]:
+                errors.append(f"reference: {n['id']} yield of {y['itemId']} has min above max")
     strings = load(os.path.join(data.root, "strings_en.json"))
     for q in data.quests.values():
         name_key = "quest.%s.name" % q["id"][len("quest_"):]
@@ -191,6 +212,9 @@ def check_formulas(data, errors):
         seed = data.items[c["output"]["itemId"]]
         if abs(seed["baseValue"] - cost / c["output"]["qty"]) > 1:
             errors.append(f"formula: {seed['id']} value {seed['baseValue']} but creation cost per seed is {cost / c['output']['qty']:.1f}")
+    total = sum(w["chance"] for w in data.weather.values())
+    if abs(total - 1.0) > 1e-9:
+        errors.append(f"formula: weather chances add up to {total}, not 1")
     for n in data.npcs.values():
         if n["reputationThresholds"] != sorted(n["reputationThresholds"]):
             errors.append(f"formula: {n['id']} reputation thresholds are not ascending")
@@ -230,6 +254,7 @@ def check_reachability(data, errors):
     max_level = cfg["economy"]["levelCurve"]["maxLevel"]
     max_rep = cfg["reputation"]["maxLevelMvp"]
     have = set(i["itemId"] for i in cfg["newGame"]["items"])        # obtainable items
+    have |= set(cfg["newGame"].get("tools", []))
     done = set(cfg["newGame"]["buildings"])                         # reachable definitions / flags
     done |= set(a["animalId"] for a in cfg["newGame"]["animals"])
     started = set()
@@ -320,6 +345,17 @@ def check_reachability(data, errors):
                 done.add(bid)
                 if bp["creation"]["station"] in done and inputs_ok(bp["creation"]["inputs"]):
                     have.add(bp["creation"]["output"]["itemId"])
+        # Revision 2 sources: resource nodes, fishing, clearing withered plants
+        held_actions = {data.tools[t]["action"] for t in have if t in data.tools}
+        for node in data.nodes.values():
+            if node["action"] in held_actions:
+                have.update(y["itemId"] for y in node["yields"])
+                if node["insectChance"] > 0 and "net" in held_actions:
+                    have.update(i["itemId"] for i in node["insects"])
+        if "fish" in held_actions:
+            have.update(sp["itemId"] for sp in data.fishing["species"])
+        if any(p in done for p in data.plants) and "cut" in held_actions:
+            have.add("mat_plant_scraps")
         for sid, site in data.sites.items():
             if sid in done and "tool_dig_kit" in have:
                 have.add("spirit_husk_dormant")

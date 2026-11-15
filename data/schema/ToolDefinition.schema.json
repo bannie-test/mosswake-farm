@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "mosswake/ToolDefinition.schema.json",
+  "title": "ToolDefinition",
+  "x-kind": "static",
+  "x-file": "tools.json",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^(tool)_[a-z0-9]+(_[a-z0-9]+)*$"
+    },
+    "name": {
+      "type": "string"
+    },
+    "action": {
+      "enum": [
+        "till",
+        "water",
+        "cut",
+        "chop",
+        "mine",
+        "fish",
+        "net"
+      ]
+    },
+    "tiers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "tier": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "name": {
+            "type": "string"
+          },
+          "energyPerRing": {
+            "type": "number",
+            "minimum": 0
+          },
+          "durability": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "ringsSaved": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "craft": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "station": {
+                    "type": "string",
+                    "pattern": "^(bld)_[a-z0-9]+(_[a-z0-9]+)*$"
+                  },
+                  "materials": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "itemId": {
+                          "type": "string",
+                          "pattern": "^(seed|crop|prod|merged|food|gene|lucky|mat|spirit|embryo|quest|tool|special|bug|fish)_[a-z0-9]+(_[a-z0-9]+)*$"
+                        },
+                        "qty": {
+                          "type": "integer",
+                          "minimum": 1
+                        }
+                      },
+                      "required": [
+                        "itemId",
+                        "qty"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "coins": {
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                },
+                "required": [
+                  "station",
+                  "materials",
+                  "coins"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "repair": {
+            "type": "object",
+            "properties": {
+              "materials": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "itemId": {
+                      "type": "string",
+                      "pattern": "^(seed|crop|prod|merged|food|gene|lucky|mat|spirit|embryo|quest|tool|special|bug|fish)_[a-z0-9]+(_[a-z0-9]+)*$"
+                    },
+                    "qty": {
+                      "type": "integer",
+                      "minimum": 1
+                    }
+                  },
+                  "required": [
+                    "itemId",
+                    "qty"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "materials"
+            ],
+            "additionalProperties": false
+          },
+          "capacity": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "tier",
+          "name",
+          "energyPerRing",
+          "durability",
+          "ringsSaved",
+          "craft",
+          "repair"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "refillAt": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "action",
+    "tiers"
+  ],
+  "additionalProperties": false
+}

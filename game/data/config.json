@@ -40,7 +40,16 @@
       "bld_well"
     ],
     "fields": 2,
-    "backpackSlots": 24
+    "backpackSlots": 24,
+    "tools": [
+      "tool_hoe",
+      "tool_watering_can",
+      "tool_sickle",
+      "tool_axe",
+      "tool_pickaxe",
+      "tool_rod",
+      "tool_net"
+    ]
   },
   "economy": {
     "cphByRarity": {
@@ -212,5 +221,33 @@
       "Daisy",
       "Juniper"
     ]
+  },
+  "tools": {
+    "ringSeconds": 0.5,
+    "progressKeepSeconds": 10,
+    "dullRingFactor": 2,
+    "hotbarSlots": 10,
+    "freeRepairUntilBuilding": "bld_tool_bench"
+  },
+  "energy": {
+    "max": 100,
+    "tiredRingFactor": 2
+  },
+  "carry": {
+    "speedFactor": 0.7
+  },
+  "land": {
+    "tilledTilesPerLot": 12,
+    "lots": 6,
+    "startingLots": 2,
+    "overgrowDays": 2,
+    "taxName": "Kingdom Land Tax"
+  },
+  "crops": {
+    "witherDryDawns": 2,
+    "witherUnharvestedDays": 2
+  },
+  "sleep": {
+    "sceneSeconds": 5
   }
 }

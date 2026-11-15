@@ -115,6 +115,10 @@
                   "type": "null"
                 }
               ]
+            },
+            "days": {
+              "type": "integer",
+              "minimum": 1
             }
           },
           "required": [
@@ -154,7 +158,7 @@
             },
             "resultItemId": {
               "type": "string",
-              "pattern": "^(seed|crop|prod|merged|food|gene|lucky|mat|spirit|embryo|quest|tool|special)_[a-z0-9]+(_[a-z0-9]+)*$"
+              "pattern": "^(seed|crop|prod|merged|food|gene|lucky|mat|spirit|embryo|quest|tool|special|bug|fish)_[a-z0-9]+(_[a-z0-9]+)*$"
             },
             "sportGeneId": {
               "type": "string",
@@ -219,7 +223,7 @@
         },
         "firstResearchOf": {
           "type": "string",
-          "pattern": "^(seed|crop|prod|merged|food|gene|lucky|mat|spirit|embryo|quest|tool|special)_[a-z0-9]+(_[a-z0-9]+)*$"
+          "pattern": "^(seed|crop|prod|merged|food|gene|lucky|mat|spirit|embryo|quest|tool|special|bug|fish)_[a-z0-9]+(_[a-z0-9]+)*$"
         },
         "blueprint": {
           "type": "string",
@@ -254,6 +258,10 @@
     },
     "sprite": {
       "type": "string"
+    },
+    "growthDays": {
+      "type": "integer",
+      "minimum": 1
     }
   },
   "required": [

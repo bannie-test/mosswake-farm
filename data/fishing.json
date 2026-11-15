@@ -1,0 +1,61 @@
+{
+  "fishing": {
+    "energyPerCast": 3,
+    "biteSeconds": {
+      "min": 3,
+      "max": 12
+    },
+    "baitFactor": 0.5,
+    "baitTag": "bait",
+    "hookWindowSeconds": 1.0,
+    "lostAfterSecondsOutside": 2.0,
+    "pity": {
+      "afterLosses": 3,
+      "bandFactor": 1.25
+    },
+    "bandWidth": {
+      "common": 0.4,
+      "uncommon": 0.3,
+      "rare": 0.2
+    },
+    "catchSeconds": {
+      "common": 3.0,
+      "uncommon": 4.0,
+      "rare": 5.0
+    },
+    "species": [
+      {
+        "itemId": "fish_pond_minnow",
+        "when": [
+          "dawn",
+          "day",
+          "dusk",
+          "night"
+        ],
+        "weight": 50
+      },
+      {
+        "itemId": "fish_mosscarp",
+        "when": [
+          "day"
+        ],
+        "weight": 35
+      },
+      {
+        "itemId": "fish_reedfin",
+        "when": [
+          "dawn",
+          "dusk"
+        ],
+        "weight": 40
+      },
+      {
+        "itemId": "fish_moonscale",
+        "when": [
+          "night"
+        ],
+        "weight": 12
+      }
+    ]
+  }
+}

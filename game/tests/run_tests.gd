@@ -52,7 +52,9 @@ func _initialize() -> void:
 
 
 func _test_data(data: Node) -> void:
-	check(data.tables["items"].size() == 32, "all 32 item definitions load")
+	check(data.tables["items"].size() == 55, "all 55 item definitions load (32 of the first MVP, 23 of Revision 2)")
+	check(data.tables["tools"].size() == 7 and data.tables["resource_nodes"].size() == 7 and data.tables["weather"].size() == 5 and data.tables["gates"].size() == 3, "the Revision 2 tables load: tools, resource nodes, weather, gates")
+	check(data.fishing["species"].size() == 4 and data.text("gate.closed") == "This area is not open yet!", "fishing data and the gatekeeper line load")
 	check(data.tables["plants"].size() == 5, "5 plants load")
 	check(data.tables["animals"].size() == 3, "3 animals load")
 	check(data.tables["merge_recipes"].size() == 10, "10 merge recipes load")

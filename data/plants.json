@@ -46,7 +46,8 @@
     "unlock": {
       "playerLevel": 1
     },
-    "sprite": "crops/plant_carrot.png"
+    "sprite": "crops/plant_carrot.png",
+    "growthDays": 1
   },
   {
     "id": "plant_wheat",
@@ -95,7 +96,8 @@
     "unlock": {
       "playerLevel": 1
     },
-    "sprite": "crops/plant_wheat.png"
+    "sprite": "crops/plant_wheat.png",
+    "growthDays": 1
   },
   {
     "id": "plant_tomato",
@@ -134,7 +136,8 @@
     },
     "regrow": {
       "hours": 5,
-      "maxHarvests": 4
+      "maxHarvests": 4,
+      "days": 1
     },
     "witherDryHours": 24,
     "witherUnharvestedHours": 48,
@@ -147,7 +150,8 @@
     "unlock": {
       "playerLevel": 2
     },
-    "sprite": "crops/plant_tomato.png"
+    "sprite": "crops/plant_tomato.png",
+    "growthDays": 2
   },
   {
     "id": "plant_sunflower",
@@ -196,7 +200,8 @@
     "unlock": {
       "playerLevel": 3
     },
-    "sprite": "crops/plant_sunflower.png"
+    "sprite": "crops/plant_sunflower.png",
+    "growthDays": 2
   },
   {
     "id": "plant_carrot_ancient",
@@ -245,6 +250,7 @@
     "unlock": {
       "blueprint": "bp_carrot_ancient"
     },
-    "sprite": "crops/plant_carrot_ancient.png"
+    "sprite": "crops/plant_carrot_ancient.png",
+    "growthDays": 3
   }
 ]

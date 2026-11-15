@@ -1,0 +1,26 @@
+[
+  {
+    "id": "gate_east",
+    "name": "East Gate",
+    "leadsTo": "Village Market",
+    "opensIn": "R1",
+    "textKey": "gate.closed",
+    "keeperSprite": "characters/npc_gatekeeper.png"
+  },
+  {
+    "id": "gate_north",
+    "name": "North Gate",
+    "leadsTo": "Ancient Forest",
+    "opensIn": "R3",
+    "textKey": "gate.closed",
+    "keeperSprite": "characters/npc_gatekeeper.png"
+  },
+  {
+    "id": "gate_south",
+    "name": "South Gate",
+    "leadsTo": "Unknown",
+    "opensIn": "after 1.0",
+    "textKey": "gate.closed",
+    "keeperSprite": "characters/npc_gatekeeper.png"
+  }
+]

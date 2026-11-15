@@ -18,6 +18,10 @@ const TABLES := {
 	"spirit_jobs": "spirit_jobs.json",
 	"buildings": "buildings.json",
 	"dig_sites": "dig_sites.json",
+	"tools": "tools.json",
+	"resource_nodes": "resource_nodes.json",
+	"gates": "gates.json",
+	"weather": "weather.json",
 }
 
 var tables: Dictionary = {}       # table name -> { id -> definition }
@@ -26,6 +30,7 @@ var merge_config: Dictionary = {}
 var retired_ids: Array = []
 var data_version: String = ""
 var strings: Dictionary = {}
+var fishing: Dictionary = {}
 
 
 func _ready() -> void:
@@ -45,6 +50,7 @@ func load_all() -> void:
 	retired_ids = _read("retired_ids.json")["retired"]
 	data_version = config["dataVersion"]
 	strings = _read("strings_en.json")
+	fishing = _read("fishing.json")["fishing"]
 
 
 func _read(file: String) -> Variant:
